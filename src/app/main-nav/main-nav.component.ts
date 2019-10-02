@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable } from "rxjs";
 import { map, share } from "rxjs/operators";
@@ -6,6 +6,9 @@ import { MenuService } from "../services/menus/menu.service";
 import { NewsService } from "../services/news.service";
 import { Router, NavigationEnd } from "@angular/router";
 import { MatSidenav } from "@angular/material";
+import { ScrollDispatcher, CdkScrollable } from "@angular/cdk/scrolling";
+
+const content = document.querySelector(".mat-sidenav-content");
 
 @Component({
   selector: "app-main-nav",
@@ -13,6 +16,12 @@ import { MatSidenav } from "@angular/material";
   styleUrls: ["./main-nav.component.scss"]
 })
 export class MainNavComponent implements OnInit {
+  // scrollingSubscription: any;
+  // private onWindowScroll(data: CdkScrollable) {
+  //   const scrollTop = data.getElementRef().nativeElement.scrollTop || 0;
+
+  //   console.log(scrollTop);
+  // }
   @ViewChild("drawer", { static: false }) sidenav: MatSidenav;
   menus: any[] = [];
   news: any = [];
@@ -26,8 +35,13 @@ export class MainNavComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private menuService: MenuService,
     private newsService: NewsService,
-    private router: Router
+    private router: Router,
+    public scroll: ScrollDispatcher
   ) {
+    // this.scrollingSubscription = this.scroll.scrolled().subscribe((data: CdkScrollable) => {
+    //   this.onWindowScroll(data);
+    // });
+
     router.events.subscribe(val => {
       if (val instanceof NavigationEnd) {
         console.log("navigation ends....");

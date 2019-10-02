@@ -33,34 +33,37 @@ export class GenericComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.submenus = [];
-      this.sideContents = [];
-
       let parentMenu = params.get("menu");
       let childMenu = params.get("submenu");
 
+      // * --------------------------------------------------------------------------------------
+      // * Now we have the parent menu, we need to call the api and get the list of its submenus.
+      // * If parent menu is same as before[this.parentMenu], then no need to call the api to get submenus,
+      // * because they are same.
+
+      if (this.parentMenu !== parentMenu) {
+        this.submenus = [];
+        let parentQueryParam = "parent=" + parentMenu;
+        this.submenuService
+          .getByQueryParams(parentQueryParam)
+          .subscribe((submenusResponse: any[]) => {
+            console.log("submenus...");
+            console.log(submenusResponse);
+            for (let i = 0; i < submenusResponse.length; i++) {
+              let submenuObject = {
+                titleName: submenusResponse[i].TitleName,
+                slug: submenusResponse[i].Slug
+              };
+
+              this.submenus.push(submenuObject);
+            }
+            // console.log(this.submenus);
+          });
+      }
+      // * --------------------------------------------------------------------------------------------
+
       this.parentMenu = parentMenu;
       this.childMenu = childMenu;
-
-      // Now we have the parent menu, we need to call the api and get the list of its submenus.
-      // ---------------------------------------------------------------------------------------------
-      let parentQueryParam = "parent=" + parentMenu;
-      this.submenuService
-        .getByQueryParams(parentQueryParam)
-        .subscribe((submenusResponse: any[]) => {
-          console.log("submenus...");
-          console.log(submenusResponse);
-          for (let i = 0; i < submenusResponse.length; i++) {
-            let submenuObject = {
-              titleName: submenusResponse[i].TitleName,
-              slug: submenusResponse[i].Slug
-            };
-
-            this.submenus.push(submenuObject);
-          }
-          // console.log(this.submenus);
-        });
-      // ------------------------------------------------------------------------------------------------
 
       // From the childmenu item, make api request to end point to get the content of specific child.
       // --------------------------------------------------------------------------------------------
@@ -68,6 +71,8 @@ export class GenericComponent implements OnInit {
       this.genericContentService
         .getByQueryParams(childQueryParam)
         .subscribe((contentResponse: any) => {
+          this.sideContents = [];
+
           console.log("Content Response ...");
           console.log(contentResponse);
 

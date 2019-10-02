@@ -3,6 +3,7 @@
     <img [src]="content.iconPath" alt="" class="header__icon" />
     <h1 class="header__title">{{ content.contentTitle | titlecase }}</h1>
   </div>
+
   <div class="left-side">
     <p class="links__title">{{ parentMenu | titlecase }}</p>
 
@@ -11,6 +12,7 @@
         *ngFor="let submenu of submenus"
         [routerLink]="['/', parentMenu, submenu.slug]"
         class="links__link"
+        [class.links__link--selected]="childMenu === submenu.slug"
         >{{ submenu.titleName }}</a
       >
 
@@ -98,11 +100,11 @@
   </div>
   <div class="right-side">
     <p class="links__title">Content</p>
-    <div class="links__container">
+    <div class="links__container links__container--line">
       <a
         *ngFor="let content of sideContents"
         href="/{{ parentMenu }}/{{ childMenu }}/#{{ content.hrefValue }}"
-        class="links__link"
+        class="links__link links__link--circle"
         >{{ content.title }}</a
       >
 

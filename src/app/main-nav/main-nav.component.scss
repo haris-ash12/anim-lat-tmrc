@@ -49,6 +49,7 @@
 }
 .mat-drawer-content {
   margin-left: 0 !important;
+  overflow: auto;
 }
 
 @media (min-width: 961px) {
@@ -89,7 +90,7 @@
 
   &__links-container {
     margin-left: auto;
-    margin-right: 3rem;
+    margin-right: 2.5rem;
 
     @media (max-width: 960px) {
       display: none;
@@ -117,6 +118,13 @@
       "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: 400;
     cursor: pointer;
+    outline: none;
+    transition: color 0.2s;
+
+    &--hover:hover {
+      // background-color: $color-primary-hover-btn;
+      color: $color-secondary !important;
+    }
   }
 
   &__dropdown-content {
@@ -223,8 +231,14 @@
     font-size: 1.6rem;
     color: #fff;
     cursor: pointer;
-
     display: grid;
+
+    .fa-bell {
+      transition: color 0.2s;
+      &:hover {
+        color: $color-secondary;
+      }
+    }
 
     @media (max-width: 960px) {
       margin-left: auto;
@@ -259,7 +273,7 @@
 
     &__heading {
       font-size: 1.6rem;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
       margin: 0;
       text-align: center;
       border-bottom: 1px solid $color-grey-light;
@@ -274,7 +288,7 @@
       white-space: pre-line;
 
       &:hover {
-        background: transparent;
+        background: $color-primary-hover-btn;
       }
 
       &:not(:last-child) {
@@ -284,7 +298,7 @@
 
     &__item-title {
       margin: 0;
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     &__item-date {

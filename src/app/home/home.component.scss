@@ -86,11 +86,23 @@
     &--orange {
       color: $color-secondary;
       border: 1px solid $color-secondary;
+      background-color: $color-primary;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $color-primary-hover-btn;
+      }
     }
 
     &--white {
       color: #fff;
       border: 1px solid #fff;
+      background-color: $color-primary;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $color-primary-hover-btn;
+      }
     }
   }
 }

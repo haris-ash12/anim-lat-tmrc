@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgxPaginationModule } from "ngx-pagination";
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import {
   MatToolbarModule,
@@ -12,6 +13,8 @@ import {
   MatButtonModule,
   MatIconModule
 } from "@angular/material";
+
+import { ScrollingModule } from "@angular/cdk/scrolling";
 // import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SlideshowModule } from "ng-simple-slideshow";
@@ -99,6 +102,7 @@ export function starti(provider: StartUpService) {
     MatButtonModule,
     // FlexLayoutModule,
     SlideshowModule,
+    ScrollingModule,
 
     RouterModule.forRoot(
       [

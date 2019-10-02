@@ -59,20 +59,28 @@
       </a> -->
     </div>
   </mat-sidenav>
-  <mat-sidenav-content>
+  <mat-sidenav-content cdkScrollable>
     <!-- This mat-toolbar is a CSS-flex -->
     <mat-toolbar color="primary">
-      <img class="nav__logo" src="../../assets/images/logo/tmrc-logo.png" alt="Logo TMRC" />
+      <a routerLink="/">
+        <img
+          class="nav__logo"
+          src="../../assets/images/logo/tmrc-logo.png"
+          alt="TMRConsulting Pvt. Ltd | Microsoft Direct Partner"
+        />
+      </a>
 
       <div class="nav__links-container">
         <ul class="nav__list">
           <ng-container *ngFor="let menu of menus">
             <li *ngIf="menu.children.length === 0" class="nav__list-item">
-              <a [routerLink]="['/', menu.slug]" class="nav__link">{{ menu.titleName }}</a>
+              <a [routerLink]="['/', menu.slug]" class="nav__link nav__link--hover">{{
+                menu.titleName
+              }}</a>
             </li>
 
             <li *ngIf="menu.children.length > 0" ngbDropdown class="nav__list-item">
-              <a ngbDropdownToggle class="nav__link">{{ menu.titleName }}</a>
+              <a ngbDropdownToggle class="nav__link nav__link--hover">{{ menu.titleName }}</a>
               <div class="nav__dropdown-content" ngbDropdownMenu>
                 <a
                   *ngFor="let subMenu of menu.children"
