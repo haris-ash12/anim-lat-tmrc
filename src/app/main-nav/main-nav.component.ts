@@ -8,7 +8,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import { MatSidenav } from "@angular/material";
 import { ScrollDispatcher, CdkScrollable } from "@angular/cdk/scrolling";
 
-const content = document.querySelector(".mat-sidenav-content");
+// const content = document.querySelector(".mat-sidenav-content");
 
 @Component({
   selector: "app-main-nav",
