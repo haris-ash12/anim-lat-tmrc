@@ -1,8 +1,10 @@
 <div class="home-container">
   <div @heroAnimations class="hero__text-side">
-    <h2 class="hero__small-line hero-transition">Experience</h2>
-    <h1 class="hero__big-line hero-transition">Over Decades</h1>
-    <h2 class="hero__small-line hero-transition">Serving Our Client Requirements</h2>
+    <div class="hero__text-container">
+      <h2 class="hero__small-line hero-transition">Experience</h2>
+      <h1 class="hero__big-line hero-transition">Over Decades</h1>
+      <h2 class="hero__small-line hero-transition">Serving Our Client Requirements</h2>
+    </div>
     <div class="hero__btn-container">
       <a class="hero__btn hero__btn--orange" href="#">Our Profile</a>
       <a class="hero__btn hero__btn--white" href="#">Contact Us</a>
@@ -28,7 +30,17 @@
     <h2 class="section-line">Who <span class="section-line--orange">we</span> are</h2>
 
     <div class="section-who__video">
-      <iframe *ngIf="whoWeAre.videoLink" [src]="whoWeAre.videoLink"> </iframe>
+      <iframe
+        *ngIf="whoWeAre.videoLink"
+        [src]="whoWeAre.videoLink"
+        width="448"
+        height="252"
+        frameborder="0"
+        webkitAllowFullScreen
+        mozallowfullscreen
+        allowFullScreen
+      >
+      </iframe>
     </div>
     <div class="section-who__content">
       <p class="section-who__paragraph">
