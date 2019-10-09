@@ -128,7 +128,8 @@ export class BlogsComponent implements OnInit {
       let blogsObject = {
         date: blogs[i].CreatedDate,
         description: description,
-        featureImage: this.globals.url + "/" + blogs[i].FeatureImage,
+        // featureImage: this.globals.url + "/" + blogs[i].FeatureImage,
+        featureImage: blogs[i].FeatureImage,
         slug: blogs[i].Slug,
         title: blogs[i].Title
       };
