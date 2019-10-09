@@ -36,4 +36,8 @@ export class DataService {
       `${this.url}/${this.endPoint}/` + "?" + this.countryCode + "&" + queryParams
     );
   }
+
+  create(response) {
+    return this.httpClient.post(`${this.url}/${this.endPoint}/` + "?" + this.countryCode, response);
+  }
 }

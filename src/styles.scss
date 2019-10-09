@@ -16,6 +16,10 @@
   h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+
+    @include respond(phone) {
+      font-size: 2.2rem;
+    }
   }
   p {
     font-size: 1.6rem;
@@ -25,6 +29,7 @@
   }
   img {
     max-width: 100%;
+    height: auto;
     margin-bottom: 2rem;
     justify-self: center;
   }
@@ -34,27 +39,57 @@
 // For dynamic content injection in Generic
 // --------------------------
 .content-side {
-  padding: 3rem 5rem;
+  padding: 3rem;
+  display: grid;
+  justify-items: start;
 
-  @include respond(tab-land) {
-    padding: 3rem 3rem;
-  }
-  @include respond(tab-port-2) {
+  // @include respond(tab-land) {
+  //   padding: 3rem 3rem;
+  // }
+  @include respond(tab-port-near) {
     grid-column: full-start / center-end;
-    padding: 3rem 5rem;
+    padding: 3rem 3rem;
   }
 
   @include respond(phone) {
     grid-column: full-start / full-end;
   }
 
+  // p {
+  //   font-size: 1.6rem;
+  // }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+
+    @include respond(phone) {
+      font-size: 2rem;
+    }
+  }
+
+  h3 {
+    padding-bottom: 3px;
+    border-bottom: 3px double $color-primary-light;
+  }
+
   p {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: $color-primary-light;
+    margin-bottom: 2rem;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 2rem;
+    justify-self: center;
   }
 }
 // -------------------------
 
-// For dynamic content injection in news
+// dynamic content - News
 // ----------------------------------
 .news-content {
   display: grid;
@@ -62,14 +97,19 @@
   h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+
+    @include respond(phone) {
+      font-size: 2rem;
+    }
   }
   p {
     font-size: 1.6rem;
-    line-height: 2;
+    line-height: 1.8;
     color: $color-primary-light;
     margin-bottom: 2rem;
   }
   img {
+    height: auto;
     max-width: 100%;
     margin-bottom: 2rem;
     justify-self: center;

@@ -84,18 +84,23 @@ export class GenericComponent implements OnInit {
           let tagValueArray = [];
           let tagValueWithHyphenArray = [];
 
-          // console.log(
-          details = details.replace(/<h2>(.*?)<\/h2>/g, value => {
-            // console.log('...................This one is regex');
-            // console.log(value);
+          // Remove <p></p> from <p><img ></p>, so that only <img > remains.
+          details = details.replace(/<p><img(.*?)><\/p>/g, value => {
+            let valueWithNoPtag = value.replace(/<\/?p>/g, "");
+            let valueWithNoHeight = valueWithNoPtag.replace(/height:(.*?)px;/g, "");
 
+            return valueWithNoHeight;
+          });
+
+          // Add id addtribute to h2 tags for scrolling.
+          details = details.replace(/<h2>(.*?)<\/h2>/g, value => {
             let valueInTag = value.replace(/<\/?h2>/g, "");
             tagValueArray.push(valueInTag);
 
             let valueWithHyphens = valueInTag.replace(/ /g, "-");
             tagValueWithHyphenArray.push(valueWithHyphens);
 
-            let newTag = '<h2 name="' + valueWithHyphens + '">';
+            let newTag = '<h2 id="' + valueWithHyphens + '">';
 
             // let valueWithHyphens =
             //   '<h2 name="' + value.replace(/<\/?h2>/g, '').replace(/ /g, '-') + '">';
@@ -107,7 +112,8 @@ export class GenericComponent implements OnInit {
           });
 
           let sanitizedDetails: SafeHtml = this._sanitizer.bypassSecurityTrustHtml(details);
-          // console.log(details);
+          console.log("Details object....");
+          console.log(sanitizedDetails);
           // console.log(a1);
           // console.log(a2);
 
@@ -119,7 +125,8 @@ export class GenericComponent implements OnInit {
             this.sideContents.push(contentObject);
           }
 
-          // console.log(this.sideContents);
+          console.log("side contents..");
+          console.log(this.sideContents);
           // );
 
           // console.log(
@@ -152,4 +159,13 @@ export class GenericComponent implements OnInit {
         });
     });
   }
+  scrollToThisId(id: string) {
+    // document.getElementsByTagName("mat-sidenav-content")[0].scrollTop -= 90;
+    //document.getElementById(id).scrollTo(0, -300);
+    //window.scrollTo(0, -10);
+  }
+
+  // scrolli() {
+  //   document.getElementById("abc-abc").scrollIntoView();
+  // }
 }

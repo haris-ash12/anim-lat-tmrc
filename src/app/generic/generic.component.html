@@ -5,23 +5,27 @@
   </div>
 
   <div class="left-side">
-    <p class="links__title">{{ parentMenu | titlecase }}</p>
+    <div class="sticky-container">
+      <p class="links__title">{{ parentMenu | titlecase }}</p>
 
-    <div class="links__container">
-      <a
-        *ngFor="let submenu of submenus"
-        [routerLink]="['/', parentMenu, submenu.slug]"
-        class="links__link"
-        [class.links__link--selected]="childMenu === submenu.slug"
-        >{{ submenu.titleName }}</a
-      >
+      <div class="links__container">
+        <a
+          *ngFor="let submenu of submenus"
+          routerLink="/{{ parentMenu }}/{{ submenu.slug }}"
+          class="links__link"
+          [class.links__link--selected]="childMenu === submenu.slug"
+          >{{ submenu.titleName }}</a
+        >
 
-      <!-- <a href="#" class="links__link">Microsoft Dynamics 365</a>
-      <a href="#" class="links__link">Microsoft Azure</a>
-      <a href="#" class="links__link">Peach tree</a>
-      <a href="#" class="links__link">Microsoft Office 365</a> -->
+        <!-- <a href="#" class="links__link">Microsoft Dynamics 365</a>
+            <a href="#" class="links__link">Microsoft Azure</a>
+            <a href="#" class="links__link">Peach tree</a>
+            <a href="#" class="links__link">Microsoft Office 365</a> -->
+      </div>
     </div>
   </div>
+
+  <!-- [innerHtml]="content.details" -->
   <div class="content-side" [innerHtml]="content.details">
     <!-- <h1>headining 1</h1>
     <p>
@@ -83,7 +87,7 @@
       future needs of Our clients.
     </p>
 
-    <h1 name="abc-abc">ABC 1</h1>
+    <h1 id="abc-abc">ABC 1</h1>
     <p>
       For over Decades we have maintained our reputation while integrating Business solutions to the
       Enterprises with the Clientele based from different Domains where deployments are based on
@@ -99,18 +103,21 @@
     </p> -->
   </div>
   <div class="right-side">
-    <p class="links__title">Content</p>
-    <div class="links__container links__container--line">
-      <a
-        *ngFor="let content of sideContents"
-        href="/{{ parentMenu }}/{{ childMenu }}/#{{ content.hrefValue }}"
-        class="links__link links__link--circle"
-        >{{ content.title }}</a
-      >
+    <div class="sticky-container">
+      <p class="links__title">Content</p>
+      <div class="links__container links__container--line">
+        <a
+          *ngFor="let content of sideContents"
+          href="/{{ parentMenu }}/{{ childMenu }}#{{ content.hrefValue }}"
+          (click)="scrollToThisId(content.hrefValue)"
+          class="links__link links__link--circle"
+          >{{ content.title }}</a
+        >
 
-      <!-- <a href="#" class="links__link">A modern and adaptable solution</a>
-      <a href="#" class="links__link">Why choose dynamics 365?</a>
-      <a href="#" class="links__link">Dynamics 365 Modules</a> -->
+        <!-- <a href="#" class="links__link">A modern and adaptable solution</a>
+        <a href="#" class="links__link">Why choose dynamics 365?</a>
+        <a href="/solutions/microsoft-azure#abc-abc" class="links__link">abc-abc</a> -->
+      </div>
     </div>
   </div>
 </div>

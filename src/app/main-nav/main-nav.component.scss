@@ -8,9 +8,9 @@
 .sidenav {
   width: 35rem;
 
-  // @include respond(phone) {
-  //   width: 40rem;
-  // }
+  @include respond(phone) {
+    width: 30rem;
+  }
 }
 
 .sidenav .mat-toolbar {
@@ -61,6 +61,10 @@
 .nav {
   &__logo {
     height: 3.5rem;
+
+    @include respond(phone) {
+      height: 3rem;
+    }
 
     &--csp {
       margin-left: 2.5rem;

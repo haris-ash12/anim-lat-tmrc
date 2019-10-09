@@ -141,22 +141,26 @@
   }
 }
 
+// * Who we are section
+
 .section-who {
   grid-column: center-start / center-end;
-  // grid-row: 2 / 3;
   margin-top: 7rem;
-
-  // background: lightblue;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-items: center;
 
-  @include respond(phone) {
+  @include respond(tab-port-near) {
     grid-column: full-start / full-end;
   }
 
   @include respond(tab-port-2) {
     grid-template-columns: 1fr;
+  }
+
+  @include respond(phone) {
+    grid-column: full-start / full-end;
   }
 
   h2 {
@@ -171,21 +175,33 @@
     height: 0;
     padding-bottom: 56.25%; /* 16:9 */
 
+    @include respond(tab-port-near) {
+      margin-left: 2rem;
+    }
+
     @include respond(tab-port-2) {
       grid-column: 1 / -1;
       grid-row: 3 / 4;
 
-      height: 60rem;
-      padding: 0 5rem;
+      height: 48rem;
+      // padding: 0 5rem;
+      margin-left: 4.5rem;
+    }
+
+    @include respond(tab-port-3) {
+      margin-left: 3.5rem;
     }
 
     @include respond(phone) {
-      height: 42rem;
+      height: 32rem;
       padding: 0 0;
+
+      margin-left: 3rem;
     }
 
     @media (max-width: 450px) {
-      height: 30rem;
+      height: 25rem;
+      margin-left: 2rem;
     }
 
     iframe {
@@ -198,12 +214,28 @@
       height: 100%;
       top: 0;
       left: 0;
+
+      @include respond(tab-port-2) {
+        width: 90%;
+        height: 90%;
+      }
+      @include respond(tab-port-3) {
+        height: 80%;
+      }
+
+      @include respond(phone) {
+        height: 100%;
+      }
     }
   }
 
   &__content {
     grid-column: 2 / 3;
     padding: 5rem 0 5rem 5rem;
+
+    @include respond(tab-port-near) {
+      padding-right: 5rem;
+    }
 
     @include respond(tab-port) {
       padding-right: 5rem;
@@ -244,6 +276,18 @@
 
   &--orange {
     color: $color-secondary;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.5rem;
+      margin-bottom: -0.25rem;
+      width: 100%;
+      background-color: $color-secondary;
+    }
   }
 
   &--white {
@@ -258,7 +302,7 @@
   margin-top: 7rem;
 
   display: grid;
-  align-items: start;
+  // align-items: start;
   grid-template-columns: 1fr 1fr;
 
   @include respond(phone) {
@@ -318,8 +362,14 @@
   }
 
   &__heading {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
     font-weight: 500;
+    text-align: center;
+    padding: 0 1rem;
+
+    @include respond(phone) {
+      font-size: 2.2rem;
+    }
   }
 
   &__paragraph {

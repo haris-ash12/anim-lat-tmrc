@@ -66,15 +66,16 @@
       "
       class="blog-card"
     >
+      <a class="blog-card__link" [routerLink]="['/blog', blog.slug]"></a>
       <div class="blog-card__image">
         <img [src]="blog.featureImage" alt="Image goes here..." />
       </div>
-      <div class="blog-card__date">{{ blog.date | date }}</div>
+      <p class="blog-card__date">{{ blog.date | date }}</p>
       <h2 class="blog-card__title">{{ blog.title }}</h2>
       <p class="blog-card__description">
         {{ blog.description }}
-        <a [routerLink]="['/blog', blog.slug]">more</a>
       </p>
+      <!-- <a class="blog-card__more" [routerLink]="['/blog', blog.slug]">more</a> -->
     </div>
 
     <pagination-controls

@@ -1,4 +1,44 @@
 <!-- Footer -->
+<div class="subscription">
+  <div
+    [@subscriptionNewsletter]="isSubscribeClicked ? 'out' : 'in'"
+    class="subscription__news-letter"
+  >
+    <div class="subscription__topline">
+      <p>
+        <i class="fa fa-bell-o" aria-hidden="true"></i>
+        Get our latest news by subscribing to our
+        <span>News Letter</span>
+      </p>
+    </div>
+    <form class="subscription__email-box">
+      <input
+        type="text"
+        placeholder="Enter Your E-mail"
+        name="email"
+        ngModel
+        #email="ngModel"
+        required
+        email
+      />
+      <i class="fa fa-envelope-o" aria-hidden="true"></i>
+      <button (click)="subscribeClicked()">Subscribe</button>
+    </form>
+    <div class="subscription__terms">
+      <p>
+        By clicking the button, you agree to the <span>Privacy Policy</span> &
+        <span>Terms & Conditions</span>
+      </p>
+    </div>
+  </div>
+  <div [@subscriptionThankyou]="isSubscribeClicked ? 'in' : 'out'" class="subscription__thankyou">
+    <img src="./../../assets/images/logo/thank-you.png" alt="Thankyou for subscribing" />
+    <p>
+      We will send you e-mail when we have any news. <br />
+      You can always unsubscribe to us by the link below in the e-mail.
+    </p>
+  </div>
+</div>
 <div class="footer">
   <!-- <ng-container *ngFor="let menu of menus">
     <div *ngIf="menu.children.length > 0" class="footer__links-container">

@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject, PLATFORM_ID } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { BlogsService } from "../services/blogs.service";
 import { ProductsService } from "../services/products.service";
 import { HelperValuesService } from "../services/helper-values.service";
 import { Router } from "@angular/router";
 import { GlobalsService } from "../services/globals.service";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
   selector: "app-blogs",
@@ -28,7 +29,8 @@ export class BlogsComponent implements OnInit {
     private blogsService: BlogsService,
     private productsService: ProductsService,
     private helperService: HelperValuesService,
-    private globals: GlobalsService
+    private globals: GlobalsService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.yearId = 2019;
     this.catid = 0;
@@ -139,7 +141,7 @@ export class BlogsComponent implements OnInit {
     description.match(/<p>(.*?)<\/p>/).map(value => {
       description = value;
     });
-    return description.substr(0, 100) + " ... ";
+    return description.substr(0, 120) + " ... ";
   }
 
   productClicked(productId) {
@@ -153,6 +155,8 @@ export class BlogsComponent implements OnInit {
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
       // console.log(this.blogsList);
+
+      this.goToTop();
     });
   }
   yearsClicked(yearId) {
@@ -166,6 +170,7 @@ export class BlogsComponent implements OnInit {
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
       // console.log(this.blogsList);
+      this.goToTop();
     });
   }
 
@@ -177,6 +182,8 @@ export class BlogsComponent implements OnInit {
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
       // console.log(this.blogsList);
+
+      this.goToTop();
     });
   }
 
@@ -191,6 +198,11 @@ export class BlogsComponent implements OnInit {
     // console.log(this.blogsResponse[index]);
     // this.helperValuesService.blogId = this.blogsResponse[index].Id;
     // this.router.navigate(['/blog', blog.slug]);
+  }
+  goToTop() {
+    if (isPlatformBrowser(this.platformId)) {
+      document.getElementsByTagName("mat-sidenav-content")[0].scrollTo(0, 0);
+    }
   }
 }
 

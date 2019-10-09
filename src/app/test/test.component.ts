@@ -14,7 +14,13 @@ export class TestComponent implements OnInit {
       .get("http://web.tmrc1.ga/api/getContentsByUrl/?countryCode=pk&url=microsoft-azure")
       .subscribe((res: any) => {
         this.details = unescape(res.Details);
-        console.log(this.details);
+        // /console.log(this.details);
+
+        let a = this.details.replace(/<p><img(.*?)><\/p>/g, value => {
+          return value.replace(/<\/?p>/g, "");
+        });
+        console.log("Print a.... 00000000000000000000000000000000000000000000000");
+        console.log(a);
       });
   }
   ngOnInit() {}

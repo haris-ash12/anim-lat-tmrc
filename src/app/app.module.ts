@@ -90,20 +90,6 @@ export function starti(provider: StartUpService) {
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
-    HttpClientModule,
-    FormsModule,
-    NgxPaginationModule,
-    NgbModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
-    MatButtonModule,
-    // FlexLayoutModule,
-    SlideshowModule,
-    ScrollingModule,
-
     RouterModule.forRoot(
       [
         {
@@ -149,11 +135,24 @@ export function starti(provider: StartUpService) {
         }
       ],
       {
-        scrollPositionRestoration: "enabled",
+        // scrollPositionRestoration: "top"
         anchorScrolling: "enabled",
-        scrollOffset: [0, 100] // [x, y]
+        scrollOffset: [0, -200] // [x, y]
       }
-    )
+    ),
+    HttpClientModule,
+    FormsModule,
+    NgxPaginationModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    // FlexLayoutModule,
+    SlideshowModule,
+    ScrollingModule
   ],
   providers: [
     {

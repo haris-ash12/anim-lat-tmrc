@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  Inject,
+  PLATFORM_ID
+} from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Observable } from "rxjs";
 import { map, share } from "rxjs/operators";
@@ -7,6 +15,7 @@ import { NewsService } from "../services/news.service";
 import { Router, NavigationEnd } from "@angular/router";
 import { MatSidenav } from "@angular/material";
 import { ScrollDispatcher, CdkScrollable } from "@angular/cdk/scrolling";
+import { isPlatformBrowser, ViewportScroller } from "@angular/common";
 
 // const content = document.querySelector(".mat-sidenav-content");
 
@@ -36,14 +45,29 @@ export class MainNavComponent implements OnInit {
     private menuService: MenuService,
     private newsService: NewsService,
     private router: Router,
-    public scroll: ScrollDispatcher
+    public scroll: ScrollDispatcher,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // this.scrollingSubscription = this.scroll.scrolled().subscribe((data: CdkScrollable) => {
     //   this.onWindowScroll(data);
     // });
 
-    router.events.subscribe(val => {
+    this.router.events.subscribe(val => {
+      let c = this.router.url.split("#");
+
       if (val instanceof NavigationEnd) {
+        // Beacause we are injecting our router inside material side nav, scrollPositionRestoration to top doesnot works with routing array.
+        // We need to set this using this method.
+        if (c.length === 1) {
+          if (isPlatformBrowser(this.platformId)) {
+            document.getElementsByTagName("mat-sidenav-content")[0].scrollTo(0, 0);
+          }
+        } else {
+          // if (isPlatformBrowser(this.platformId)) {
+          //   document.getElementsByTagName("mat-sidenav-content")[0].scrollTop -= 75;
+          // }
+        }
+
         console.log("navigation ends....");
         this.sidenav.close();
       }

@@ -4,6 +4,7 @@ import { HelperValuesService } from "../services/helper-values.service";
 import { BlogBySlugService } from "../services/blog-by-slug.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Title, Meta } from "@angular/platform-browser";
+import { GlobalsService } from "../services/globals.service";
 
 @Component({
   selector: "app-blog-detail",
@@ -21,6 +22,7 @@ export class BlogDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private helperService: HelperValuesService,
+    private globals: GlobalsService,
     private meta: Meta,
     private titleService: Title
   ) {}
@@ -63,10 +65,20 @@ export class BlogDetailComponent implements OnInit {
       console.log(blogResponse);
 
       let description = unescape(blogResponse.Description);
+
+      // Remove <p></p> from <p><img ></p>, so that only <img > remains.
+      description = description.replace(/<p><img(.*?)><\/p>/g, value => {
+        let valueWithNoPtag = value.replace(/<\/?p>/g, "");
+        let valueWithNoHeight = valueWithNoPtag.replace(/height:(.*?)px;/g, "");
+
+        return valueWithNoHeight;
+      });
+
       this.blog = {
         title: blogResponse.Title,
         description: description,
         datePosted: blogResponse.CreatedDate,
+        featureImage: this.globals.url + "/" + blogResponse.FeatureImage,
         slug: blogResponse.slug,
         productCategory: blogResponse.CatName,
         metaDescription: blogResponse.MetaDescription,
