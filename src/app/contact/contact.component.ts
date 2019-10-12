@@ -100,7 +100,14 @@ export class ContactComponent implements OnInit {
 
   submit(f) {
     console.log(f.value);
-    let contactUsObject = f.value;
-    this.contactService.create(contactUsObject).subscribe(res => console.log(res));
+
+    // Send form data to server.
+    const formData = new FormData();
+    formData.append("Name", f.value.name);
+    formData.append("Email", f.value.email);
+    formData.append("Subject", f.value.subject);
+    formData.append("Message", f.value.message);
+
+    this.contactService.create(formData).subscribe(res => console.log(res));
   }
 }

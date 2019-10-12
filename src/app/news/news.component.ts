@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { NewsService } from "../services/news.service";
 import { Meta, Title } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
@@ -19,7 +19,8 @@ export class NewsComponent implements OnInit {
     private globals: GlobalsService,
     private meta: Meta,
     private titleSevice: Title
-  ) {
+  ) // private router: Router
+  {
     console.log("News component ..............................................");
   }
 
@@ -29,6 +30,8 @@ export class NewsComponent implements OnInit {
       newsSlug = "slug=" + newsSlug;
 
       this.newsService.getByQueryParams(newsSlug).subscribe((news: any) => {
+        // this.router.navigateByUrl("/");
+
         console.log("news...");
         console.log(news);
         let newsDescription = unescape(news.Description);

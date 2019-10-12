@@ -1,6 +1,6 @@
 <div class="generic-container">
   <div class="header__top">
-    <img [src]="content.iconPath" alt="" class="header__icon" />
+    <img *ngIf="content.iconPath" [src]="content.iconPath" alt="" class="header__icon" />
     <h1 class="header__title">{{ content.contentTitle | titlecase }}</h1>
   </div>
 
