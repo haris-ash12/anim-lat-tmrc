@@ -26,7 +26,8 @@ export class GenericComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private globals: GlobalsService
   ) {
-    console.log("Printing Meta tags for Generic component..., GO CHECK!");
+    console.log("Genric component .............................................");
+    // console.log("Printing Meta tags for Generic component..., GO CHECK!");
     this.meta.addTag({ name: "Generic", content: "the generic tag ...." });
     // this.titleSevice.setTitle("Setting a title...");
   }
@@ -47,8 +48,8 @@ export class GenericComponent implements OnInit {
         this.submenuService
           .getByQueryParams(parentQueryParam)
           .subscribe((submenusResponse: any[]) => {
-            console.log("submenus...");
-            console.log(submenusResponse);
+            // console.log("submenus...");
+            // console.log(submenusResponse);
             for (let i = 0; i < submenusResponse.length; i++) {
               let submenuObject = {
                 titleName: submenusResponse[i].TitleName,
@@ -73,8 +74,8 @@ export class GenericComponent implements OnInit {
         .subscribe((contentResponse: any) => {
           this.sideContents = [];
 
-          console.log("Content Response ...");
-          console.log(contentResponse);
+          // console.log("Content Response ...");
+          // console.log(contentResponse);
 
           // First we need to unescape details value.
           let details = unescape(contentResponse.Details);
@@ -112,8 +113,8 @@ export class GenericComponent implements OnInit {
           });
 
           let sanitizedDetails: SafeHtml = this._sanitizer.bypassSecurityTrustHtml(details);
-          console.log("Details object....");
-          console.log(sanitizedDetails);
+          // console.log("Details object....");
+          // console.log(sanitizedDetails);
           // console.log(a1);
           // console.log(a2);
 
@@ -125,8 +126,8 @@ export class GenericComponent implements OnInit {
             this.sideContents.push(contentObject);
           }
 
-          console.log("side contents..");
-          console.log(this.sideContents);
+          // console.log("side contents..");
+          // console.log(this.sideContents);
           // );
 
           // console.log(
@@ -139,7 +140,9 @@ export class GenericComponent implements OnInit {
 
           let contentObject = {
             details: sanitizedDetails,
-            iconPath: this.globals.url + "/" + contentResponse.IconPath,
+            imageUrl: contentResponse.ImageUrl,
+            imageAlt: contentResponse.ImageAlt,
+            imageTitle: contentResponse.ImageTitle,
             pageTitle: contentResponse.PageTitle,
             slug: contentResponse.Slug,
             metaDescription: contentResponse.MetaDescription,
@@ -149,8 +152,8 @@ export class GenericComponent implements OnInit {
 
           this.content = contentObject;
 
-          console.log("Content Object ...");
-          console.log(this.content);
+          // console.log("Content Object ...");
+          // console.log(this.content);
 
           this.titleSevice.setTitle(this.content.pageTitle);
           this.meta.updateTag({ name: "keywords", content: this.content.metaKeywords });
@@ -159,11 +162,11 @@ export class GenericComponent implements OnInit {
         });
     });
   }
-  scrollToThisId(id: string) {
-    // document.getElementsByTagName("mat-sidenav-content")[0].scrollTop -= 90;
-    //document.getElementById(id).scrollTo(0, -300);
-    //window.scrollTo(0, -10);
-  }
+  // scrollToThisId(id: string) {
+  //   // document.getElementsByTagName("mat-sidenav-content")[0].scrollTop -= 90;
+  //   //document.getElementById(id).scrollTo(0, -300);
+  //   //window.scrollTo(0, -10);
+  // }
 
   // scrolli() {
   //   document.getElementById("abc-abc").scrollIntoView();

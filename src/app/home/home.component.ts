@@ -88,15 +88,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.homeService.getAll().subscribe((homeResponse: any) => {
-      console.log("Home response ...");
-      console.log(homeResponse);
+      // console.log("Home response ...");
+      // console.log(homeResponse);
+
       // Image Slider Model
       let sliderArrayResponse: any[] = homeResponse.ImageSliderModel;
       let WhoWeAreObjectResponse: any = homeResponse.WhoWeAreModel;
       let sliderArray: any[] = [];
 
       for (let i = 0; i < sliderArrayResponse.length; i++) {
-        let sliderObject = this.globals.url + "/" + sliderArrayResponse[i].ImageUrl;
+        let sliderObject = { url: sliderArrayResponse[i].ImageUrl };
         sliderArray.push(sliderObject);
       }
       this.imageUrlArray = sliderArray;
@@ -121,9 +122,9 @@ export class HomeComponent implements OnInit {
     const scrollValue = data.getElementRef().nativeElement.scrollTop || 0;
 
     if (scrollValue > 150) {
-      console.log(scrollValue);
+      // console.log(scrollValue);
       this.isFirst = true;
-      console.log("isText ..." + this.isFirst);
+      // console.log("isText ..." + this.isFirst);
     }
   }
 }

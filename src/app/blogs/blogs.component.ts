@@ -32,6 +32,8 @@ export class BlogsComponent implements OnInit {
     private globals: GlobalsService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    console.log("Blog components ........................................................");
+
     this.yearId = 2019;
     this.catid = 0;
     this.tags = "";
@@ -82,12 +84,13 @@ export class BlogsComponent implements OnInit {
       // And we need blogs array, blogs property.
 
       this.blogsResponse = blogResponse.blogs;
+      // console.log(this.blogsResponse);
 
       this.total = blogResponse.Total;
 
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
-      console.log("Blogs list .....................................");
-      console.log(this.blogsList);
+      // console.log("Blogs list .....................................");
+      // console.log(this.blogsList);
 
       // let blogsResponseArray = blogResponse.blogs;
 
@@ -129,7 +132,9 @@ export class BlogsComponent implements OnInit {
         date: blogs[i].CreatedDate,
         description: description,
         // featureImage: this.globals.url + "/" + blogs[i].FeatureImage,
-        featureImage: blogs[i].FeatureImage,
+        imageUrl: blogs[i].ImageUrl,
+        imageTitle: blogs[i].ImageTitle,
+        imageAlt: blogs[i].ImageAlt,
         slug: blogs[i].Slug,
         title: blogs[i].Title
       };

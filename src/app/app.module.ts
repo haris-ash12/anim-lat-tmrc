@@ -46,6 +46,7 @@ import { CareersSpecificComponent } from "./careers-specific/careers-specific.co
 import { CareersApplyComponent } from "./careers-apply/careers-apply.component";
 import { ServerCookieService } from "./services/server-cookie.service";
 import { CountryCodeGuardService } from "./services/country-code-guard.service";
+import { ContactComponent } from "./contact/contact.component";
 
 export function startupProviderFactory(provider: StartUpService) {
   // console.log('provider.startupcall..');
@@ -86,7 +87,8 @@ export function starti(provider: StartUpService) {
     NavigationBarComponent,
     CareersComponent,
     CareersSpecificComponent,
-    CareersApplyComponent
+    CareersApplyComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
@@ -98,6 +100,7 @@ export function starti(provider: StartUpService) {
           children: [
             { path: "", component: HomeComponent },
             { path: "test", component: TestComponent },
+            { path: "about-us/contact-us", component: ContactComponent },
             // {
             //   path: ':countryCode',
             //   component: SpecificComponent,

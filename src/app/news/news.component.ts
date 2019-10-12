@@ -19,7 +19,9 @@ export class NewsComponent implements OnInit {
     private globals: GlobalsService,
     private meta: Meta,
     private titleSevice: Title
-  ) {}
+  ) {
+    console.log("News component ..............................................");
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -34,7 +36,9 @@ export class NewsComponent implements OnInit {
           title: news.Title,
           datePosted: news.CreatedDate,
           description: newsDescription,
-          featureImage: this.globals.url + "/" + news.FeatureImage,
+          imageUrl: news.ImageUrl,
+          imageAlt: news.ImageAlt,
+          imageTitle: news.ImageTitle,
           metaDescription: news.MetaDescription,
           metaKeywords: news.MetaKeywords,
           pageTitle: news.PageTitle
