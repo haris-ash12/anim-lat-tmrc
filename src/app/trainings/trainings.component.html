@@ -1,0 +1,124 @@
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="trainings-container">
+  <div class="trainings-container__sidebar">
+    <!-- Search Bar -->
+    <div class="searchbar">
+      <input class="searchbar__input" type="text" placeholder="Search.." name="search" />
+      <button class="searchbar__button" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+
+    <!-- TRAININGS -->
+    <div class="list">
+      <p class="list__title">Trainings</p>
+      <div class="list__items">
+        <button
+          (click)="categoryClicked(0, 0)"
+          class="list__item"
+          [class.list__item--active]="parentId === 0 && childId === 0"
+        >
+          All
+        </button>
+
+        <button
+          (click)="categoryClicked(trainingCategory.parentId, trainingCategory.childId)"
+          *ngFor="let trainingCategory of trainingCategoriesList"
+          class="list__item"
+          [class.list__item--active]="
+            parentId === trainingCategory.parentId && childId === trainingCategory.childId
+          "
+        >
+          {{ trainingCategory.title | titlecase }}
+        </button>
+
+        <!-- <button class="list__item">Offices 365</button>
+        <button class="list__item">Dynamics</button>
+        <button class="list__item">One Note</button>
+        <button class="list__item">Textile</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="trainings-container__content">
+    <!-- VIDEO CARD -->
+    <div
+      *ngFor="
+        let training of trainingsList
+          | paginate
+            : {
+                itemsPerPage: 10,
+                currentPage: pageno,
+                totalItems: total
+              };
+        index as i
+      "
+      class="video-card"
+    >
+      <ng-container>
+        <a
+          *ngIf="training.isRedirectionActive === false"
+          class="video-card__link"
+          [routerLink]="['/trainings', training.slug]"
+        ></a>
+
+        <a
+          *ngIf="training.isRedirectionActive === true"
+          class="video-card__link"
+          href="/trainings/{{ training.slug }}"
+        ></a>
+      </ng-container>
+      <div class="video-card__image">
+        <!-- <img src="./../../assets/slider-images/one.png" /> -->
+
+        <iframe
+          *ngIf="training.videoUrl"
+          [src]="training.videoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <p class="video-card__date">{{ training.date | date }}</p>
+      <h2 class="video-card__title">{{ training.title }}</h2>
+      <p class="video-card__description">
+        {{ training.description }}
+      </p>
+    </div>
+
+    <pagination-controls
+      class="blogs-pagination"
+      (pageChange)="changePage($event)"
+      autoHide="true"
+      responsive="true"
+      previousLabel="Previous"
+      nextLabel="Next"
+    ></pagination-controls>
+
+    <!-- <div class="video-card">
+      <a class="video-card__link" [routerLink]="['/trainings', 'abc']"></a>
+      <div class="video-card__image">
+        <img src="./../../assets/slider-images/two.png" />
+      </div>
+      <p class="video-card__date">video card date</p>
+      <h2 class="video-card__title">Video card title</h2>
+      <p class="video-card__description">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus quia perspiciatis
+        obcaecati exercitationem modi laudantium rem.
+      </p>
+    </div>
+
+    <div class="video-card">
+      <a class="video-card__link" href="/test"></a>
+      <div class="video-card__image">
+        <img src="./../../assets/slider-images/three.png" />
+      </div>
+      <p class="video-card__date">video card date</p>
+      <h2 class="video-card__title">Video card title</h2>
+      <p class="video-card__description">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus quia perspiciatis
+        obcaecati exercitationem modi laudantium rem.
+      </p>
+    </div> -->
+  </div>
+</div>

@@ -1,7 +1,7 @@
 @import "./../../scss/abstracts/mixins";
 @import "./../../scss/abstracts/variables";
 
-.blogs-container {
+.trainings-container {
   // ...
   margin-top: 5rem;
   margin-bottom: 5rem;
@@ -136,7 +136,7 @@
   }
 }
 // ~~~ BLOG CARD ~~~
-.blog-card {
+.video-card {
   display: grid;
   grid-template-rows: 1fr auto auto auto;
 
@@ -169,8 +169,8 @@
     margin-bottom: 1rem;
     // border: 1px solid red;
 
-    img {
-      max-width: 100%;
+    iframe {
+      width: 100%;
       height: auto;
       object-fit: cover;
       display: block;
@@ -234,3 +234,11 @@
   font-size: 1.4rem;
 }
 // ALso pasted a style in styles.scss (applying globally) for bg-color bcz it was not applying here.
+
+.ytp-chrome-top
+  .ytp-show-watch-later-title
+  .ytp-share-button-visible
+  .ytp-show-share-title
+  .ytp-show-cards-title {
+  display: none;
+}

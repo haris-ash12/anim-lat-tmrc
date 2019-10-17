@@ -1,4 +1,8 @@
-<div class="home-container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="home-container">
   <div @heroAnimations class="hero__text-side">
     <div class="hero__text-container">
       <h2 class="hero__small-line hero-transition">Experience</h2>

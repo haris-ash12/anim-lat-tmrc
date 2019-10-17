@@ -4,11 +4,19 @@ import { SubmenuService } from "../services/menus/submenu.service";
 import { GenericContentService } from "../services/generic-content.service";
 import { DomSanitizer, SafeHtml, Meta, Title } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
   selector: "app-generic",
   templateUrl: "./generic.component.html",
-  styleUrls: ["./generic.component.scss"]
+  styleUrls: ["./generic.component.scss"],
+  animations: [
+    trigger("fade", [
+      state("out", style({ opacity: 0 })),
+      state("in", style({ opacity: 1 })),
+      transition("out => in", animate("500ms ease"))
+    ])
+  ]
 })
 export class GenericComponent implements OnInit {
   sideContents: any = [];
@@ -16,6 +24,7 @@ export class GenericComponent implements OnInit {
   content: any = {};
   parentMenu: string = "";
   childMenu: string = "";
+  isAvailable: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,6 +81,8 @@ export class GenericComponent implements OnInit {
       this.genericContentService
         .getByQueryParams(childQueryParam)
         .subscribe((contentResponse: any) => {
+          this.isAvailable = true;
+
           this.sideContents = [];
 
           // console.log("Content Response ...");

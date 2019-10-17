@@ -1,4 +1,8 @@
-<div class="blogs-container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="blogs-container">
   <div class="blogs-container__sidebar">
     <!-- Search Bar -->
     <div class="searchbar">
@@ -66,7 +70,19 @@
       "
       class="blog-card"
     >
-      <a class="blog-card__link" [routerLink]="['/blog', blog.slug]"></a>
+      <ng-container>
+        <a
+          *ngIf="blog.isRedirectionActive === false"
+          class="blog-card__link"
+          [routerLink]="['/blog', blog.slug]"
+        ></a>
+
+        <a
+          *ngIf="blog.isRedirectionActive === true"
+          class="blog-card__link"
+          href="/blog/{{ blog.slug }}"
+        ></a>
+      </ng-container>
       <div class="blog-card__image">
         <img [src]="blog.imageUrl" [alt]="blog.imageAlt" [title]="blog.imageTitle" />
       </div>

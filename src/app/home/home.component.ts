@@ -49,6 +49,11 @@ import {
       state("out", style({ opacity: 0, transform: "translateX(-100px)" })),
       state("in", style({ opacity: 1, transform: "translateX(0px)" })),
       transition("out => in", animate("500ms"))
+    ]),
+    trigger("fade", [
+      state("out", style({ opacity: 0 })),
+      state("in", style({ opacity: 1 })),
+      transition("out => in", animate("500ms ease"))
     ])
   ]
 })
@@ -68,6 +73,7 @@ export class HomeComponent implements OnInit {
   height: string = "100%";
   state: string = "hide";
   scrollingSubscription: any;
+  isAvailable: boolean;
 
   constructor(
     private homeService: HomeContentService,
@@ -88,6 +94,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.homeService.getAll().subscribe((homeResponse: any) => {
+      this.isAvailable = true;
       // console.log("Home response ...");
       // console.log(homeResponse);
 

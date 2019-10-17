@@ -20,6 +20,7 @@ import "zone.js/dist/zone-node";
 import * as express from "express";
 import { join } from "path";
 const https = require("https");
+const http = require("http");
 const cors = require("cors");
 
 // Express server
@@ -27,6 +28,8 @@ const app = express();
 
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), "dist/browser");
+
+let countryCode = "";
 
 // * NOTE :: leave this as require() since this file is built Dynamically from webpack
 const {
@@ -48,41 +51,49 @@ app.use(cors());
 
 app.engine("html", (_, options, callback) => {
   console.log("server.ts .............................................................");
+  console.log("COuntry code in app engine ..." + countryCode);
   // console.log(options.req.remoteAddress || options.req.header("x-forwarded-for"));
 
-  console.log("options.req.url ... " + options.req.url);
-  let clientIPAddress = options.req.remoteAddress || options.req.header("x-forwarded-for");
+  // console.log("options.req.url ... " + options.req.url);
+
+  // if (options.req.url == "/") {
+  //   options.res.render(302, "http://localhost:4000/blog");
+  // }
+
+  // let clientIPAddress = options.req.remoteAddress || options.req.header("x-forwarded-for");
 
   // For offline testing purposes. My ip address.
-  // let clientIPAddress = "115.186.141.114";
-  let key = "2e7502e026787dcc570948b8afa7f7e2ca0da36b82fdd970c4dc8a070747e309";
+  //let clientIPAddress = "115.186.141.114";
+  // let key = "2e7502e026787dcc570948b8afa7f7e2ca0da36b82fdd970c4dc8a070747e309";
 
-  console.log("Client ip address..." + clientIPAddress);
+  // console.log("Client ip address... in engine" + clientIPAddress);
 
-  https.get(
-    "https://api.ipinfodb.com/v3/ip-city/?key=" + key + "&ip=" + clientIPAddress + "&format=json",
-    res => {
-      let data = "";
-      res.on("data", chunk => {
-        data += chunk;
-        console.log("Country Code ... server.ts ... from geolocation");
-        let countryCode = JSON.parse(data).countryCode;
-        console.log("Country Code ... server.ts ... " + countryCode);
+  // https.get(
+  //   "https://api.ipinfodb.com/v3/ip-city/?key=" + key + "&ip=" + clientIPAddress + "&format=json",
+  //   res => {
+  //     let data = "";
+  //     res.on("data", chunk => {
+  //       data += chunk;
+  //       console.log("Country Code ... server.ts ... from geolocation");
+  //       let countryCode = JSON.parse(data).countryCode;
+  //       console.log("Country Code ... server.ts ... " + countryCode);
 
-        ngExpressEngine({
-          bootstrap: AppServerModuleNgFactory,
-          providers: [
-            provideModuleMap(LAZY_MODULE_MAP),
-            // {
-            //   provide: "clientIPAddress",
-            //   useValue: options.req.remoteAddress || options.req.header("x-forwarded-for") //Provides the client IP address to angular
-            // }
-            { provide: "countryCode", useValue: countryCode }
-          ]
-        })(_, options, callback);
-      });
-    }
-  );
+  //       console.log("in engine...." + haris);
+
+  ngExpressEngine({
+    bootstrap: AppServerModuleNgFactory,
+    providers: [
+      provideModuleMap(LAZY_MODULE_MAP),
+      // {
+      //   provide: "clientIPAddress",
+      //   useValue: options.req.remoteAddress || options.req.header("x-forwarded-for") //Provides the client IP address to angular
+      // }
+      { provide: "countryCode", useValue: countryCode }
+    ]
+  })(_, options, callback);
+  //     });
+  //   }
+  // );
 });
 
 app.set("view engine", "html");
@@ -100,10 +111,112 @@ app.get(
 
 // All regular routes use the Universal engine
 app.get("*", (req, res) => {
-  res.render("index", { req });
+  console.log(
+    "Console statement  in * ................................................................................."
+  );
+  // console.log({ req });
+
+  // Domain name
+  var host = req.get("host");
+  console.log("Host .....");
+  console.log(host);
+  console.log("Protocol");
+  console.log(req.protocol);
+  var protocol = req.protocol;
+
+  let routeSlug = req.url;
+  console.log("route slug ...");
+  console.log(routeSlug);
+
+  // Get client Ip Address or use hard-coded ip value.
+  // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
+
+  // For offline testing purposes. My ip address.
+  let clientIPAddress = "115.186.141.114";
+
+  console.log("CLient Ip Address ....." + clientIPAddress);
+
+  let key = "2e7502e026787dcc570948b8afa7f7e2ca0da36b82fdd970c4dc8a070747e309";
+
+  https.get(
+    "https://api.ipinfodb.com/v3/ip-city/?key=" + key + "&ip=" + clientIPAddress + "&format=json",
+    response => {
+      let data = "";
+      response.on("data", chunk => {
+        data += chunk;
+        console.log("Country Code ... server.ts ... from geolocation");
+        countryCode = JSON.parse(data).countryCode;
+        console.log("Country Code ... server.ts ... " + countryCode);
+
+        // Now that we have found the country code, We need to find that whether redirection exists againt this route or not.
+        http.get(
+          `http://web.tmrc1.ga/api/GetRedirection?countrycode=${countryCode}&slug=${routeSlug}&hostName=${protocol}://${host}`,
+          redirectionResponse => {
+            let data = "";
+            redirectionResponse.on("data", chunk => {
+              data += chunk;
+
+              console.log("Redirection calll ...");
+              console.log(data);
+
+              let redirection = JSON.parse(data);
+              let redirectionUrl = redirection.RedirectionUrl;
+              let redirectionType = redirection.RedirectionType;
+              console.log(redirection.RedirectionUrl + " &  ..." + redirection.RedirectionType);
+
+              if (redirectionUrl && redirectionType) {
+                res.set("location", redirectionUrl);
+                console.log("1");
+                res.status(redirectionType).send();
+                console.log("2");
+                // res.render("index", { req });
+                console.log("Redirection wali if statment ...");
+              } else {
+                res.render("index", { req });
+                console.log("Else wali if statement ...");
+              }
+
+              // FOr checking .....
+
+              // if (req.url === "/blog/test-1") {
+              //   res.set("location", "http://localhost:4000/blog/test-2");
+              //   res.status(302).send();
+              // } else {
+              //   res.render("index", { req });
+              // }
+            });
+          }
+        );
+      });
+    }
+  );
+
+  // haris = "pk";
+  // setTimeout(() => {
+  //   console.log("In set time out function() ... ");
+  //   console.log("in app.get() ...." + haris);
+
+  //   res.render("index", { req });
+  // }, 3000);
+
+  // So this part is called first ....
+  // What i can do is, i can perform the other complexity work here. & then go to the top.
+
+  // if (req.url === "/test") {
+  //   // res.setHeader("Content-Type", "text/plain");
+  //   // res.redirect(301, "http://localhost:4000/careers/1/apply");
+  //   // res.end();
+
+  //   res.set("location", "http://localhost:4000/careers/1/apply");
+  //   res.status(301).send();
+  // }
 });
 
 // Start up the Node server
 app.listen(PORT, () => {
   console.log(`Node Express server listening on http://localhost:${PORT}`);
 });
+
+// function findRedirection(countryCode, routeSlug) {
+//   return "";
+// }

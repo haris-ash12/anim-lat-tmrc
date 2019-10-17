@@ -142,10 +142,11 @@
 
   &::after {
     content: "";
-    height: 1px;
-    max-width: 80%;
+    // height: 1px;
+    border-bottom: 3px double $color-grey-light;
+    width: 80%;
     margin-top: 2.5rem;
-    background-color: $color-grey-light;
+    // background-color: $color-grey-light;
   }
 }
 

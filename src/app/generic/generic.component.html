@@ -1,4 +1,8 @@
-<div class="generic-container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="generic-container">
   <div class="header__top">
     <img
       *ngIf="content.imageUrl"

@@ -5,16 +5,25 @@ import { BlogBySlugService } from "../services/blog-by-slug.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Title, Meta } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
   selector: "app-blog-detail",
   templateUrl: "./blog-detail.component.html",
-  styleUrls: ["./blog-detail.component.scss"]
+  styleUrls: ["./blog-detail.component.scss"],
+  animations: [
+    trigger("fade", [
+      state("out", style({ opacity: 0 })),
+      state("in", style({ opacity: 1 })),
+      transition("out => in", animate("500ms ease"))
+    ])
+  ]
 })
 export class BlogDetailComponent implements OnInit {
   yearsList: any[] = [];
   productsList: any[] = [];
   blog: any = {};
+  isAvailable: boolean;
 
   constructor(
     private productsService: ProductsService,
@@ -91,6 +100,8 @@ export class BlogDetailComponent implements OnInit {
       this.titleService.setTitle(this.blog.pageTitle);
       this.meta.updateTag({ name: "keywords", content: this.blog.metaKeywords });
       this.meta.updateTag({ name: "description", content: this.blog.metaDescription });
+
+      this.isAvailable = true;
     });
   }
 

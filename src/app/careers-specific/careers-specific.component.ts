@@ -3,16 +3,25 @@ import { ActivatedRoute } from "@angular/router";
 import { CareersService } from "../services/careers.service";
 import { HttpClient } from "@angular/common/http";
 import { Meta, Title } from "@angular/platform-browser";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
   selector: "app-careers-specific",
   templateUrl: "./careers-specific.component.html",
-  styleUrls: ["./careers-specific.component.scss"]
+  styleUrls: ["./careers-specific.component.scss"],
+  animations: [
+    trigger("fade", [
+      state("out", style({ opacity: 0 })),
+      state("in", style({ opacity: 1 })),
+      transition("out => in", animate("500ms ease"))
+    ])
+  ]
 })
 export class CareersSpecificComponent implements OnInit {
   career: any = {};
   career_slug: string = "";
   fileToUpload: File = null;
+  isAvailable: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,6 +60,8 @@ export class CareersSpecificComponent implements OnInit {
         this.titleSevice.setTitle(this.career.pageTitle);
         this.meta.updateTag({ name: "keywords", content: this.career.metaKeywords });
         this.meta.updateTag({ name: "description", content: this.career.metaDescription });
+
+        this.isAvailable = true;
       });
     });
   }

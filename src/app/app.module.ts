@@ -47,6 +47,8 @@ import { CareersApplyComponent } from "./careers-apply/careers-apply.component";
 import { ServerCookieService } from "./services/server-cookie.service";
 import { CountryCodeGuardService } from "./services/country-code-guard.service";
 import { ContactComponent } from "./contact/contact.component";
+import { TrainingsComponent } from "./trainings/trainings.component";
+import { TrainingDetailComponent } from "./training-detail/training-detail.component";
 
 export function startupProviderFactory(provider: StartUpService) {
   // console.log('provider.startupcall..');
@@ -88,7 +90,9 @@ export function starti(provider: StartUpService) {
     CareersComponent,
     CareersSpecificComponent,
     CareersApplyComponent,
-    ContactComponent
+    ContactComponent,
+    TrainingsComponent,
+    TrainingDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
@@ -107,12 +111,17 @@ export function starti(provider: StartUpService) {
             //   children: [
 
             { path: "news/:slug", component: NewsComponent },
+
             { path: "careers", component: CareersComponent },
             { path: "careers/:specificCareer", component: CareersSpecificComponent },
             { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
 
             { path: "blog", component: BlogsComponent },
             { path: "blog/:slug", component: BlogDetailComponent },
+
+            { path: "trainings", component: TrainingsComponent },
+            { path: "trainings/:slug", component: TrainingDetailComponent },
+
             { path: ":menu/:submenu", component: GenericComponent }
           ]
         },

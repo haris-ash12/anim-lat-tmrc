@@ -68,7 +68,7 @@ export class MainNavComponent implements OnInit {
           // }
         }
 
-        console.log("navigation ends....");
+        // console.log("navigation ends....");
         this.sidenav.close();
       }
     });
@@ -79,8 +79,8 @@ export class MainNavComponent implements OnInit {
 
     // call menu service, getData and make logic.
     this.menuService.getAll().subscribe((menus: any[]) => {
-      console.log("menus...");
-      console.log(menus);
+      // console.log("menus...");
+      // console.log(menus);
 
       for (let i = 0; i < menus.length; i++) {
         if (menus[i].ParentId === 0) {
@@ -96,8 +96,8 @@ export class MainNavComponent implements OnInit {
           parentMenus.push(parentMenuObject);
         }
       }
-      console.log("Parent menus...");
-      console.log(parentMenus);
+      // console.log("Parent menus...");
+      // console.log(parentMenus);
 
       // Log parent menu
       // console.log('Parent Menu ...');

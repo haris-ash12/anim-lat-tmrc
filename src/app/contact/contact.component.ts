@@ -28,7 +28,8 @@ export class ContactComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private globals: GlobalsService
   ) {
-    console.log("Printing Meta tags for Generic component..., GO CHECK!");
+    console.log("Contact component ................................................. ");
+    // console.log("Printing Meta tags for Generic component..., GO CHECK!");
     this.meta.addTag({ name: "Generic", content: "the generic tag ...." });
     // this.titleSevice.setTitle("Setting a title...");
   }
@@ -38,7 +39,7 @@ export class ContactComponent implements OnInit {
     let parentMenu = urlValue[1];
     let childMenu = urlValue[2];
 
-    console.log(urlValue[2] + "..." + urlValue[1]);
+    // console.log(urlValue[2] + "..." + urlValue[1]);
 
     if (this.parentMenu !== parentMenu) {
       this.submenus = [];
@@ -46,8 +47,8 @@ export class ContactComponent implements OnInit {
       this.submenuService
         .getByQueryParams(parentQueryParam)
         .subscribe((submenusResponse: any[]) => {
-          console.log("submenus...");
-          console.log(submenusResponse);
+          // console.log("submenus...");
+          // console.log(submenusResponse);
           for (let i = 0; i < submenusResponse.length; i++) {
             let submenuObject = {
               titleName: submenusResponse[i].TitleName,
@@ -69,15 +70,17 @@ export class ContactComponent implements OnInit {
       .subscribe((contentResponse: any) => {
         this.sideContents = [];
 
-        console.log("Content Response ...");
-        console.log(contentResponse);
+        // console.log("Content Response ...");
+        // console.log(contentResponse);
 
         // First we need to unescape details value.
         let details = unescape(contentResponse.Details);
 
         let contentObject = {
           details: details,
-          iconPath: this.globals.url + "/" + contentResponse.IconPath,
+          imageUrl: contentResponse.ImageUrl,
+          imageTitle: contentResponse.ImageTitle,
+          imageAlt: contentResponse.imageAlt,
           pageTitle: contentResponse.PageTitle,
           slug: contentResponse.Slug,
           metaDescription: contentResponse.MetaDescription,
@@ -87,8 +90,8 @@ export class ContactComponent implements OnInit {
 
         this.content = contentObject;
 
-        console.log("Content Object ...");
-        console.log(this.content);
+        // console.log("Content Object ...");
+        // console.log(this.content);
 
         this.titleSevice.setTitle(this.content.pageTitle);
         this.meta.updateTag({ name: "keywords", content: this.content.metaKeywords });

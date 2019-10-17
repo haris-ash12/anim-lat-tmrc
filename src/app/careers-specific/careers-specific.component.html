@@ -1,4 +1,8 @@
-<div class="job__container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="job__container">
   <div class="job__content">
     <h2 class="job__title">{{ career.title }}</h2>
     <!-- <h2 class="job__title">Job Title</h2> -->

@@ -1,4 +1,8 @@
-<div class="careers__container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="careers__container">
   <!-- ~~~ CULTURE PART ~~~ -->
   <div class="careers__culture">
     <div class="careers__culture__content">

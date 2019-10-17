@@ -6,14 +6,22 @@ import { HelperValuesService } from "../services/helper-values.service";
 import { Router } from "@angular/router";
 import { GlobalsService } from "../services/globals.service";
 import { isPlatformBrowser } from "@angular/common";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
   selector: "app-blogs",
   templateUrl: "./blogs.component.html",
-  styleUrls: ["./blogs.component.scss"]
+  styleUrls: ["./blogs.component.scss"],
+  animations: [
+    trigger("fade", [
+      state("out", style({ opacity: 0 })),
+      state("in", style({ opacity: 1 })),
+      transition("out => in", animate("500ms ease"))
+    ])
+  ]
 })
 export class BlogsComponent implements OnInit {
-  private blogsResponse: any[] = [];
+  blogsResponse: any[] = [];
   blogsList: any[] = [];
   productsList: any[] = [];
   yearsList: any[] = [];
@@ -25,15 +33,18 @@ export class BlogsComponent implements OnInit {
   pageno: number;
   total: number;
 
+  isAvailable: boolean;
+
   constructor(
     private blogsService: BlogsService,
     private productsService: ProductsService,
     private helperService: HelperValuesService,
-    private globals: GlobalsService,
+
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     console.log("Blog components ........................................................");
 
+    // These would be our initial values for the query.
     this.yearId = 2019;
     this.catid = 0;
     this.tags = "";
@@ -69,6 +80,9 @@ export class BlogsComponent implements OnInit {
 
     // --- PRODUCTS ---
     this.productsService.getAll().subscribe((productsResponse: any[]) => {
+      console.log("Products response ...");
+      console.log(productsResponse);
+
       for (let i = 0; i < productsResponse.length; i++) {
         let productObject = {
           title: productsResponse[i].CatName,
@@ -76,6 +90,8 @@ export class BlogsComponent implements OnInit {
         };
         this.productsList.push(productObject);
       }
+      console.log("Products List ...");
+      console.log(this.productsList);
     });
 
     // --- BLOGS ---
@@ -84,6 +100,7 @@ export class BlogsComponent implements OnInit {
       // And we need blogs array, blogs property.
 
       this.blogsResponse = blogResponse.blogs;
+      // console.log("Blogs response ................................");
       // console.log(this.blogsResponse);
 
       this.total = blogResponse.Total;
@@ -113,6 +130,8 @@ export class BlogsComponent implements OnInit {
       //   };
       //   this.blogsList.push(blogsObject);
       // }
+
+      this.isAvailable = true;
     });
   }
 
@@ -128,15 +147,24 @@ export class BlogsComponent implements OnInit {
       description = this.findTextInTagAndLimit(description);
       // console.log(description);
 
+      let isRedirectionActive: boolean;
+      if (!blogs[i].RedirectionUrl && !blogs[i].RedirectionType) {
+        isRedirectionActive = false;
+      } else {
+        isRedirectionActive = true;
+      }
+
       let blogsObject = {
         date: blogs[i].CreatedDate,
         description: description,
-        // featureImage: this.globals.url + "/" + blogs[i].FeatureImage,
         imageUrl: blogs[i].ImageUrl,
         imageTitle: blogs[i].ImageTitle,
         imageAlt: blogs[i].ImageAlt,
         slug: blogs[i].Slug,
-        title: blogs[i].Title
+        title: blogs[i].Title,
+        redirectionUrl: blogs[i].RedirectionUrl,
+        redirectionType: blogs[i].RedirectionType,
+        isRedirectionActive: isRedirectionActive
       };
       blogsList.push(blogsObject);
     }
@@ -160,7 +188,8 @@ export class BlogsComponent implements OnInit {
       this.blogsResponse = blogResponse.blogs;
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
-      // console.log(this.blogsList);
+      console.log("Products clicked.....");
+      console.log(this.blogsList);
 
       this.goToTop();
     });
@@ -175,7 +204,8 @@ export class BlogsComponent implements OnInit {
       this.blogsResponse = blogResponse.blogs;
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
-      // console.log(this.blogsList);
+      console.log("Years Clicked ...");
+      console.log(this.blogsList);
       this.goToTop();
     });
   }

@@ -1,0 +1,89 @@
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="training-details-container">
+  <div class="training-details-container__content">
+    <div class="hero-area">
+      <h1 class="hero-area__title heading-1">{{ training.title }}</h1>
+      <p class="hero-area__date">-- {{ training.datePosted | date }} --</p>
+      <p class="hero-area__tag">{{ training.category }}</p>
+      <!-- <img class="hero-area__image" [src]="blog.featureImage" alt="Blog Feature Image" /> -->
+
+      <!-- <h1 class="hero-area__title heading-1">Heading of Training</h1>
+      <p class="hero-area__date">-- 21 jan, 2017 --</p>
+      <p class="hero-area__tag">Training Category</p> -->
+    </div>
+    <div class="dynamic-content" [innerHtml]="training.description">
+      <!-- <div class="training-dynamic-content"> -->
+      <!-- <h2>Cloud Based solutions</h2>
+      <p>
+        Dynamics 365, Cloud-based solution, the combination of Enterprise Resource Planning (ERP)
+        and Customer Relationship Management (CRM) giving strength to business by generating
+        effective outcomes; possessing enough capabilities to digitally transform the business
+        applications. Manage the workflow of business with flexibility & adaptability and accomplish
+        large scale collaboration among multiple departments of the firm with real-time insight.
+      </p>
+      <img src="../../assets/images/azure-vs-aws-pricing.jpg" alt="Image" />
+      <p>
+        Dynamics 365, Cloud-based solution, the combination of Enterprise Resource Planning (ERP)
+        and Customer Relationship Management (CRM) giving strength to business by generating
+        effective outcomes; possessing enough capabilities to digitally transform the business
+        applications. Manage the workflow of business with flexibility & adaptability and accomplish
+        large scale collaboration among multiple departments of the firm with real-time insight.
+      </p> -->
+
+      <!-- <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen
+      ></iframe> -->
+    </div>
+
+    <div class="training-video">
+      <iframe
+        width="544"
+        height="306"
+        *ngIf="training.videoUrl"
+        [src]="training.videoUrl"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  </div>
+  <div class="training-details-container__sidebar">
+    <!-- Products -->
+    <div class="list">
+      <p class="list__title">Trainings</p>
+      <div class="list__items">
+        <button (click)="categoryClicked(0, 0)" class="list__item">All</button>
+        <button
+          (click)="categoryClicked(trainingCategory.parentId, trainingCategory.childId)"
+          *ngFor="let trainingCategory of trainingCategoriesList"
+          class="list__item"
+        >
+          {{ trainingCategory.title | titlecase }}
+        </button>
+        <!-- <button class="list__item">Offices 365</button>
+        <button class="list__item">Dynamics</button>
+        <button class="list__item">One Note</button>
+        <button class="list__item">Textile</button> -->
+      </div>
+    </div>
+
+    <!-- Years -->
+    <!-- <div class="list">
+        <p class="list__title">Years</p>
+        <div class="list__items">
+          <button (click)="yearsClicked(year)" *ngFor="let year of yearsList" class="list__item">
+            {{ year }}
+          </button>
+         
+        </div>
+      </div> -->
+  </div>
+</div>

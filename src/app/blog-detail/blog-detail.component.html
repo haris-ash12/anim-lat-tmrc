@@ -1,4 +1,8 @@
-<div class="detail-container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="detail-container">
   <div class="detail-container__content">
     <div class="hero-area">
       <h1 class="hero-area__title heading-1">{{ blog.title }}</h1>
