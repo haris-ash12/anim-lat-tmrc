@@ -64,7 +64,24 @@
     <h2 class="section-line section-service--line-center">
       Our <span class="section-line--orange">Services</span>
     </h2>
-    <div class="section-service__card section-service__card--1">
+
+    <div
+      *ngFor="let services of ourServices; let i = index"
+      class="section-service__card section-service__card--{{ i + 1 }}"
+    >
+      <a
+        [routerLink]="['/', services.url.parent, services.url.child]"
+        class="section-service__link"
+      ></a>
+      <img class="section-service__icon" src="../../assets/project-management.png" alt="" />
+      <h3 class="section-service__heading">{{ services.title }}</h3>
+      <p class="section-service__paragraph">
+        {{ services.description }}
+      </p>
+    </div>
+
+    <!-- <div class="section-service__card section-service__card--1">
+      <a routerLink="/services/business-solutions" class="section-service__link"></a>
       <img class="section-service__icon" src="../../assets/project-management.png" alt="" />
       <h3 class="section-service__heading">Business Solutions</h3>
       <p class="section-service__paragraph">
@@ -75,6 +92,7 @@
     </div>
 
     <div class="section-service__card section-service__card--2">
+      <a routerLink="/industries/retail" class="section-service__link"></a>
       <img class="section-service__icon" src="../../assets/firewall.png" alt="" />
       <h3 class="section-service__heading">Infrastructure & endpoint managment</h3>
       <p class="section-service__paragraph">
@@ -85,6 +103,7 @@
     </div>
 
     <div class="section-service__card section-service__card--3">
+      <a routerLink="/services/customization-development" class="section-service__link"></a>
       <img class="section-service__icon" src="../../assets/growth.png" alt="" />
       <h3 class="section-service__heading">Customization & Development</h3>
       <p class="section-service__paragraph">
@@ -95,6 +114,7 @@
     </div>
 
     <div class="section-service__card section-service__card--4">
+      <a routerLink="/services/business-intelligence-reporting" class="section-service__link"></a>
       <img class="section-service__icon" src="../../assets/customer-support.png" alt="" />
       <h3 class="section-service__heading">Business Intelligence</h3>
       <p class="section-service__paragraph">
@@ -102,6 +122,6 @@
         departmental solutions into your business, Either on cloud or on-premises, Making process
         automation possible!
       </p>
-    </div>
+    </div> -->
   </section>
 </div>

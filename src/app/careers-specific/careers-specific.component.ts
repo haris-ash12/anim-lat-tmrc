@@ -34,7 +34,7 @@ export class CareersSpecificComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       let careerSlug = params.get("specificCareer");
-      careerSlug = "search=" + careerSlug;
+      careerSlug = "slug=" + careerSlug;
 
       this.careersService.getByQueryParams(careerSlug).subscribe((careerResponse: any[]) => {
         console.log("Careers Response...");

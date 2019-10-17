@@ -64,6 +64,8 @@ import {
 export class HomeComponent implements OnInit {
   imageUrlArray: any[] = [];
   whoWeAre: any = {};
+  ourServices: any[] = [];
+
   arrowSize: string = "10px";
   showArrows: boolean = true;
   showDots: boolean = true;
@@ -77,8 +79,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeContentService,
-    private globals: GlobalsService,
-    private meta: Meta,
     private _sanitizer: DomSanitizer,
     public scroll: ScrollDispatcher
   ) {
@@ -101,6 +101,10 @@ export class HomeComponent implements OnInit {
       // Image Slider Model
       let sliderArrayResponse: any[] = homeResponse.ImageSliderModel;
       let WhoWeAreObjectResponse: any = homeResponse.WhoWeAreModel;
+      let servicesResponse: any[] = homeResponse.OurServices;
+      console.log("Our Services ....");
+      console.log(servicesResponse);
+
       let sliderArray: any[] = [];
 
       for (let i = 0; i < sliderArrayResponse.length; i++) {
@@ -110,14 +114,31 @@ export class HomeComponent implements OnInit {
       this.imageUrlArray = sliderArray;
       // console.log(sliderArray);
 
-      // ~~~
-
       // console.log(WhoWeAreObjectResponse);
       this.whoWeAre["textContent"] = WhoWeAreObjectResponse.ContentDetails;
       this.whoWeAre["videoLink"] = this._sanitizer.bypassSecurityTrustResourceUrl(
         WhoWeAreObjectResponse.VedioUrl
       );
 
+      for (let i = 0; i < servicesResponse.length; i++) {
+        let url: string = servicesResponse[i].Url;
+        let parent = url.split("/")[1];
+        let child = url.split("/")[2];
+
+        let serviceObject = {
+          title: servicesResponse[i].Heading,
+          description: servicesResponse[i].ContentDetails,
+          iconUrl: servicesResponse[i].ImageTitle,
+          iconTitle: servicesResponse[i].ImageTitle,
+          iconAlt: servicesResponse[i].ImageAlt,
+          url: {
+            parent: parent,
+            child: child
+          }
+        };
+        this.ourServices.push(serviceObject);
+      }
+      console.log(this.ourServices);
       // console.log("Who we are !!!");
       // console.log(this.whoWeAre);
     });

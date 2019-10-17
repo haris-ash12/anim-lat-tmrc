@@ -16,6 +16,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import { MatSidenav } from "@angular/material";
 import { ScrollDispatcher, CdkScrollable } from "@angular/cdk/scrolling";
 import { isPlatformBrowser, ViewportScroller } from "@angular/common";
+import { Meta, Title } from "@angular/platform-browser";
 
 // const content = document.querySelector(".mat-sidenav-content");
 
@@ -32,6 +33,7 @@ export class MainNavComponent implements OnInit {
   //   console.log(scrollTop);
   // }
   @ViewChild("drawer", { static: false }) sidenav: MatSidenav;
+  menusResponse: any[] = [];
   menus: any[] = [];
   news: any = [];
 
@@ -46,14 +48,22 @@ export class MainNavComponent implements OnInit {
     private newsService: NewsService,
     private router: Router,
     public scroll: ScrollDispatcher,
+    private meta: Meta,
+    private titleSevice: Title,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     // this.scrollingSubscription = this.scroll.scrolled().subscribe((data: CdkScrollable) => {
     //   this.onWindowScroll(data);
     // });
 
+    console.log("Menus component .....................................................");
+
     this.router.events.subscribe(val => {
-      let c = this.router.url.split("#");
+      let currentRoute = this.router.url;
+      // console.log("current route ....");
+      // console.log(currentRoute);
+
+      let c = currentRoute.split("#");
 
       if (val instanceof NavigationEnd) {
         // Beacause we are injecting our router inside material side nav, scrollPositionRestoration to top doesnot works with routing array.
@@ -68,6 +78,9 @@ export class MainNavComponent implements OnInit {
           // }
         }
 
+        // FOR SEO PURPOSE
+        this.addMetaTagsMatchingCurrentUrl(currentRoute);
+
         // console.log("navigation ends....");
         this.sidenav.close();
       }
@@ -78,20 +91,25 @@ export class MainNavComponent implements OnInit {
     let parentMenus: any[] = [];
 
     // call menu service, getData and make logic.
-    this.menuService.getAll().subscribe((menus: any[]) => {
-      // console.log("menus...");
-      // console.log(menus);
+    this.menuService.getAll().subscribe((menusResponse: any[]) => {
+      // console.log("menus Response ...");
+      // console.log(menusResponse);
+      this.menusResponse = menusResponse;
 
-      for (let i = 0; i < menus.length; i++) {
-        if (menus[i].ParentId === 0) {
+      // FOR SEO PURPOSE
+      let currentRoute = this.router.url;
+      this.addMetaTagsMatchingCurrentUrl(currentRoute);
+
+      for (let i = 0; i < menusResponse.length; i++) {
+        if (menusResponse[i].ParentId === 0) {
           let parentMenuObject = {
-            id: menus[i].TitleId,
-            titleName: menus[i].TitleName,
-            slug: menus[i].Slug,
-            priority: menus[i].Priority,
-            metaDescription: menus[i].MetaDescription,
-            metaKeywords: menus[i].MetaKeywords,
-            pageTitle: menus[i].PageTitle
+            id: menusResponse[i].TitleId,
+            titleName: menusResponse[i].TitleName,
+            slug: menusResponse[i].Slug,
+            priority: menusResponse[i].Priority,
+            metaDescription: menusResponse[i].MetaDescription,
+            metaKeywords: menusResponse[i].MetaKeywords,
+            pageTitle: menusResponse[i].PageTitle
           };
           parentMenus.push(parentMenuObject);
         }
@@ -105,27 +123,30 @@ export class MainNavComponent implements OnInit {
 
       for (let i = 0; i < parentMenus.length; i++) {
         let subMenus: any[] = [];
-        for (let j = 0; j < menus.length; j++) {
-          if (parentMenus[i].id === menus[j].ParentId) {
+        for (let j = 0; j < menusResponse.length; j++) {
+          if (parentMenus[i].id === menusResponse[j].ParentId) {
             // console.log(parentMenus[i].titleName + '......');
 
             let singleChildObject = {
-              id: menus[j].TitleId,
-              titleName: menus[j].TitleName,
-              slug: menus[j].Slug
+              id: menusResponse[j].TitleId,
+              titleName: menusResponse[j].TitleName,
+              slug: menusResponse[j].Slug,
+              priority: menusResponse[i].Priority,
+              metaDescription: menusResponse[i].MetaDescription,
+              metaKeywords: menusResponse[i].MetaKeywords,
+              pageTitle: menusResponse[i].PageTitle
             };
             subMenus.push(singleChildObject);
-
-            // console.log('...' + menus[j].TitleName);
           }
         }
         parentMenus[i]["children"] = subMenus;
       }
 
-      // console.log(parentMenus);
       this.menus = parentMenus;
+      // console.log("List of menus array ...");
       // console.log(this.menus);
 
+      // GET ALL NEWS
       //------------------------
       this.newsService.getAll().subscribe((newsResponse: any[]) => {
         // console.log(newsResponse);
@@ -141,5 +162,38 @@ export class MainNavComponent implements OnInit {
       });
       //------------------------
     });
+  }
+
+  addMetaTagsMatchingCurrentUrl(currentRoute) {
+    // console.log("addMetaTagsMatchingCurrentUrl() ...");
+    // console.log(currentRoute.split("/"));
+    let currentRoutesArray = currentRoute.split("/");
+    // console.log(this.menusResponse.length);
+
+    for (let i = 0; i < this.menusResponse.length; i++) {
+      let valueToMatch: string;
+      if (currentRoutesArray.length === 2) {
+        valueToMatch = currentRoutesArray[1];
+
+        if (currentRoutesArray[1] === "") valueToMatch = "/";
+      } else if (currentRoutesArray.length === 3) {
+        valueToMatch = currentRoutesArray[2];
+      }
+
+      if (valueToMatch === this.menusResponse[i].Slug) {
+        // console.log("Slug Matched ...");
+
+        this.titleSevice.setTitle(this.menusResponse[i].PageTitle);
+        this.meta.updateTag({ name: "keywords", content: this.menusResponse[i].MetaKeywords });
+        this.meta.updateTag({
+          name: "description",
+          content: this.menusResponse[i].MetaDescription
+        });
+
+        // console.log("TItle", this.menusResponse[i].PageTitle);
+        // console.log("Mete keywords", this.menusResponse[i].MetaKeywords);
+        // console.log("Description", this.menusResponse[i].MetaDescription);
+      }
+    }
   }
 }

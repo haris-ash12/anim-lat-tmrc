@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TrainingsCategoryService } from "../trainings-category.service";
 import { TrainingsService } from "../trainings.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { DomSanitizer } from "@angular/platform-browser";
+import { DomSanitizer, Meta, Title } from "@angular/platform-browser";
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { HelperValuesService } from "../services/helper-values.service";
 
@@ -29,6 +29,8 @@ export class TrainingDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private helperService: HelperValuesService,
+    private meta: Meta,
+    private titleService: Title,
     private _sanitizer: DomSanitizer
   ) {}
 
@@ -86,6 +88,10 @@ export class TrainingDetailComponent implements OnInit {
         videoUrl: this._sanitizer.bypassSecurityTrustResourceUrl(trainingResponse.VideoUrl)
       };
       console.log(description);
+
+      this.titleService.setTitle(this.training.pageTitle);
+      this.meta.updateTag({ name: "keywords", content: this.training.metaKeywords });
+      this.meta.updateTag({ name: "description", content: this.training.metaDescription });
 
       this.isAvailable = true;
     });

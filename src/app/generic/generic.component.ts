@@ -37,7 +37,7 @@ export class GenericComponent implements OnInit {
   ) {
     console.log("Genric component .............................................");
     // console.log("Printing Meta tags for Generic component..., GO CHECK!");
-    this.meta.addTag({ name: "Generic", content: "the generic tag ...." });
+    // this.meta.addTag({ name: "Generic", content: "the generic tag ...." });
     // this.titleSevice.setTitle("Setting a title...");
   }
 

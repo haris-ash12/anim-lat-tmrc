@@ -80,8 +80,8 @@ export class BlogsComponent implements OnInit {
 
     // --- PRODUCTS ---
     this.productsService.getAll().subscribe((productsResponse: any[]) => {
-      console.log("Products response ...");
-      console.log(productsResponse);
+      // console.log("Products response ...");
+      // console.log(productsResponse);
 
       for (let i = 0; i < productsResponse.length; i++) {
         let productObject = {
@@ -90,8 +90,8 @@ export class BlogsComponent implements OnInit {
         };
         this.productsList.push(productObject);
       }
-      console.log("Products List ...");
-      console.log(this.productsList);
+      // console.log("Products List ...");
+      // console.log(this.productsList);
     });
 
     // --- BLOGS ---
@@ -100,8 +100,8 @@ export class BlogsComponent implements OnInit {
       // And we need blogs array, blogs property.
 
       this.blogsResponse = blogResponse.blogs;
-      // console.log("Blogs response ................................");
-      // console.log(this.blogsResponse);
+      console.log("Blogs response ................................");
+      console.log(this.blogsResponse);
 
       this.total = blogResponse.Total;
 
