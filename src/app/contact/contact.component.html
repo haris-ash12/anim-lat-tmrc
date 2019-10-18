@@ -1,4 +1,8 @@
-<div class="generic-container">
+<div *ngIf="!isAvailable" class="container-generic">
+  <div class="container-generic__loader"></div>
+</div>
+
+<div [@fade]="isAvailable ? 'in' : 'out'" class="generic-container">
   <div class="header__top">
     <img
       *ngIf="content.imageUrl"
@@ -65,7 +69,33 @@
     <!-- <h2 class="location">Location</h2> -->
 
     <div class="contact-grid">
-      <div class="contact-grid__card contact-grid__card--one">
+      <div
+        *ngFor="let contactAddress of contactAddresses; let i = index"
+        class="contact-grid__card contact-grid__card--{{ i + 1 }}"
+      >
+        <img
+          *ngIf="contactAddress.imageUrl"
+          class="contact-grid__icon"
+          [src]="contactAddress.imageUrl"
+          [alt]="contactAddress.imageAlt"
+          [title]="contactAddress.imageTitle"
+        />
+        <h4 class="contact-grid__heading">{{ contactAddress.title }}</h4>
+        <p class="contact-grid__address">
+          {{ contactAddress.address }}
+        </p>
+        <p *ngIf="contactAddress.telephone" class="contact-grid__telephone">
+          <b>Tel :</b> {{ contactAddress.telephone }}
+        </p>
+        <p *ngIf="contactAddress.fax" class="contact-grid__fax">
+          <b>Fax :</b> {{ contactAddress.fax }}
+        </p>
+        <a target="_blank" class="contact-grid__location" [href]="contactAddress.locationLink"
+          >View Location</a
+        >
+      </div>
+
+      <!-- <div class="contact-grid__card contact-grid__card--one">
         <img
           class="contact-grid__icon"
           src="./../../assets/images/contact-icons/islamabad.png"
@@ -137,7 +167,7 @@
           href="https://www.google.com/maps/place/TMRC+UAE/@25.0612838,54.8487765,10z/data=!3m1!4b1!4m5!3m4!1s0x3e5f42ee5c6e05b9:0x6d2565fd986a501f!8m2!3d25.0609246!4d55.1289795"
           >View Location</a
         >
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

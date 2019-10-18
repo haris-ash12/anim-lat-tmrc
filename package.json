@@ -13,7 +13,7 @@
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
     "build:client-and-server-bundles": "ng build --prod && ng run Tmrc-new:server:production --bundleDependencies all",
     "start:heroku": "node dist/server/",
-    "postinstall": "npm run build:ssr"
+    "postinstall": "npm run build:client-and-server-bundles && npm run compile:server"
   },
   "private": true,
   "dependencies": {

@@ -152,6 +152,8 @@
   display: grid;
   // align-items: start;
 
+  width: 100%;
+
   grid-template-columns: 1fr 1fr;
   font-size: 1.5rem;
 
@@ -167,7 +169,7 @@
     padding: 2.5rem 0;
     // border: 1px solid $color-grey-light;
 
-    &--one {
+    &--1 {
       border-right: 1px solid $color-grey-light-2;
       border-bottom: 1px solid $color-grey-light-2;
       @include respond(phone) {
@@ -175,7 +177,7 @@
       }
     }
 
-    &--two {
+    &--2 {
       border-left: 1px solid $color-grey-light-2;
       border-bottom: 1px solid $color-grey-light-2;
 
@@ -184,7 +186,7 @@
       }
     }
 
-    &--three {
+    &--3 {
       border-right: 1px solid $color-grey-light-2;
       border-top: 1px solid $color-grey-light-2;
 
@@ -193,7 +195,7 @@
       }
     }
 
-    &--four {
+    &--4 {
       border-left: 1px solid $color-grey-light-2;
       border-top: 1px solid $color-grey-light-2;
 

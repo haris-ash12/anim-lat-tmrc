@@ -5,24 +5,36 @@ import { GenericContentService } from "../services/generic-content.service";
 import { Meta, Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
 import { ContactUsService } from "../services/contact-us.service";
+import { ContactAddressService } from "../contact-address.service";
+import { trigger, state, style, transition, animate } from "@angular/animations";
 
 @Component({
   selector: "app-contact",
   templateUrl: "./contact.component.html",
-  styleUrls: ["./contact.component.scss"]
+  styleUrls: ["./contact.component.scss"],
+  animations: [
+    trigger("fade", [
+      state("out", style({ opacity: 0 })),
+      state("in", style({ opacity: 1 })),
+      transition("out => in", animate("500ms ease"))
+    ])
+  ]
 })
 export class ContactComponent implements OnInit {
   sideContents: any = [];
   submenus: any[] = [];
   content: any = {};
+  contactAddresses: any[] = [];
   parentMenu: string = "";
   childMenu: string = "";
+  isAvailable: boolean;
 
   constructor(
     private router: Router,
     private submenuService: SubmenuService,
     private genericContentService: GenericContentService,
     private contactService: ContactUsService,
+    private contactAddressService: ContactAddressService,
     private meta: Meta,
     private titleSevice: Title,
     private _sanitizer: DomSanitizer,
@@ -92,6 +104,32 @@ export class ContactComponent implements OnInit {
 
         // console.log("Content Object ...");
         // console.log(this.content);
+
+        // Get contact addresses from API
+        this.contactAddressService.getAll().subscribe((contactAddressesResponse: any[]) => {
+          console.log("Contact addressess ....");
+          console.log(contactAddressesResponse);
+
+          for (let i = 0; i < contactAddressesResponse.length; i++) {
+            let contactAddressObject = {
+              title: contactAddressesResponse[i].Title,
+              address: contactAddressesResponse[i].Address,
+              telephone: contactAddressesResponse[i].PhoneNumber,
+              fax: contactAddressesResponse[i].Fax,
+              locationLink: contactAddressesResponse[i].LocationLink,
+              imageUrl: contactAddressesResponse[i].ImageUrl,
+              imageAlt: contactAddressesResponse[i].ImageAlt,
+              imageTitle: contactAddressesResponse[i].imageTitle
+            };
+
+            this.contactAddresses.push(contactAddressObject);
+          }
+
+          console.log("Modified contact addresses object ...");
+          console.log(this.contactAddresses);
+
+          this.isAvailable = true;
+        });
 
         this.titleSevice.setTitle(this.content.pageTitle);
         this.meta.updateTag({ name: "keywords", content: this.content.metaKeywords });
