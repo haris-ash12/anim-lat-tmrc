@@ -73,7 +73,12 @@
         [routerLink]="['/', services.url.parent, services.url.child]"
         class="section-service__link"
       ></a>
-      <img class="section-service__icon" src="../../assets/project-management.png" alt="" />
+      <img
+        class="section-service__icon"
+        [src]="services.imageUrl"
+        [alt]="services.imageAlt"
+        [title]="services.imageTitle"
+      />
       <h3 class="section-service__heading">{{ services.title }}</h3>
       <p class="section-service__paragraph">
         {{ services.description }}

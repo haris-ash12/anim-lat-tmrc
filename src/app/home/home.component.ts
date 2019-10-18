@@ -128,9 +128,9 @@ export class HomeComponent implements OnInit {
         let serviceObject = {
           title: servicesResponse[i].Heading,
           description: servicesResponse[i].ContentDetails,
-          iconUrl: servicesResponse[i].ImageTitle,
-          iconTitle: servicesResponse[i].ImageTitle,
-          iconAlt: servicesResponse[i].ImageAlt,
+          imageUrl: servicesResponse[i].ImageUrl,
+          imageTitle: servicesResponse[i].ImageTitle,
+          imageAlt: servicesResponse[i].ImageAlt,
           url: {
             parent: parent,
             child: child

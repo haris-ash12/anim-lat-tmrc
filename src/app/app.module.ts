@@ -25,7 +25,7 @@ import { BlogsComponent } from "./blogs/blogs.component";
 import { BlogDetailComponent } from "./blog-detail/blog-detail.component";
 import { LocationService } from "./services/location.service";
 import { APP_BASE_HREF, isPlatformBrowser } from "@angular/common";
-import { SpecificComponent } from "./specific/specific.component";
+// import { SpecificComponent } from "./specific/specific.component";
 import { HomeComponent } from "./home/home.component";
 import { StartUpService } from "./services/start-up.service";
 
@@ -33,17 +33,17 @@ import { pipe } from "rxjs";
 import { map } from "rxjs/operators";
 import { async } from "@angular/core/testing";
 
-import { TestComponent } from "./test/test.component";
+// import { TestComponent } from "./test/test.component";
 import { FooterComponent } from "./footer/footer.component";
 import { GenericComponent } from "./generic/generic.component";
 import { MainNavComponent } from "./main-nav/main-nav.component";
 import { LoaderComponent } from "./loader/loader.component";
 import { LoaderInterceptorService } from "./services/loader-interceptor.service";
 import { NewsComponent } from "./news/news.component";
-import { NavigationBarComponent } from "./navigation-bar/navigation-bar.component";
+// import { NavigationBarComponent } from "./navigation-bar/navigation-bar.component";
 import { CareersComponent } from "./careers/careers.component";
 import { CareersSpecificComponent } from "./careers-specific/careers-specific.component";
-import { CareersApplyComponent } from "./careers-apply/careers-apply.component";
+// import { CareersApplyComponent } from "./careers-apply/careers-apply.component";
 import { ServerCookieService } from "./services/server-cookie.service";
 import { CountryCodeGuardService } from "./services/country-code-guard.service";
 import { ContactComponent } from "./contact/contact.component";
@@ -78,18 +78,18 @@ export function starti(provider: StartUpService) {
     AppComponent,
     BlogsComponent,
     BlogDetailComponent,
-    SpecificComponent,
+    // SpecificComponent,
     HomeComponent,
-    TestComponent,
+    // TestComponent,
     FooterComponent,
     GenericComponent,
     MainNavComponent,
     LoaderComponent,
     NewsComponent,
-    NavigationBarComponent,
+    // NavigationBarComponent,
     CareersComponent,
     CareersSpecificComponent,
-    CareersApplyComponent,
+    // CareersApplyComponent,
     ContactComponent,
     TrainingsComponent,
     TrainingDetailComponent
@@ -103,7 +103,7 @@ export function starti(provider: StartUpService) {
           canActivate: [CountryCodeGuardService],
           children: [
             { path: "", component: HomeComponent },
-            { path: "test", component: TestComponent },
+            // { path: "test", component: TestComponent },
             { path: "about-us/contact-us", component: ContactComponent },
             // {
             //   path: ':countryCode',
@@ -114,7 +114,7 @@ export function starti(provider: StartUpService) {
 
             { path: "careers", component: CareersComponent },
             { path: "careers/:specificCareer", component: CareersSpecificComponent },
-            { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
+            // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
 
             { path: "blog", component: BlogsComponent },
             { path: "blog/:slug", component: BlogDetailComponent },
@@ -129,7 +129,7 @@ export function starti(provider: StartUpService) {
           path: ":cc",
           children: [
             { path: "", component: HomeComponent },
-            { path: "test", component: TestComponent },
+            // { path: "test", component: TestComponent },
             // {
             //   path: ':countryCode',
             //   component: SpecificComponent,
@@ -138,7 +138,7 @@ export function starti(provider: StartUpService) {
             { path: "news/:slug", component: NewsComponent },
             { path: "careers", component: CareersComponent },
             { path: "careers/:specificCareer", component: CareersSpecificComponent },
-            { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
+            // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
 
             { path: "blog", component: BlogsComponent },
             { path: "blog/:slug", component: BlogDetailComponent },
