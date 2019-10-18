@@ -22,9 +22,11 @@ import { join } from "path";
 const https = require("https");
 const http = require("http");
 const cors = require("cors");
+const compression = require("compression");
 
 // Express server
 const app = express();
+app.use(compression());
 
 const PORT = process.env.PORT || 4000;
 const DIST_FOLDER = join(process.cwd(), "dist/browser");
