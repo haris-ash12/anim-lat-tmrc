@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject, PLATFORM_ID } from "@angular/core";
 import { MenuService } from "./services/menus/menu.service";
 import { LoaderService } from "./services/loader.service";
 import { HelperValuesService } from "./services/helper-values.service";
+import { isPlatformBrowser, isPlatformServer } from "@angular/common";
 
 @Component({
   selector: "app-root",

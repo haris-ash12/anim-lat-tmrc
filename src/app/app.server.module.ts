@@ -9,6 +9,8 @@ import { ModuleMapLoaderModule } from "@nguniversal/module-map-ngfactory-loader"
 import { ServerCookieService } from "./services/server-cookie.service";
 import { APP_BASE_HREF } from "@angular/common";
 import { StartUpService } from "./services/start-up.service";
+import { TestComponent } from "./test/test.component";
+import { TestModule } from "./test/test.module";
 
 export function setBaseHref(provider: StartUpService) {
   console.log("setBaseHref...");
@@ -27,7 +29,7 @@ export class RequestCookies {
 }
 
 @NgModule({
-  imports: [AppModule, ServerModule, ModuleMapLoaderModule],
+  imports: [AppModule, ServerModule, ModuleMapLoaderModule, TestModule],
   providers: [
     ServerCookieService,
     { provide: "req", useClass: RequestCookies }
@@ -43,6 +45,6 @@ export class RequestCookies {
     //   useValue: "/PK"
     // }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, TestComponent]
 })
 export class AppServerModule {}

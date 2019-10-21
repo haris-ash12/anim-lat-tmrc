@@ -1,119 +1,119 @@
 @import "./../scss/abstracts/variables";
 @import "./../scss/abstracts/mixins";
 
-.menu-spacer {
-  flex: 1 1 auto;
-}
+// .menu-spacer {
+//   flex: 1 1 auto;
+// }
 
-.mat-drawer {
-  right: 0;
-  transform: translate3d(100%, 0, 0);
-}
-.mat-toolbar.mat-primary {
-  background: $color-primary;
-}
-.mat-button {
-  text-decoration: none;
+// .mat-drawer {
+//   right: 0;
+//   transform: translate3d(100%, 0, 0);
+// }
+// .mat-toolbar.mat-primary {
+//   background: $color-primary;
+// }
+// .mat-button {
+//   text-decoration: none;
 
-  &:hover {
-    color: $color-secondary;
-  }
-}
+//   &:hover {
+//     color: $color-secondary;
+//   }
+// }
 
-.dropdown-menu.show {
-  margin-top: 2rem;
-  background-color: $color-primary;
-  //   margin-left: -50%;
-  box-shadow: -0.5rem 0.5rem 2rem rgba($color: #000, $alpha: 0.15);
-}
-.dropdown-item {
-  color: white !important;
-  font-size: 1.4rem;
+// .dropdown-menu.show {
+//   margin-top: 2rem;
+//   background-color: $color-primary;
+//   //   margin-left: -50%;
+//   box-shadow: -0.5rem 0.5rem 2rem rgba($color: #000, $alpha: 0.15);
+// }
+// .dropdown-item {
+//   color: white !important;
+//   font-size: 1.4rem;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid $color-grey-light;
-  }
+//   &:not(:last-child) {
+//     border-bottom: 1px solid $color-grey-light;
+//   }
 
-  &:hover {
-    background: transparent;
-    color: $color-secondary !important;
-  }
-}
+//   &:hover {
+//     background: transparent;
+//     color: $color-secondary !important;
+//   }
+// }
 
-.navbar {
-  &__logo {
-    height: 3.5rem;
-    margin-left: 3.5rem;
-  }
-}
+// .navbar {
+//   &__logo {
+//     height: 3.5rem;
+//     margin-left: 3.5rem;
+//   }
+// }
 
-// Making my own list in side nav.
+// // Making my own list in side nav.
 
-.my-list {
-  display: grid;
-  font-size: 1.6rem;
+// .my-list {
+//   display: grid;
+//   font-size: 1.6rem;
 
-  &__item {
-    margin-bottom: 1.5rem;
-    cursor: pointer;
-  }
-}
-.my-dp {
-  position: relative !important;
-  transform: none !important;
-  float: none !important;
-  margin-top: 0 !important;
-  box-shadow: none !important;
+//   &__item {
+//     margin-bottom: 1.5rem;
+//     cursor: pointer;
+//   }
+// }
+// .my-dp {
+//   position: relative !important;
+//   transform: none !important;
+//   float: none !important;
+//   margin-top: 0 !important;
+//   box-shadow: none !important;
 
-  & > a {
-    font-size: 1.6rem !important;
-  }
-}
+//   & > a {
+//     font-size: 1.6rem !important;
+//   }
+// }
 
-.mat-drawer {
-  background: $color-primary;
-  color: white;
+// .mat-drawer {
+//   background: $color-primary;
+//   color: white;
 
-  @include respond(tab-port-near) {
-    width: 30%;
-  }
-}
+//   @include respond(tab-port-near) {
+//     width: 30%;
+//   }
+// }
 
-.mat-list-base {
-  padding: 2rem;
-}
-.mat-icon-button {
-  outline: none;
-}
+// .mat-list-base {
+//   padding: 2rem;
+// }
+// .mat-icon-button {
+//   outline: none;
+// }
 
-.dropdown-toggle {
-  @include respond(tab-port-near) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-.cross-icon {
-  font-size: 1.6rem;
-  padding: 2rem;
-  cursor: pointer;
+// .dropdown-toggle {
+//   @include respond(tab-port-near) {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//   }
+// }
+// .cross-icon {
+//   font-size: 1.6rem;
+//   padding: 2rem;
+//   cursor: pointer;
 
-  & > i:hover {
-    color: $color-secondary;
-  }
-}
+//   & > i:hover {
+//     color: $color-secondary;
+//   }
+// }
 
-.mat-drawer-content,
-.mat-sidenav-content {
-  background: white;
-}
+// .mat-drawer-content,
+// .mat-sidenav-content {
+//   background: white;
+// }
 
-.mat-toolbar {
-  border-bottom: 1px solid $color-grey-light;
-}
+// .mat-toolbar {
+//   border-bottom: 1px solid $color-grey-light;
+// }
 
-.boxi {
-  height: 200px;
-  width: 100%;
-  background: lightblue;
-}
+// .boxi {
+//   height: 200px;
+//   width: 100%;
+//   background: lightblue;
+// }

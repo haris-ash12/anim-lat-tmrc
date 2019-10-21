@@ -15,7 +15,7 @@ import {
 } from "@angular/material";
 
 import { ScrollingModule } from "@angular/cdk/scrolling";
-// import { FlexLayoutModule } from "@angular/flex-layout";
+import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SlideshowModule } from "ng-simple-slideshow";
 import { CookieService } from "ngx-cookie-service";
@@ -162,7 +162,7 @@ export function starti(provider: StartUpService) {
     MatListModule,
     MatIconModule,
     MatButtonModule,
-    // FlexLayoutModule,
+    FlexLayoutModule,
     SlideshowModule,
     ScrollingModule
   ],
