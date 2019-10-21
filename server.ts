@@ -162,9 +162,23 @@ app.get("*", (req, res) => {
               console.log(data);
 
               let redirection = JSON.parse(data);
-              let redirectionUrl = redirection.RedirectionUrl;
-              let redirectionType = redirection.RedirectionType;
-              console.log(redirection.RedirectionUrl + " &  ..." + redirection.RedirectionType);
+
+              let redirectionUrl: any;
+              let redirectionType: any;
+
+              if (!redirection) {
+                console.log("! redirection ....");
+                console.log(redirection);
+                redirectionUrl = null;
+                redirectionType = null;
+                // res.render("index", { req });
+
+                // res.end();
+              } else if (redirection) {
+                redirectionUrl = redirection.RedirectionUrl;
+                redirectionType = redirection.RedirectionType;
+                console.log(redirection.RedirectionUrl + " &  ..." + redirection.RedirectionType);
+              }
 
               if (redirectionUrl && redirectionType) {
                 res.set("location", redirectionUrl);
