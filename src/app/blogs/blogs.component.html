@@ -6,8 +6,17 @@
   <div class="blogs-container__sidebar">
     <!-- Search Bar -->
     <div class="searchbar">
-      <input class="searchbar__input" type="text" placeholder="Search.." name="search" />
-      <button class="searchbar__button" type="submit"><i class="fa fa-search"></i></button>
+      <input
+        (keyup.enter)="searchBlog(search)"
+        #search
+        class="searchbar__input"
+        type="text"
+        placeholder="Search.."
+        name="search"
+      />
+      <button (click)="searchBlog(search)" class="searchbar__button" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
     </div>
 
     <!-- Products -->

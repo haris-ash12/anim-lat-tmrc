@@ -75,6 +75,7 @@ export class CareersSpecificComponent implements OnInit {
 
     this.fileName = this.fileToUpload.name;
     console.log(this.fileName, "File to upload | Name ....");
+    this.isFileSelected = false;
   }
 
   save(f) {
@@ -83,7 +84,6 @@ export class CareersSpecificComponent implements OnInit {
       this.isFileSelected = true;
     } else {
       console.log(f);
-      this.isFileSelected = false;
 
       const formData: FormData = new FormData();
       formData.append("", this.fileToUpload, this.fileToUpload.name);

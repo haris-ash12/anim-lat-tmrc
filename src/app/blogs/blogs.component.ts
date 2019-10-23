@@ -55,7 +55,15 @@ export class BlogsComponent implements OnInit {
     else if (this.helperService.yearId) this.yearId = this.helperService.yearId;
 
     // Make a joint query.
-    this.query = "year=" + this.yearId + "&catid=" + this.catid + "&pageno=" + this.pageno;
+    this.query =
+      "year=" +
+      this.yearId +
+      "&catid=" +
+      this.catid +
+      "&pageno=" +
+      this.pageno +
+      "&tags=" +
+      this.tags;
   }
 
   ngOnInit() {
@@ -225,7 +233,15 @@ export class BlogsComponent implements OnInit {
 
   remakeQuery() {
     // Make a joint query.
-    this.query = "year=" + this.yearId + "&catid=" + this.catid + "&pageno=" + this.pageno;
+    this.query =
+      "year=" +
+      this.yearId +
+      "&catid=" +
+      this.catid +
+      "&pageno=" +
+      this.pageno +
+      "&tags=" +
+      this.tags;
     // console.log(this.query);
   }
 
@@ -239,6 +255,21 @@ export class BlogsComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       document.getElementsByTagName("mat-sidenav-content")[0].scrollTo(0, 0);
     }
+  }
+
+  searchBlog(f) {
+    console.log(f.value);
+
+    this.tags = f.value;
+    this.remakeQuery();
+    this.blogsService.getByQueryParams(this.query).subscribe((blogResponse: any) => {
+      this.blogsResponse = blogResponse.blogs;
+      this.total = blogResponse.Total;
+      this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
+      // console.log(this.blogsList);
+
+      this.goToTop();
+    });
   }
 }
 

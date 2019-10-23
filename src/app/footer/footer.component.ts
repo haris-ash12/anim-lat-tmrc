@@ -84,11 +84,11 @@ export class FooterComponent implements OnInit {
     this.subscriptionService.getByQueryParams(`email=${email}`).subscribe(res => {
       this.isSubscribeClicked = true;
       console.log(res);
-    });
 
-    setTimeout(() => {
-      console.log("After 3000 seconds...");
-      this.isSubscribeClicked = false;
-    }, 1000);
+      setTimeout(() => {
+        console.log("After 3000 seconds...");
+        this.isSubscribeClicked = false;
+      }, 5000);
+    });
   }
 }
