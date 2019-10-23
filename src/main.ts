@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Again response...");
       console.log("main.ts ... country code ... " + countryCode);
 
-      platformBrowserDynamic([{ provide: "countryCode", useValue: countryCode }])
+      platformBrowserDynamic([{ provide: "countryCode", useValue: "pk" }])
         .bootstrapModule(AppModule)
         .catch(err => console.error(err));
     });
