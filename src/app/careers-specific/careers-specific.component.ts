@@ -21,7 +21,9 @@ export class CareersSpecificComponent implements OnInit {
   career: any = {};
   career_slug: string = "";
   fileToUpload: File = null;
+  fileName: string = "";
   isAvailable: boolean;
+  isFileSelected: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +31,9 @@ export class CareersSpecificComponent implements OnInit {
     private httpCLient: HttpClient,
     private meta: Meta,
     private titleSevice: Title
-  ) {}
+  ) {
+    console.log(this.fileToUpload, "FileToUpload...");
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -68,24 +72,35 @@ export class CareersSpecificComponent implements OnInit {
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    // console.log(this.fileToUpload);
+
+    this.fileName = this.fileToUpload.name;
+    console.log(this.fileName, "File to upload | Name ....");
   }
 
   save(f) {
-    const formData: FormData = new FormData();
-    formData.append("", this.fileToUpload, this.fileToUpload.name);
-    formData.append("Name", f.value.name);
-    formData.append("Email", f.value.email);
-    formData.append("PhoneNo", f.value.phone);
-    formData.append("CoverLetter", f.value.coverLetter);
-    formData.append("slug", this.career_slug);
+    if (!this.fileToUpload) {
+      this.fileName = "No File Selected";
+      this.isFileSelected = true;
+    } else {
+      console.log(f);
+      this.isFileSelected = false;
 
-    f.reset();
+      const formData: FormData = new FormData();
+      formData.append("", this.fileToUpload, this.fileToUpload.name);
+      formData.append("Name", f.value.name);
+      formData.append("Email", f.value.email);
+      formData.append("PhoneNo", f.value.phone);
+      formData.append("CoverLetter", f.value.coverLetter);
+      formData.append("slug", this.career_slug);
 
-    console.log("Uploading form data ...");
+      f.resetForm();
+      this.fileName = "";
 
-    this.httpCLient
-      .post("http://web.tmrc1.ga/api/submitapplication", formData)
-      .subscribe(res => console.log(res));
+      console.log("Uploading form data ...");
+
+      this.httpCLient
+        .post("http://web.tmrc1.ga/api/submitapplication", formData)
+        .subscribe(res => console.log(res));
+    }
   }
 }

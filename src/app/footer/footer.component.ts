@@ -75,11 +75,14 @@ export class FooterComponent implements OnInit {
       // console.log(this.menus);
     });
   }
-  subscribeClicked() {
-    console.log("Subscribe clicked....");
-    this.isSubscribeClicked = true;
+  // log(email) {
+  //   console.log(email);
+  // }
+  submit(value) {
+    let email: string = value.email;
 
-    this.subscriptionService.getByQueryParams("email=abc@gmail.com").subscribe(res => {
+    this.subscriptionService.getByQueryParams(`email=${email}`).subscribe(res => {
+      this.isSubscribeClicked = true;
       console.log(res);
     });
 

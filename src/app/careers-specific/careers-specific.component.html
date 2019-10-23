@@ -99,32 +99,101 @@
         (change)="handleFileInput($event.target.files)"
       />
     </span>
+    <span class="job__line job__line--n job__line--cv" [class.job__line--error]="isFileSelected">{{
+      fileName
+    }}</span>
 
-    <form class="job__form" #f="ngForm" (ngSubmit)="save(f)">
+    <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)">
       <div class="job__form-group">
         <label for="name" class="job__label">Name</label>
-        <input ngModel name="name" #name type="text" id="name" class="job__input" />
+        <input
+          ngModel
+          required
+          name="name"
+          #name="ngModel"
+          type="text"
+          id="name"
+          class="job__input"
+        />
+        <div *ngIf="f.submitted && name.invalid" class="job__error">
+          <i *ngIf="name.errors.required" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+          <p *ngIf="name.errors.required">
+            Name is required
+          </p>
+        </div>
       </div>
       <div class="job__form-group">
         <label for="email" class="job__label">Email</label>
-        <input ngModel name="email" #email type="text" id="email" class="job__input" />
+        <input
+          ngModel
+          required
+          email
+          name="email"
+          #email="ngModel"
+          type="text"
+          id="email"
+          class="job__input"
+        />
+        <div *ngIf="f.submitted && email.invalid" class="job__error">
+          <i
+            *ngIf="email.errors.required || email.errors.email"
+            class="fa fa-exclamation-triangle"
+            aria-hidden="true"
+          ></i>
+          <p *ngIf="email.errors.required">
+            Email is required
+          </p>
+          <p *ngIf="email.errors.email">
+            Invalid E-mail
+          </p>
+        </div>
       </div>
 
       <div class="job__form-group">
         <label for="phone" class="job__label">Phone</label>
-        <input ngModel name="phone" #phone type="text" id="phone" class="job__input" />
+        <input
+          ngModel
+          required
+          name="phone"
+          #phone="ngModel"
+          type="text"
+          id="phone"
+          class="job__input"
+        />
+        <div *ngIf="f.submitted && phone.invalid" class="job__error">
+          <i
+            *ngIf="phone.errors.required"
+            class="fa fa-exclamation-triangle"
+            aria-hidden="true"
+          ></i>
+          <p *ngIf="phone.errors.required">
+            Phone No is required
+          </p>
+        </div>
       </div>
 
       <div class="job__form-group">
         <label for="address" class="job__label">Address</label>
-        <input
+        <textarea
           ngModel
           name="coverLetter"
-          #coverLetter
+          required
+          #coverLetter="ngModel"
           type="text"
           id="address"
           class="job__input"
-        />
+          rows="3"
+        ></textarea>
+        <div *ngIf="f.submitted && coverLetter.invalid" class="job__error">
+          <i
+            *ngIf="coverLetter.errors.required"
+            class="fa fa-exclamation-triangle"
+            aria-hidden="true"
+          ></i>
+          <p *ngIf="coverLetter.errors.required">
+            Address is required
+          </p>
+        </div>
       </div>
 
       <button class="job__submit-btn">I'm Interested</button>

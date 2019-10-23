@@ -11,19 +11,41 @@
         <span>News Letter</span>
       </p>
     </div>
-    <form class="subscription__email-box">
-      <input
-        type="text"
-        placeholder="Enter Your E-mail"
-        name="email"
-        ngModel
-        #email="ngModel"
-        required
-        email
-      />
-      <i class="fa fa-envelope-o" aria-hidden="true"></i>
-      <button (click)="subscribeClicked()">Subscribe</button>
-    </form>
+    <div class="subscription__input-group">
+      <form #f="ngForm" (ngSubmit)="submit(f.value)" class="subscription__email-box">
+        <input
+          type="text"
+          placeholder="Enter Your E-mail"
+          name="email"
+          id="email"
+          ngModel
+          #email="ngModel"
+          required
+          email
+          class="email-field"
+        />
+        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+        <button [disabled]="!f.valid">Subscribe</button>
+      </form>
+
+      <div class="subscription__errors-container" *ngIf="f.touched && !f.form.controls.email.valid">
+        <i
+          *ngIf="f.form.controls.email.errors.email || f.form.controls.email.errors.required"
+          class="fa fa-exclamation-triangle"
+          aria-hidden="true"
+        ></i>
+        <p class="subscription__errors-container__text" *ngIf="f.form.controls.email.errors.email">
+          Not a valid E-mail
+        </p>
+        <p
+          class="subscription__errors-container__text"
+          *ngIf="f.form.controls.email.errors.required"
+        >
+          Email is Required
+        </p>
+      </div>
+    </div>
+
     <div class="subscription__terms">
       <p>
         By clicking the button, you agree to the <span>Privacy Policy</span> &
@@ -40,7 +62,7 @@
   </div>
 </div>
 <div class="footer">
-  <!-- <ng-container *ngFor="let menu of menus">
+  <ng-container *ngFor="let menu of menus">
     <div *ngIf="menu.children.length > 0" class="footer__links-container">
       <p class="footer__links-title">{{ menu.titleName }}</p>
 
@@ -50,10 +72,9 @@
         [routerLink]="['/', menu.slug, submenus.slug]"
         >{{ submenus.titleName }}</a
       >
-
     </div>
-  </ng-container> -->
-
+  </ng-container>
+  <!-- 
   <div class="footer__links-container">
     <p class="footer__links-title">Solutions</p>
     <a class="footer__link" href="">Dynamics 365</a>
@@ -89,7 +110,7 @@
     <a class="footer__link" href="">Contact</a>
     <a class="footer__link" href="">Company's Profile</a>
     <a class="footer__link" href="">Demo Request</a>
-  </div>
+  </div> -->
   <div class="footer__logos">
     <div class="footer__social-icons">
       <a href=""><img src="../../assets/images/social-icons/facebook.png" alt=""/></a>

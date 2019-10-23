@@ -149,6 +149,8 @@ export class ContactComponent implements OnInit {
     formData.append("Subject", f.value.subject);
     formData.append("Message", f.value.message);
 
+    f.resetForm();
+
     this.contactService.create(formData).subscribe(res => console.log(res));
   }
 }

@@ -167,9 +167,20 @@
 
   &__line {
     font-size: 1.6rem;
+    margin-right: 0.5rem;
 
     &--n {
       display: inline;
+    }
+    &--cv {
+      font-style: italic;
+      border-bottom: 1px solid $color-grey;
+      color: $color-primary-light;
+    }
+
+    &--error {
+      color: $color-error;
+      border-bottom: 1px solid $color-error;
     }
   }
 
@@ -215,6 +226,21 @@
 
     border: none;
     outline: none;
+  }
+
+  &__error {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: $color-error;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    .fa-exclamation-triangle {
+      margin-right: 0.5rem;
+    }
   }
 }
 

@@ -31,7 +31,7 @@
   </div>
 
   <!-- [innerHtml]="content.details" -->
-  <div class="content-side">
+  <div class="content-side-specific">
     <div class="query-form">
       <div class="query-form__text-side">
         <p>
@@ -43,22 +43,87 @@
         <p class="query-form__top-text">
           Kindly fill out the form and we will get back to you as soon as possible.
         </p>
-        <form class="query-form__form" #f="ngForm" (ngSubmit)="submit(f)">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && submit(f)" class="query-form__form">
           <div class="query-form__input-field">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <input ngModel name="name" #name type="text" placeholder="Name" />
+            <input ngModel required name="name" #name="ngModel" type="text" placeholder="Name" />
+            <div *ngIf="f.submitted && name.invalid" class="query-form__error">
+              <i
+                *ngIf="name.errors.required"
+                class="fa fa-exclamation-triangle"
+                aria-hidden="true"
+              ></i>
+              <p class="error-message" *ngIf="name.errors.required">
+                Name is required
+              </p>
+            </div>
           </div>
           <div class="query-form__input-field">
             <i class="fa fa-envelope" aria-hidden="true"></i>
-            <input ngModel name="email" #email type="text" placeholder="E-mail" />
+            <input
+              ngModel
+              required
+              email
+              name="email"
+              #email="ngModel"
+              type="text"
+              placeholder="E-mail"
+            />
+            <div *ngIf="f.submitted && email.invalid" class="query-form__error">
+              <i
+                *ngIf="email.errors.required || email.errors.email"
+                class="fa fa-exclamation-triangle"
+                aria-hidden="true"
+              ></i>
+              <p class="error-message" *ngIf="email.errors.required">
+                Email is required
+              </p>
+              <p class="error-message" *ngIf="email.errors.email">
+                E-mail is Invalid
+              </p>
+            </div>
           </div>
           <div class="query-form__input-field">
             <i class="fa fa-bars" aria-hidden="true"></i>
-            <input ngModel name="subject" #subject type="text" placeholder="Subject" />
+            <input
+              ngModel
+              required
+              name="subject"
+              #subject="ngModel"
+              type="text"
+              placeholder="Subject"
+            />
+            <div *ngIf="f.submitted && subject.invalid" class="query-form__error">
+              <i
+                *ngIf="subject.errors.required"
+                class="fa fa-exclamation-triangle"
+                aria-hidden="true"
+              ></i>
+              <p class="error-message" *ngIf="subject.errors.required">
+                Subject is Required
+              </p>
+            </div>
           </div>
           <div class="query-form__input-field">
             <i class="fa fa-comments" aria-hidden="true"></i>
-            <textarea ngModel name="message" #message placeholder="Message" rows="3"></textarea>
+            <textarea
+              ngModel
+              required
+              name="message"
+              #message="ngModel"
+              placeholder="Message"
+              rows="3"
+            ></textarea>
+            <div *ngIf="f.submitted && message.invalid" class="query-form__error">
+              <i
+                *ngIf="message.errors.required"
+                class="fa fa-exclamation-triangle"
+                aria-hidden="true"
+              ></i>
+              <p class="error-message" *ngIf="message.errors.required">
+                Message is Required
+              </p>
+            </div>
           </div>
 
           <button class="query-form__submit">Submit</button>

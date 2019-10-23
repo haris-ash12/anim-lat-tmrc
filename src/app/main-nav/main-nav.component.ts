@@ -92,8 +92,8 @@ export class MainNavComponent implements OnInit {
 
     // call menu service, getData and make logic.
     this.menuService.getAll().subscribe((menusResponse: any[]) => {
-      // console.log("menus Response ...");
-      // console.log(menusResponse);
+      console.log("menus Response ...");
+      console.log(menusResponse);
       this.menusResponse = menusResponse;
 
       // FOR SEO PURPOSE
