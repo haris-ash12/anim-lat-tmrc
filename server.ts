@@ -131,7 +131,12 @@ app.get("*", (req, res) => {
   console.log(routeSlug);
 
   // Get client Ip Address or use hard-coded ip value.
-  let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
+  // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
+  let clientIPAddress =
+    req.headers["x-forwarded-for"] ||
+    req.connection.remoteAddress ||
+    req.socket.remoteAddress ||
+    req.connection.socket.remoteAddress;
 
   // For offline testing purposes. My ip address.
   // let clientIPAddress = "115.186.141.114";
