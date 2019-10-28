@@ -35,12 +35,22 @@ export class FooterComponent implements OnInit {
     // call menu service, getData and make logic.
     this.menuService.getAll().subscribe((menus: any[]) => {
       for (let i = 0; i < menus.length; i++) {
+        let isRedirectionActive: boolean;
+        if (!menus[i].RedirectionUrl || !menus[i].RedirectionType) {
+          isRedirectionActive = false;
+        } else {
+          isRedirectionActive = true;
+        }
+
         if (menus[i].ParentId === 0) {
           let parentMenuObject = {
             id: menus[i].TitleId,
             titleName: menus[i].TitleName,
             slug: menus[i].Slug,
-            priority: menus[i].Priority
+            priority: menus[i].Priority,
+            redirectionUrl: menus[i].RedirectionUrl,
+            redirectionType: menus[i].RedirectionType,
+            isRedirectionActive: isRedirectionActive
           };
           parentMenus.push(parentMenuObject);
         }
@@ -55,10 +65,20 @@ export class FooterComponent implements OnInit {
           if (parentMenus[i].id === menus[j].ParentId) {
             // console.log(parentMenus[i].titleName + '......');
 
+            let isRedirectionActive: boolean;
+            if (!menus[i].RedirectionUrl || !menus[i].RedirectionType) {
+              isRedirectionActive = false;
+            } else {
+              isRedirectionActive = true;
+            }
+
             let singleChildObject = {
               id: menus[j].TitleId,
               titleName: menus[j].TitleName,
-              slug: menus[j].Slug
+              slug: menus[j].Slug,
+              redirectionUrl: menus[i].RedirectionUrl,
+              redirectionType: menus[i].RedirectionType,
+              isRedirectionActive: isRedirectionActive
             };
             subMenus.push(singleChildObject);
 
@@ -71,8 +91,8 @@ export class FooterComponent implements OnInit {
 
       // console.log(parentMenus);
       this.menus = parentMenus;
-      // console.log('This is in footer');
-      // console.log(this.menus);
+      console.log("This is in footer");
+      console.log(this.menus);
     });
   }
   // log(email) {

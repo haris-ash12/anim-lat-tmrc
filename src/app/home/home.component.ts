@@ -138,6 +138,7 @@ export class HomeComponent implements OnInit {
         };
         this.ourServices.push(serviceObject);
       }
+      console.log("Our services at home !!!");
       console.log(this.ourServices);
       // console.log("Who we are !!!");
       // console.log(this.whoWeAre);

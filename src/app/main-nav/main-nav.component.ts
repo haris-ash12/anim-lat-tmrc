@@ -92,8 +92,8 @@ export class MainNavComponent implements OnInit {
 
     // call menu service, getData and make logic.
     this.menuService.getAll().subscribe((menusResponse: any[]) => {
-      console.log("menus Response ...");
-      console.log(menusResponse);
+      // console.log("menus Response ...");
+      // console.log(menusResponse);
       this.menusResponse = menusResponse;
 
       // FOR SEO PURPOSE
@@ -101,6 +101,13 @@ export class MainNavComponent implements OnInit {
       this.addMetaTagsMatchingCurrentUrl(currentRoute);
 
       for (let i = 0; i < menusResponse.length; i++) {
+        let isRedirectionActive: boolean;
+        if (!menusResponse[i].RedirectionUrl || !menusResponse[i].RedirectionType) {
+          isRedirectionActive = false;
+        } else {
+          isRedirectionActive = true;
+        }
+
         if (menusResponse[i].ParentId === 0) {
           let parentMenuObject = {
             id: menusResponse[i].TitleId,
@@ -109,7 +116,10 @@ export class MainNavComponent implements OnInit {
             priority: menusResponse[i].Priority,
             metaDescription: menusResponse[i].MetaDescription,
             metaKeywords: menusResponse[i].MetaKeywords,
-            pageTitle: menusResponse[i].PageTitle
+            pageTitle: menusResponse[i].PageTitle,
+            redirectionUrl: menusResponse[i].RedirectionUrl,
+            redirectionType: menusResponse[i].RedirectionType,
+            isRedirectionActive: isRedirectionActive
           };
           parentMenus.push(parentMenuObject);
         }
@@ -127,6 +137,13 @@ export class MainNavComponent implements OnInit {
           if (parentMenus[i].id === menusResponse[j].ParentId) {
             // console.log(parentMenus[i].titleName + '......');
 
+            let isRedirectionActive: boolean;
+            if (!menusResponse[i].RedirectionUrl || !menusResponse[i].RedirectionType) {
+              isRedirectionActive = false;
+            } else {
+              isRedirectionActive = true;
+            }
+
             let singleChildObject = {
               id: menusResponse[j].TitleId,
               titleName: menusResponse[j].TitleName,
@@ -134,7 +151,10 @@ export class MainNavComponent implements OnInit {
               priority: menusResponse[i].Priority,
               metaDescription: menusResponse[i].MetaDescription,
               metaKeywords: menusResponse[i].MetaKeywords,
-              pageTitle: menusResponse[i].PageTitle
+              pageTitle: menusResponse[i].PageTitle,
+              redirectionUrl: menusResponse[i].RedirectionUrl,
+              redirectionType: menusResponse[i].RedirectionType,
+              isRedirectionActive: isRedirectionActive
             };
             subMenus.push(singleChildObject);
           }
@@ -149,16 +169,30 @@ export class MainNavComponent implements OnInit {
       // GET ALL NEWS
       //------------------------
       this.newsService.getAll().subscribe((newsResponse: any[]) => {
-        // console.log(newsResponse);
+        console.log("News Response in menus ...");
+        console.log(newsResponse);
 
         for (let i = 0; i < newsResponse.length; i++) {
+          let isRedirectionActive: boolean;
+          if (!newsResponse[i].RedirectionUrl || !newsResponse[i].RedirectionType) {
+            isRedirectionActive = false;
+          } else {
+            isRedirectionActive = true;
+          }
+
           let newsObject = {
             title: newsResponse[i].Title,
             datePosted: newsResponse[i].CreatedDate,
-            slug: newsResponse[i].Slug
+            slug: newsResponse[i].Slug,
+            redirectionUrl: newsResponse[i].RedirectionUrl,
+            redirectionType: newsResponse[i].RedirectionType,
+            isRedirectionActive: isRedirectionActive
           };
           this.news.push(newsObject);
         }
+
+        console.log("NEws object createed...");
+        console.log(this.news);
       });
       //------------------------
     });

@@ -24,18 +24,29 @@ export class CareersComponent implements OnInit {
     this.careersService.getAll().subscribe((careersResponse: any[]) => {
       console.log(careersResponse);
       for (let i = 0; i < careersResponse.length; i++) {
+        let isRedirectionActive: boolean;
+        if (!careersResponse[i].RedirectionUrl || !careersResponse[i].RedirectionType) {
+          isRedirectionActive = false;
+        } else {
+          isRedirectionActive = true;
+        }
+
         let careersObject = {
           title: careersResponse[i].JobTitle,
           position: careersResponse[i].NoOfPosition,
           cities: careersResponse[i].Cities,
           type: careersResponse[i].JobType,
-          slug: careersResponse[i].Slug
+          slug: careersResponse[i].Slug,
+          redirectionUrl: careersResponse[i].RedirectionUrl,
+          redirectionType: careersResponse[i].RedirectionType,
+          isRedirectionActive: isRedirectionActive
         };
 
         this.careers.push(careersObject);
       }
 
-      // console.log(this.careers);
+      console.log("Careers response after changes ...");
+      console.log(this.careers);
 
       this.isAvailable = true;
     });

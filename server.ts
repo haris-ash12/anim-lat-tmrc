@@ -132,14 +132,16 @@ app.get("*", (req, res) => {
 
   // Get client Ip Address or use hard-coded ip value.
   // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
-  let clientIPAddress =
-    req.headers["x-forwarded-for"] ||
-    req.connection.remoteAddress ||
-    req.socket.remoteAddress ||
-    req.connection.socket.remoteAddress;
+
+  // let clientIPAddress = req.remoteAddress || req.header("X-forwarded-for");
+  // let clientIPAddress =
+  //   req.headers["x-forwarded-for"] ||
+  //   req.connection.remoteAddress ||
+  //   req.socket.remoteAddress ||
+  //   req.connection.socket.remoteAddress;
 
   // For offline testing purposes. My ip address.
-  // let clientIPAddress = "115.186.141.114";
+  let clientIPAddress = "115.186.141.114";
 
   console.log("CLient Ip Address ....." + clientIPAddress);
 
@@ -157,7 +159,7 @@ app.get("*", (req, res) => {
 
         // Now that we have found the country code, We need to find that whether redirection exists againt this route or not.
         http.get(
-          `http://web.tmrc1.ga/api/GetRedirection?countrycode=${countryCode}&slug=${routeSlug}&hostName=${protocol}://${host}`,
+          `http://maintmrc.ga/admin/api/GetRedirection?countrycode=${countryCode}&slug=${routeSlug}&hostName=${protocol}://${host}`,
           redirectionResponse => {
             let data = "";
             redirectionResponse.on("data", chunk => {

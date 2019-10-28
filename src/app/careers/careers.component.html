@@ -48,7 +48,23 @@
         </p>
 
         <p class="careers__jobs__type">{{ career.type }}</p>
-        <a [routerLink]="['/careers', career.slug]" class="careers__jobs__apply">Apply now</a>
+        <!-- <a [routerLink]="['/careers', career.slug]" class="careers__jobs__apply">Apply now</a> -->
+
+        <ng-container>
+          <a
+            *ngIf="career.isRedirectionActive === false"
+            class="careers__jobs__apply"
+            [routerLink]="['/careers', career.slug]"
+            >Apply now
+          </a>
+
+          <a
+            *ngIf="career.isRedirectionActive === true"
+            class="careers__jobs__apply"
+            href="/careers/{{ career.slug }}"
+            >Apply now</a
+          >
+        </ng-container>
       </div>
 
       <!-- <div class="careers__jobs__item">

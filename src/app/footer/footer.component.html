@@ -66,12 +66,28 @@
     <div *ngIf="menu.children.length > 0" class="footer__links-container">
       <p class="footer__links-title">{{ menu.titleName }}</p>
 
-      <a
+      <!-- <a
         *ngFor="let submenus of menu.children"
         class="footer__link"
         [routerLink]="['/', menu.slug, submenus.slug]"
         >{{ submenus.titleName }}</a
-      >
+      > -->
+
+      <ng-container *ngFor="let subMenu of menu.children">
+        <a
+          *ngIf="subMenu.isRedirectionActive === false"
+          class="footer__link"
+          [routerLink]="['/', menu.slug, subMenu.slug]"
+          >{{ subMenu.titleName }} - 1</a
+        >
+
+        <a
+          *ngIf="subMenu.isRedirectionActive === true"
+          class="footer__link"
+          href="/{{ menu.slug }}/{{ subMenu.slug }}"
+          >{{ subMenu.titleName }} - 2</a
+        >
+      </ng-container>
     </div>
   </ng-container>
   <!-- 

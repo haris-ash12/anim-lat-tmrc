@@ -156,7 +156,7 @@ export class BlogsComponent implements OnInit {
       // console.log(description);
 
       let isRedirectionActive: boolean;
-      if (!blogs[i].RedirectionUrl && !blogs[i].RedirectionType) {
+      if (!blogs[i].RedirectionUrl || !blogs[i].RedirectionType) {
         isRedirectionActive = false;
       } else {
         isRedirectionActive = true;

@@ -76,8 +76,8 @@ export class TrainingsComponent implements OnInit {
         this.trainingCategoriesList.push(trainingCategoryObject);
       }
 
-      console.log("Training categories List ...");
-      console.log(this.trainingCategoriesList);
+      // console.log("Training categories List ...");
+      // console.log(this.trainingCategoriesList);
     });
 
     // Get Trainings List
@@ -88,12 +88,12 @@ export class TrainingsComponent implements OnInit {
       this.total = trainingsResponse.Total;
       this.trainingsResponse = trainingsResponse.linksSeo;
 
-      console.log(this.total);
-      console.log(this.trainingsResponse);
+      // console.log(this.total);
+      // console.log(this.trainingsResponse);
 
       this.trainingsList = this.makeTrainingsObjectArray(trainingsResponse.linksSeo);
-      console.log("this.trainingsList ...");
-      console.log(this.trainingsList);
+      // console.log("this.trainingsList Yani response ...");
+      // console.log(this.trainingsList);
 
       this.isAvailable = true;
     });
@@ -103,14 +103,14 @@ export class TrainingsComponent implements OnInit {
     this.childId = childCategoryId;
 
     this.remakeQuery();
-    console.log(this.query);
+    // console.log(this.query);
     this.trainingsService.getByQueryParams(this.query).subscribe((trainingsResponse: any) => {
-      console.log(trainingsResponse);
+      // console.log(trainingsResponse);
       this.trainingsResponse = trainingsResponse.linksSeo;
       this.total = trainingsResponse.Total;
       this.trainingsList = this.makeTrainingsObjectArray(trainingsResponse.linksSeo);
-      console.log("Products clicked.....");
-      console.log(this.trainingsList);
+      // console.log("Products clicked.....");
+      // console.log(this.trainingsList);
 
       this.goToTop();
     });
@@ -132,7 +132,7 @@ export class TrainingsComponent implements OnInit {
       // let description = trainings[i].ExternalLinks.Description;
 
       let isRedirectionActive: boolean;
-      if (!trainings[i].SEO.RedirectionUrl && !trainings[i].SEO.RedirectionType) {
+      if (!trainings[i].SEO.RedirectionUrl || !trainings[i].SEO.RedirectionType) {
         isRedirectionActive = false;
       } else {
         isRedirectionActive = true;

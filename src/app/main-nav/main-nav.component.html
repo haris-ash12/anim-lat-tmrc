@@ -74,22 +74,55 @@
         <ul class="nav__list">
           <ng-container *ngFor="let menu of menus">
             <li *ngIf="menu.children.length === 0" class="nav__list-item">
-              <a [routerLink]="['/', menu.slug]" class="nav__link nav__link--hover">{{
+              <!-- <a [routerLink]="['/', menu.slug]" class="nav__link nav__link--hover">{{
                 menu.titleName
-              }}</a>
+              }}</a> -->
+
+              <ng-container>
+                <a
+                  *ngIf="menu.isRedirectionActive === false"
+                  class="nav__link nav__link--hover"
+                  [routerLink]="['/', menu.slug]"
+                  >{{ menu.titleName }}</a
+                >
+
+                <a
+                  *ngIf="menu.isRedirectionActive === true"
+                  class="nav__link nav__link--hover"
+                  href="/{{ menu.slug }}"
+                  >{{ menu.titleName }}</a
+                >
+              </ng-container>
             </li>
 
             <li *ngIf="menu.children.length > 0" ngbDropdown class="nav__list-item">
               <a ngbDropdownToggle class="nav__link nav__link--hover">{{ menu.titleName }}</a>
               <div class="nav__dropdown-content" ngbDropdownMenu>
-                <a
+                <!-- <a
                   *ngFor="let subMenu of menu.children"
                   [routerLink]="['/', menu.slug, subMenu.slug]"
                   ngbDropdownItem
                   class="nav__link"
                   routerLink="/solutions/dynamics-365"
                   >{{ subMenu.titleName }}</a
-                >
+                > -->
+
+                <ng-container *ngFor="let subMenu of menu.children">
+                  <a
+                    *ngIf="menu.isRedirectionActive === false"
+                    ngbDropdownItem
+                    class="nav__link"
+                    [routerLink]="['/', menu.slug, subMenu.slug]"
+                    >{{ subMenu.titleName }}</a
+                  >
+
+                  <a
+                    *ngIf="menu.isRedirectionActive === true"
+                    class="nav__link"
+                    href="/{{ menu.slug }}/{{ subMenu.slug }}"
+                    >{{ subMenu.titleName }}</a
+                  >
+                </ng-container>
               </div>
             </li>
           </ng-container>
@@ -137,7 +170,7 @@
           <div ngbDropdownMenu class="navigation__dropdown-alert">
             <p class="navigation__dropdown-alert__heading">News</p>
 
-            <a
+            <!-- <a
               *ngFor="let newsObj of news"
               ngbDropdownItem
               [routerLink]="['/news', newsObj.slug]"
@@ -145,7 +178,33 @@
             >
               <p class="navigation__dropdown-alert__item-title">{{ newsObj.title | titlecase }}</p>
               <p class="navigation__dropdown-alert__item-date">{{ newsObj.datePosted | date }}</p>
-            </a>
+            </a> -->
+
+            <ng-container *ngFor="let newsObj of news">
+              <a
+                *ngIf="newsObj.isRedirectionActive === false"
+                ngbDropdownItem
+                class="navigation__dropdown-alert__item"
+                [routerLink]="['/news', newsObj.slug]"
+              >
+                <p class="navigation__dropdown-alert__item-title">
+                  {{ newsObj.title | titlecase }}
+                </p>
+                <p class="navigation__dropdown-alert__item-date">{{ newsObj.datePosted | date }}</p>
+              </a>
+
+              <a
+                *ngIf="newsObj.isRedirectionActive === true"
+                ngbDropdownItem
+                class="navigation__dropdown-alert__item"
+                href="/news/{{ newsObj.slug }}"
+              >
+                <p class="navigation__dropdown-alert__item-title">
+                  {{ newsObj.title | titlecase }}
+                </p>
+                <p class="navigation__dropdown-alert__item-date">{{ newsObj.datePosted | date }}</p>
+              </a>
+            </ng-container>
 
             <!-- <a ngbDropdownItem class="navigation__dropdown-alert__item">
               <p class="navigation__dropdown-alert__item-title">This is the title</p>
