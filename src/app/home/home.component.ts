@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     public scroll: ScrollDispatcher
   ) {
-    console.log("Home component ..............................................................");
+    // console.log("Home component ..............................................................");
 
     this.scrollingSubscription = this.scroll.scrolled().subscribe((data: CdkScrollable) => {
       this.onWindowScroll(data);
@@ -102,8 +102,8 @@ export class HomeComponent implements OnInit {
       let sliderArrayResponse: any[] = homeResponse.ImageSliderModel;
       let WhoWeAreObjectResponse: any = homeResponse.WhoWeAreModel;
       let servicesResponse: any[] = homeResponse.OurServices;
-      console.log("Our Services ....");
-      console.log(servicesResponse);
+      // console.log("Our Services ....");
+      // console.log(servicesResponse);
 
       let sliderArray: any[] = [];
 
@@ -138,8 +138,8 @@ export class HomeComponent implements OnInit {
         };
         this.ourServices.push(serviceObject);
       }
-      console.log("Our services at home !!!");
-      console.log(this.ourServices);
+      // console.log("Our services at home !!!");
+      // console.log(this.ourServices);
       // console.log("Who we are !!!");
       // console.log(this.whoWeAre);
     });

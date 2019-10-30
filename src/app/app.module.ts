@@ -58,7 +58,7 @@ export function startupProviderFactory(provider: StartUpService) {
 }
 
 export function setClientBaseHref(provider: StartUpService) {
-  console.log("Set client base href called ......");
+  // console.log("Set client base href called ......");
   return provider.settingBaseHref();
 }
 export function starti(provider: StartUpService) {

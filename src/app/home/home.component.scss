@@ -13,6 +13,7 @@
   @include respond(tab-port) {
     grid-template-rows: 80vh max-content max-content max-content;
   }
+  overflow: hidden;
 }
 
 .hero {

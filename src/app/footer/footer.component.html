@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="subscription__input-group">
-      <form #f="ngForm" (ngSubmit)="submit(f.value)" class="subscription__email-box">
+      <form #f="ngForm" (ngSubmit)="f.form.valid && submit(f)" class="subscription__email-box">
         <input
           type="text"
           placeholder="Enter Your E-mail"
@@ -21,26 +21,23 @@
           ngModel
           #email="ngModel"
           required
-          email
           class="email-field"
+          pattern="^[^ @]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         />
         <i class="fa fa-envelope-o" aria-hidden="true"></i>
-        <button [disabled]="!f.valid">Subscribe</button>
+        <button>Subscribe</button>
       </form>
 
-      <div class="subscription__errors-container" *ngIf="f.touched && !f.form.controls.email.valid">
+      <div class="subscription__errors-container" *ngIf="f.submitted && email.invalid">
         <i
-          *ngIf="f.form.controls.email.errors.email || f.form.controls.email.errors.required"
+          *ngIf="email.errors.pattern || email.errors.required"
           class="fa fa-exclamation-triangle"
           aria-hidden="true"
         ></i>
-        <p class="subscription__errors-container__text" *ngIf="f.form.controls.email.errors.email">
+        <p class="subscription__errors-container__text" *ngIf="email.errors.pattern">
           Not a valid E-mail
         </p>
-        <p
-          class="subscription__errors-container__text"
-          *ngIf="f.form.controls.email.errors.required"
-        >
+        <p class="subscription__errors-container__text" *ngIf="email.errors.required">
           Email is Required
         </p>
       </div>

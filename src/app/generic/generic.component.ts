@@ -35,7 +35,7 @@ export class GenericComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private globals: GlobalsService
   ) {
-    console.log("Genric component .............................................");
+    // console.log("Genric component .............................................");
     // console.log("Printing Meta tags for Generic component..., GO CHECK!");
     // this.meta.addTag({ name: "Generic", content: "the generic tag ...." });
     // this.titleSevice.setTitle("Setting a title...");
@@ -99,9 +99,9 @@ export class GenericComponent implements OnInit {
           // Remove <p></p> from <p><img ></p>, so that only <img > remains.
           details = details.replace(/<p><img(.*?)><\/p>/g, value => {
             let valueWithNoPtag = value.replace(/<\/?p>/g, "");
-            let valueWithNoHeight = valueWithNoPtag.replace(/height:(.*?)px;/g, "");
+            let valueWithNoStyle = valueWithNoPtag.replace(/style="(.*?)"/g, "");
 
-            return valueWithNoHeight;
+            return valueWithNoStyle;
           });
 
           // Add id addtribute to h2 tags for scrolling.

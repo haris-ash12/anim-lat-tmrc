@@ -70,17 +70,17 @@ export class BlogDetailComponent implements OnInit {
     let slugValue = this.route.snapshot.paramMap.get("slug");
     let slug = "slug=" + slugValue;
     this.blogSlugService.getByQueryParams(slug).subscribe((blogResponse: any) => {
-      console.log("Blog Response...");
-      console.log(blogResponse);
+      // console.log("Blog Response...");
+      // console.log(blogResponse);
 
       let description = unescape(blogResponse.Description);
 
       // Remove <p></p> from <p><img ></p>, so that only <img > remains.
       description = description.replace(/<p><img(.*?)><\/p>/g, value => {
         let valueWithNoPtag = value.replace(/<\/?p>/g, "");
-        let valueWithNoHeight = valueWithNoPtag.replace(/height:(.*?)px;/g, "");
+        let valueWithNoStyle = valueWithNoPtag.replace(/style="(.*?)"/g, "");
 
-        return valueWithNoHeight;
+        return valueWithNoStyle;
       });
 
       this.blog = {

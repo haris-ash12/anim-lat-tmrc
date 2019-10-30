@@ -58,7 +58,7 @@ export class TrainingDetailComponent implements OnInit {
     let slug = "slug=" + slugValue;
 
     this.trainingsService.getByQueryParams(slug).subscribe((trainingResponseArray: any[]) => {
-      console.log(trainingResponseArray[0]);
+      // console.log(trainingResponseArray[0]);
 
       let trainingResponse = trainingResponseArray[0];
 
@@ -67,9 +67,9 @@ export class TrainingDetailComponent implements OnInit {
       // Remove <p></p> from <p><img ></p>, so that only <img > remains.
       description = description.replace(/<p><img(.*?)><\/p>/g, value => {
         let valueWithNoPtag = value.replace(/<\/?p>/g, "");
-        let valueWithNoHeight = valueWithNoPtag.replace(/height:(.*?)px;/g, "");
+        let valueWithNoStyle = valueWithNoPtag.replace(/style="(.*?)"/g, "");
 
-        return valueWithNoHeight;
+        return valueWithNoStyle;
       });
 
       this.training = {
@@ -87,7 +87,7 @@ export class TrainingDetailComponent implements OnInit {
         pageHeading: trainingResponse.SEOPageHeading,
         videoUrl: this._sanitizer.bypassSecurityTrustResourceUrl(trainingResponse.VideoUrl)
       };
-      console.log(description);
+      // console.log(description);
 
       this.titleService.setTitle(this.training.pageTitle);
       this.meta.updateTag({ name: "keywords", content: this.training.metaKeywords });

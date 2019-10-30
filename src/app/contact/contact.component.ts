@@ -17,6 +17,12 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
       state("out", style({ opacity: 0 })),
       state("in", style({ opacity: 1 })),
       transition("out => in", animate("500ms ease"))
+    ]),
+    trigger("fadeInToOut", [
+      state("out", style({ opacity: 0, "z-index": "-1" })),
+      state("in", style({ opacity: 1, "z-index": "1" })),
+      transition("out => in", animate("500ms ease")),
+      transition("in => out", animate("1000ms ease"))
     ])
   ]
 })
@@ -28,6 +34,9 @@ export class ContactComponent implements OnInit {
   parentMenu: string = "";
   childMenu: string = "";
   isAvailable: boolean;
+  isSaveClicked: boolean;
+  isResponseValid: boolean;
+  isResponseNotValid: boolean;
 
   constructor(
     private router: Router,
@@ -40,7 +49,7 @@ export class ContactComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private globals: GlobalsService
   ) {
-    console.log("Contact component ................................................. ");
+    // console.log("Contact component ................................................. ");
     // console.log("Printing Meta tags for Generic component..., GO CHECK!");
     this.meta.addTag({ name: "Generic", content: "the generic tag ...." });
     // this.titleSevice.setTitle("Setting a title...");
@@ -107,8 +116,8 @@ export class ContactComponent implements OnInit {
 
         // Get contact addresses from API
         this.contactAddressService.getAll().subscribe((contactAddressesResponse: any[]) => {
-          console.log("Contact addressess ....");
-          console.log(contactAddressesResponse);
+          // console.log("Contact addressess ....");
+          // console.log(contactAddressesResponse);
 
           for (let i = 0; i < contactAddressesResponse.length; i++) {
             let contactAddressObject = {
@@ -125,8 +134,8 @@ export class ContactComponent implements OnInit {
             this.contactAddresses.push(contactAddressObject);
           }
 
-          console.log("Modified contact addresses object ...");
-          console.log(this.contactAddresses);
+          // console.log("Modified contact addresses object ...");
+          // console.log(this.contactAddresses);
 
           this.isAvailable = true;
         });
@@ -140,7 +149,7 @@ export class ContactComponent implements OnInit {
   // scrollToThisId(id: string) {}
 
   submit(f) {
-    console.log(f.value);
+    // console.log(f.value);
 
     // Send form data to server.
     const formData = new FormData();
@@ -149,8 +158,37 @@ export class ContactComponent implements OnInit {
     formData.append("Subject", f.value.subject);
     formData.append("Message", f.value.message);
 
-    f.resetForm();
+    this.isSaveClicked = true;
 
-    this.contactService.create(formData).subscribe(res => console.log(res));
+    this.contactService.create(formData).subscribe(contactResponse => {
+      // console.log(contactResponse);
+      // contactResponse = 2;
+      // this.isSaveClicked = false;
+      // this.isResponseValid = true;
+      // setTimeout(() => {
+      //   f.resetForm();
+      //   this.isResponseValid = false;
+      // }, 3000);
+
+      // Contact resposne
+      // 1- Successfully submitted.
+      // 2- Error occured.
+
+      if (contactResponse) {
+        this.isSaveClicked = false;
+
+        if (contactResponse === 1) {
+          this.isResponseValid = true;
+          f.resetForm();
+        } else if (contactResponse === 2) {
+          this.isResponseNotValid = true;
+        }
+
+        setTimeout(() => {
+          this.isResponseValid = false;
+          this.isResponseNotValid = false;
+        }, 4000);
+      }
+    });
   }
 }

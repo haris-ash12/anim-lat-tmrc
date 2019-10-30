@@ -40,7 +40,7 @@ export class TrainingsComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    console.log("Trainings Component ......................................");
+    // console.log("Trainings Component ......................................");
 
     // These would be our initial values for the query.
     this.trainingCategoryId = 0;

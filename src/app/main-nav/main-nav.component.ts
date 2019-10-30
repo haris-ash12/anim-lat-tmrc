@@ -56,7 +56,7 @@ export class MainNavComponent implements OnInit {
     //   this.onWindowScroll(data);
     // });
 
-    console.log("Menus component .....................................................");
+    // console.log("Menus component .....................................................");
 
     this.router.events.subscribe(val => {
       let currentRoute = this.router.url;
@@ -169,8 +169,8 @@ export class MainNavComponent implements OnInit {
       // GET ALL NEWS
       //------------------------
       this.newsService.getAll().subscribe((newsResponse: any[]) => {
-        console.log("News Response in menus ...");
-        console.log(newsResponse);
+        // console.log("News Response in menus ...");
+        // console.log(newsResponse);
 
         for (let i = 0; i < newsResponse.length; i++) {
           let isRedirectionActive: boolean;
@@ -191,8 +191,8 @@ export class MainNavComponent implements OnInit {
           this.news.push(newsObject);
         }
 
-        console.log("NEws object createed...");
-        console.log(this.news);
+        // console.log("NEws object createed...");
+        // console.log(this.news);
       });
       //------------------------
     });

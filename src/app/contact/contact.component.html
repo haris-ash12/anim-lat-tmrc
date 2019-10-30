@@ -40,6 +40,39 @@
         </p>
       </div>
       <div class="query-form__contact-form">
+        <div [@fadeInToOut]="isSaveClicked ? 'in' : 'out'" class="roller-anim-container">
+          <div class="roller-anim-inner">
+            <div class="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+
+        <div [@fadeInToOut]="isResponseValid ? 'in' : 'out'" class="roller-anim-container">
+          <div class="roller-anim-inner">
+            <div class="is-response-valid">
+              <i class="fa fa-check-circle" aria-hidden="true"></i>
+              Your response has been submitted and we will contact you soon.
+            </div>
+          </div>
+        </div>
+
+        <div [@fadeInToOut]="isResponseNotValid ? 'in' : 'out'" class="roller-anim-container">
+          <div class="roller-anim-inner">
+            <div class="is-response-not-valid">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              There was an issue at our end while submitting, Please try again.
+            </div>
+          </div>
+        </div>
+
         <p class="query-form__top-text">
           Kindly fill out the form and we will get back to you as soon as possible.
         </p>
@@ -63,7 +96,7 @@
             <input
               ngModel
               required
-              email
+              pattern="^[^ @]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
               name="email"
               #email="ngModel"
               type="text"
@@ -71,14 +104,14 @@
             />
             <div *ngIf="f.submitted && email.invalid" class="query-form__error">
               <i
-                *ngIf="email.errors.required || email.errors.email"
+                *ngIf="email.errors.required || email.errors.pattern"
                 class="fa fa-exclamation-triangle"
                 aria-hidden="true"
               ></i>
               <p class="error-message" *ngIf="email.errors.required">
                 Email is required
               </p>
-              <p class="error-message" *ngIf="email.errors.email">
+              <p class="error-message" *ngIf="email.errors.pattern">
                 E-mail is Invalid
               </p>
             </div>

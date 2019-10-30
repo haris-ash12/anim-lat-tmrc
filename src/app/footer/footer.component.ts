@@ -91,24 +91,28 @@ export class FooterComponent implements OnInit {
 
       // console.log(parentMenus);
       this.menus = parentMenus;
-      console.log("This is in footer");
-      console.log(this.menus);
+      // console.log("This is in footer");
+      // console.log(this.menus);
     });
   }
   // log(email) {
   //   console.log(email);
   // }
-  submit(value) {
-    let email: string = value.email;
+  submit(f) {
+    console.log(f);
+    // let value = f.value
+    // console.log("Submit click and value is", f.value);
+    let email: string = f.value.email;
 
     this.subscriptionService.getByQueryParams(`email=${email}`).subscribe(res => {
       this.isSubscribeClicked = true;
       console.log(res);
 
+      let timeToSlide: number = 5000;
       setTimeout(() => {
-        console.log("After 3000 seconds...");
+        console.log(`After ${timeToSlide} seconds...`);
         this.isSubscribeClicked = false;
-      }, 5000);
+      }, timeToSlide);
     });
   }
 }

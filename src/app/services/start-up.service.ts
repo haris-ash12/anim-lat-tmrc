@@ -18,9 +18,9 @@ export class StartUpService {
     @Inject(PLATFORM_ID) private platformId: Object,
     @Optional() @Inject("countryCode") countryCode: string
   ) {
-    console.log("Platform:" + platformId);
+    // console.log("Platform:" + platformId);
     this.countryCode = countryCode;
-    console.log("startup constructor ... " + this.countryCode);
+    // console.log("startup constructor ... " + this.countryCode);
   }
 
   startupCall() {
@@ -29,7 +29,7 @@ export class StartUpService {
       // this.httpClient.get("http://web.tmrc1.ga/api/findLocation").subscribe((res: any) => {
       //   this.countryCode = res;
       this.cookieService.set("countryCode", this.countryCode);
-      console.log("startup call(), BROWSER..." + this.countryCode);
+      // console.log("startup call(), BROWSER..." + this.countryCode);
       // resolve(this.countryCode);
       // });
       // });
@@ -62,21 +62,21 @@ export class StartUpService {
   }
   get getCountryCode() {
     if (isPlatformServer(this.platformId)) {
-      console.log("getCountryCOde(), SERVER..." + this.countryCode);
+      // console.log("getCountryCOde(), SERVER..." + this.countryCode);
       return this.countryCode;
     }
 
     if (isPlatformBrowser(this.platformId)) {
-      console.log("getCountryCOde(), BROWSER... cookie" + this.cookieService.get("countryCode"));
-      console.log("getCountryCOde(), VROWSER .. normal ..." + this.countryCode);
+      // console.log("getCountryCOde(), BROWSER... cookie" + this.cookieService.get("countryCode"));
+      // console.log("getCountryCOde(), VROWSER .. normal ..." + this.countryCode);
       return this.cookieService.get("countryCode") || this.countryCode;
     }
   }
 
   settingBaseHref() {
     if (isPlatformBrowser(this.platformId)) {
-      console.log("setClientBaseHref...");
-      console.log("setClientBaseHref..." + this.countryCode);
+      // console.log("setClientBaseHref...");
+      // console.log("setClientBaseHref..." + this.countryCode);
 
       let cc = this.getCountryCode;
 
@@ -86,9 +86,9 @@ export class StartUpService {
 
         urlPath = window.location.pathname;
 
-        console.log("urlPath ..." + urlPath);
+        // console.log("urlPath ..." + urlPath);
         let urlCountryCode = urlPath.split("/")[1];
-        console.log("urlCOuntryCOde..." + urlCountryCode);
+        // console.log("urlCOuntryCOde..." + urlCountryCode);
 
         if (urlCountryCode === this.getCountryCode) return "/";
         else return this.getCountryCode;

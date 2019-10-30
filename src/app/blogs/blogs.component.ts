@@ -42,7 +42,7 @@ export class BlogsComponent implements OnInit {
 
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    console.log("Blog components ........................................................");
+    // console.log("Blog components ........................................................");
 
     // These would be our initial values for the query.
     this.yearId = 2019;
@@ -108,8 +108,8 @@ export class BlogsComponent implements OnInit {
       // And we need blogs array, blogs property.
 
       this.blogsResponse = blogResponse.blogs;
-      console.log("Blogs response ................................");
-      console.log(this.blogsResponse);
+      // console.log("Blogs response ................................");
+      // console.log(this.blogsResponse);
 
       this.total = blogResponse.Total;
 
@@ -196,8 +196,8 @@ export class BlogsComponent implements OnInit {
       this.blogsResponse = blogResponse.blogs;
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
-      console.log("Products clicked.....");
-      console.log(this.blogsList);
+      // console.log("Products clicked.....");
+      // console.log(this.blogsList);
 
       this.goToTop();
     });
@@ -212,8 +212,8 @@ export class BlogsComponent implements OnInit {
       this.blogsResponse = blogResponse.blogs;
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
-      console.log("Years Clicked ...");
-      console.log(this.blogsList);
+      // console.log("Years Clicked ...");
+      // console.log(this.blogsList);
       this.goToTop();
     });
   }
@@ -258,7 +258,7 @@ export class BlogsComponent implements OnInit {
   }
 
   searchBlog(f) {
-    console.log(f.value);
+    // console.log(f.value);
 
     this.tags = f.value;
     this.remakeQuery();

@@ -22,7 +22,7 @@ export class CareersComponent implements OnInit {
 
   ngOnInit() {
     this.careersService.getAll().subscribe((careersResponse: any[]) => {
-      console.log(careersResponse);
+      // console.log(careersResponse);
       for (let i = 0; i < careersResponse.length; i++) {
         let isRedirectionActive: boolean;
         if (!careersResponse[i].RedirectionUrl || !careersResponse[i].RedirectionType) {
@@ -45,8 +45,8 @@ export class CareersComponent implements OnInit {
         this.careers.push(careersObject);
       }
 
-      console.log("Careers response after changes ...");
-      console.log(this.careers);
+      // console.log("Careers response after changes ...");
+      // console.log(this.careers);
 
       this.isAvailable = true;
     });

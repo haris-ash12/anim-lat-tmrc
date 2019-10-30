@@ -4,64 +4,92 @@
 
 <div [@fade]="isAvailable ? 'in' : 'out'" class="job__container">
   <div class="job__content">
-    <h2 class="job__title">{{ career.title }}</h2>
+    <p *ngIf="isExpired" class="job__alert-date-gone">
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Due Date Expired
+    </p>
+    <h2 [class.job__title--grey]="isExpired" class="job__title">{{ career.title | uppercase }}</h2>
     <!-- <h2 class="job__title">Job Title</h2> -->
-    <span class="job__position-location">
+
+    <div class="job__key-values">
+      <!-- Key value kind of pairs here -->
+
+      <!-- Pair 1 -->
+      <i class="fa fa-user" aria-hidden="true"></i>
+
       <ng-container>
         <p *ngIf="career.position === 1" class="job__position">{{ career.position }} position</p>
         <p *ngIf="career.position > 1" class="job__position">{{ career.position }} positions</p>
       </ng-container>
-      <!-- <p class="job__position">2 positions</p> -->
-      <span> - </span>
+
+      <!-- Pair 2 -->
+      <i class="fa fa-map-marker" aria-hidden="true"></i>
       <p class="job__location">
         <span *ngFor="let city of career.cities; let i = index"
           >{{ city.Name }}
           <span *ngIf="i !== career.cities.length - 1">, </span>
         </span>
       </p>
-      <!-- <p class="job__location">
-        <span
-          >Islamabad, Rawalpindi
-        </span>
-      </p> -->
-    </span>
-    <p class="job__type">{{ career.type | titlecase }}</p>
-    <!-- <p class="job__type">Full Time</p> -->
 
-    <div class="job__description" [innerHtml]="career.description">
-      <!-- <div class="job__description" > -->
-      <!-- <h2>Company Description</h2>
-      <p>
-        For over Decades we have maintained our reputation while integrating Business solutions to
-        the Enterprises with the Clientele based from different Domains where deployments are based
-        on Departmental specifics such as Finance, Human Resource, Supply chain, Manufacturing and
-        so on as well as full Enterprise Resource Planning Software’s.
+      <!-- Pair 3 -->
+      <i *ngIf="career.isShowSalary" class="fa fa-money" aria-hidden="true"></i>
+      <p *ngIf="career.isShowSalary" class="job__location">
+        <span
+          >{{ career.minSalary | currency: "PK" }} - {{ career.maxSalary | currency: "PK" }} /
+          Month</span
+        >
       </p>
-      <h2>Job Description</h2>
-      <p>
-        For over Decades we have maintained our reputation while integrating Business solutions to
-        the Enterprises with the Clientele based from different Domains where deployments are based
-        on Departmental specifics such as Finance, Human Resource, Supply chain, Manufacturing and
-        so on as well as full Enterprise Resource Planning Software’s.
+
+      <!-- Pair 4 -->
+      <i class="fa fa-clock-o" aria-hidden="true"></i>
+      <p class="job__type">
+        {{ career.type | titlecase }}
       </p>
-      <h2>Qualifications</h2>
-      <p>
-        For over Decades we have maintained our reputation while integrating Business solutions to
-        the Enterprises with the Clientele based from different Domains where deployments are based
-        on Departmental specifics such as Finance, Human Resource, Supply chain, Manufacturing and
-        so on as well as full Enterprise Resource Planning Software’s.
-      </p> -->
     </div>
 
-    <!-- <a [routerLink]="['/careers', career.slug, 'apply']" class="job__interested-btn"
-      >I'm interested</a
-    > -->
+    <!-- <span class="job__position-location">
+      <ng-container>
+        <p *ngIf="career.position === 1" class="job__position">
+          <i class="fa fa-user" aria-hidden="true"></i>{{ career.position }} position
+        </p>
+        <p *ngIf="career.position > 1" class="job__position">
+          <i class="fa fa-users" aria-hidden="true"></i>{{ career.position }} positions
+        </p>
+      </ng-container>
+     
+      <p class="job__location">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span *ngFor="let city of career.cities; let i = index"
+          >{{ city.Name }}
+          <span *ngIf="i !== career.cities.length - 1">, </span>
+        </span>
+      </p>
+      <p class="job__location">
+        <i class="fa fa-money" aria-hidden="true"></i>
+        <span>{{ career.minSalary }} - {{ career.maxSalary }}</span>
+      </p>
+    </span>
+    <p class="job__type">
+      <i class="fa fa-clock-o" aria-hidden="true"></i> {{ career.type | titlecase }}
+    </p> -->
+    <!-- <p class="job__type">Full Time</p> -->
 
-    <!-- (click)="open(content)" -->
-
-    <!-- <pre>{{ closeResult }}</pre> -->
+    <div class="job__description" [innerHtml]="career.description"></div>
   </div>
   <div class="job__half">
+    <div [@fadeInToOut]="isSaveClicked ? 'in' : 'out'" class="roller-anim-container">
+      <div class="roller-anim-inner">
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
     <!-- <p class="job__other-jobs">Other jobs at tmr consulting.</p>
 
     <div class="job__item">
@@ -81,7 +109,7 @@
 
     <a routerLink="/careers" class="job__all-btn">Show all jobs</a> -->
 
-    <p class="job__line">Add your resume here. The resume must be a .doc, .docx or a pdf file.</p>
+    <p class="job__line">Add your resume here. The resume must be a pdf or a .docx file.</p>
 
     <!-- <p class="job__line">
       Select resume
@@ -89,10 +117,11 @@
     </p> -->
     <span class=" job__line job__line--n">Select resume </span>
     <span class="job__line job__line--n">
-      <label for="file-upload" class="job__upload-btn">
+      <label for="file-upload" [class.job__upload-btn--grey]="isExpired" class="job__upload-btn">
         Upload
       </label>
       <input
+        [disabled]="isExpired"
         type="file"
         id="file-upload"
         name="myFile"
@@ -103,6 +132,7 @@
       fileName
     }}</span>
 
+    <!-- <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)"> -->
     <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)">
       <div class="job__form-group">
         <label for="name" class="job__label">Name</label>
@@ -127,7 +157,7 @@
         <input
           ngModel
           required
-          email
+          pattern="^[^ @]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
           name="email"
           #email="ngModel"
           type="text"
@@ -136,14 +166,14 @@
         />
         <div *ngIf="f.submitted && email.invalid" class="job__error">
           <i
-            *ngIf="email.errors.required || email.errors.email"
+            *ngIf="email.errors.required || email.errors.pattern"
             class="fa fa-exclamation-triangle"
             aria-hidden="true"
           ></i>
           <p *ngIf="email.errors.required">
             Email is required
           </p>
-          <p *ngIf="email.errors.email">
+          <p *ngIf="email.errors.pattern">
             Invalid E-mail
           </p>
         </div>
@@ -196,7 +226,33 @@
         </div>
       </div>
 
-      <button class="job__submit-btn">I'm Interested</button>
+      <button
+        [disabled]="isExpired"
+        [class.job__submit-btn--grey]="isExpired"
+        class="job__submit-btn"
+      >
+        I'm Interested
+      </button>
+
+      <div *ngIf="isLargeFile" class="job__response job__response--error">
+        Large file size.
+      </div>
+
+      <div *ngIf="isFormatAllowed" class="job__response job__response--error">
+        Only pdf and docx allowed.
+      </div>
+
+      <div [@slideInToOut]="isResponseValid ? 'in' : 'out'" class="job__response">
+        Thankyou for submitting your response. We will contact you as soon as possible.
+      </div>
+
+      <div *ngIf="isUploadFailed" class="job__response job__response--error">
+        Upload Failed.
+      </div>
+
+      <div *ngIf="isFailed" class="job__response job__response--error">
+        Failed.
+      </div>
     </form>
   </div>
 </div>

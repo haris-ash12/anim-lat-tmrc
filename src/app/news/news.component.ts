@@ -29,7 +29,7 @@ export class NewsComponent implements OnInit {
     private meta: Meta,
     private titleSevice: Title // private router: Router
   ) {
-    console.log("News component ..............................................");
+    // console.log("News component ..............................................");
   }
 
   ngOnInit() {
@@ -40,10 +40,18 @@ export class NewsComponent implements OnInit {
       this.newsService.getByQueryParams(newsSlug).subscribe((news: any) => {
         // this.router.navigateByUrl("/");
 
-        console.log("news...");
-        console.log(news);
+        // console.log("news...");
+        // console.log(news);
 
         let newsDescription = unescape(news.Description);
+
+        // Remove <p></p> from <p><img ></p>, so that only <img > remains.
+        newsDescription = newsDescription.replace(/<p><img(.*?)><\/p>/g, value => {
+          let valueWithNoPtag = value.replace(/<\/?p>/g, "");
+          let valueWithNoStyle = valueWithNoPtag.replace(/style="(.*?)"/g, "");
+
+          return valueWithNoStyle;
+        });
 
         let newsObj = {
           title: news.Title,
