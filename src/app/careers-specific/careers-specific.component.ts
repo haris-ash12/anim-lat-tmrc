@@ -4,6 +4,8 @@ import { CareersService } from "../services/careers.service";
 import { HttpClient } from "@angular/common/http";
 import { Meta, Title } from "@angular/platform-browser";
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { StartUpService } from "../services/start-up.service";
+import { SubmitResumeService } from "../services/submit-resume.service";
 
 @Component({
   selector: "app-careers-specific",
@@ -35,7 +37,7 @@ import { trigger, state, style, transition, animate } from "@angular/animations"
 })
 export class CareersSpecificComponent implements OnInit {
   career: any = {};
-  career_slug: string = "";
+  careerSlug: string = "";
   fileToUpload: File = null;
   fileName: string = "";
   isAvailable: boolean;
@@ -53,6 +55,8 @@ export class CareersSpecificComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private careersService: CareersService,
+    private startupService: StartUpService,
+    private submitResumeService: SubmitResumeService,
     private httpCLient: HttpClient,
     private meta: Meta,
     private titleSevice: Title
@@ -79,7 +83,7 @@ export class CareersSpecificComponent implements OnInit {
           return valueWithNoStyle;
         });
 
-        this.career_slug = careerResponse[0].Slug;
+        this.careerSlug = careerResponse[0].Slug;
         let careerObject = {
           title: careerResponse[0].JobTitle,
           position: careerResponse[0].NoOfPosition,
@@ -151,19 +155,21 @@ export class CareersSpecificComponent implements OnInit {
       formData.append("Email", f.value.email);
       formData.append("PhoneNo", f.value.phone);
       formData.append("CoverLetter", f.value.coverLetter);
-      formData.append("slug", this.career_slug);
+      formData.append("slug", this.careerSlug);
 
       // ! Hardcoded value of country code, need to change that later.
-      formData.append("CountryCode", "pk");
+      // * Country code changed now, but needs to be checked.
+      formData.append("CountryCode", this.startupService.getCountryCode);
 
       // console.log("Uploading form data ...");
       this.isSaveClicked = true;
 
       this.httpCLient
         .post("http://maintmrc.ga/admin/api/submitapplication", formData)
+        // this.submitResumeService.create(formData)
         .subscribe(submitResponse => {
-          // console.log("This is the response from server while uploadin ..");
-          // console.log(submitResponse);
+          console.log("This is the response from server while uploadin ..");
+          console.log(submitResponse);
           // submitResponse = 1;
 
           // submitResponse = 1;
