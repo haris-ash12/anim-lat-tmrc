@@ -49,6 +49,7 @@ import { CountryCodeGuardService } from "./services/country-code-guard.service";
 import { ContactComponent } from "./contact/contact.component";
 import { TrainingsComponent } from "./trainings/trainings.component";
 import { TrainingDetailComponent } from "./training-detail/training-detail.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
 
 export function startupProviderFactory(provider: StartUpService) {
   // console.log('provider.startupcall..');
@@ -92,7 +93,8 @@ export function starti(provider: StartUpService) {
     // CareersApplyComponent,
     ContactComponent,
     TrainingsComponent,
-    TrainingDetailComponent
+    TrainingDetailComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: "serverApp" }),
@@ -122,7 +124,8 @@ export function starti(provider: StartUpService) {
             { path: "trainings", component: TrainingsComponent },
             { path: "trainings/:slug", component: TrainingDetailComponent },
 
-            { path: ":menu/:submenu", component: GenericComponent }
+            { path: ":menu/:submenu", component: GenericComponent },
+            { path: "**", component: NotFoundComponent }
           ]
         },
         {
@@ -134,15 +137,22 @@ export function starti(provider: StartUpService) {
             //   path: ':countryCode',
             //   component: SpecificComponent,
             //   children: [
+            { path: "about-us/contact-us", component: ContactComponent },
 
             { path: "news/:slug", component: NewsComponent },
+
             { path: "careers", component: CareersComponent },
             { path: "careers/:specificCareer", component: CareersSpecificComponent },
             // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
 
             { path: "blog", component: BlogsComponent },
             { path: "blog/:slug", component: BlogDetailComponent },
-            { path: ":menu/:submenu", component: GenericComponent }
+
+            { path: "trainings", component: TrainingsComponent },
+            { path: "trainings/:slug", component: TrainingDetailComponent },
+
+            { path: ":menu/:submenu", component: GenericComponent },
+            { path: "**", component: NotFoundComponent }
           ]
         }
       ],

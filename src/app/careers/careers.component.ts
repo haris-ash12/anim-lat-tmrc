@@ -45,8 +45,8 @@ export class CareersComponent implements OnInit {
         this.careers.push(careersObject);
       }
 
-      // console.log("Careers response after changes ...");
-      // console.log(this.careers);
+      console.log("Careers response after changes ...");
+      console.log(this.careers);
 
       this.isAvailable = true;
     });

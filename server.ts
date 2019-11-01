@@ -52,7 +52,7 @@ const {
 app.use(cors());
 
 app.engine("html", (_, options, callback) => {
-  console.log("server.ts .............................................................");
+  // console.log("server.ts .............................................................");
   console.log("COuntry code in app engine ..." + countryCode);
   // console.log(options.req.remoteAddress || options.req.header("x-forwarded-for"));
 
@@ -122,10 +122,13 @@ app.get("*", (req, res) => {
   var host = req.get("host");
   console.log("Host .....");
   console.log(host);
+
+  // Protocol either http / https
   console.log("Protocol");
   console.log(req.protocol);
   var protocol = req.protocol;
 
+  // URL starting from root
   let routeSlug = req.url;
   console.log("route slug ...");
   console.log(routeSlug);
@@ -134,7 +137,7 @@ app.get("*", (req, res) => {
   // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
 
   // This should be used as IP as it is also working on windows server
-  let clientIPAddress = req.remoteAddress || req.header("X-forwarded-for");
+  // let clientIPAddress = req.remoteAddress || req.header("X-forwarded-for");
 
   // let clientIPAddress =
   //   req.headers["x-forwarded-for"] ||
@@ -143,7 +146,7 @@ app.get("*", (req, res) => {
   //   req.connection.socket.remoteAddress;
 
   // For offline testing purposes. My ip address.
-  // let clientIPAddress = "115.186.141.114";
+  let clientIPAddress = "115.186.141.114";
 
   console.log("CLient Ip Address ....." + clientIPAddress);
 
