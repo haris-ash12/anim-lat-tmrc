@@ -114,7 +114,7 @@ app.get(
 // All regular routes use the Universal engine
 app.get("*", (req, res) => {
   console.log(
-    "Console statement  in * ................................................................................."
+    "server.ts  ................................................................................."
   );
   // console.log({ req });
 

@@ -9,7 +9,7 @@ if (environment.production) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // console.log("main.ts.............................................................");
+  console.log("main.ts  .............................................................");
 
   apiCall()
     .then(res => {
