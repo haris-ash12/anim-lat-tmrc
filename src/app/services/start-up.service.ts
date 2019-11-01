@@ -76,7 +76,7 @@ export class StartUpService {
   settingBaseHref() {
     if (isPlatformBrowser(this.platformId)) {
       // console.log("setClientBaseHref...");
-      // console.log("setClientBaseHref..." + this.countryCode);
+      console.log("settingBaseHref() method ... this.countryCode ..." + this.countryCode);
 
       let cc = this.getCountryCode;
 

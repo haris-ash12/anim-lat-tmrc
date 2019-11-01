@@ -137,7 +137,7 @@ app.get("*", (req, res) => {
   // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
 
   // This should be used as IP as it is also working on windows server
-  // let clientIPAddress = req.remoteAddress || req.header("X-forwarded-for");
+  let clientIPAddress = req.remoteAddress || req.header("X-forwarded-for");
 
   // let clientIPAddress =
   //   req.headers["x-forwarded-for"] ||
@@ -146,7 +146,7 @@ app.get("*", (req, res) => {
   //   req.connection.socket.remoteAddress;
 
   // For offline testing purposes. My ip address.
-  let clientIPAddress = "115.186.141.114";
+  // let clientIPAddress = "115.186.141.114";
 
   console.log("CLient Ip Address ....." + clientIPAddress);
 
