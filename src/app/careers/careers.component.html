@@ -54,14 +54,14 @@
           <a
             *ngIf="career.isRedirectionActive === false"
             class="careers__jobs__apply"
-            [routerLink]="['/careers', career.slug]"
+            routerLink="{{ this.helperService.countryCodeHelperValue }}/careers/{{ career.slug }}"
             >Apply now
           </a>
 
           <a
             *ngIf="career.isRedirectionActive === true"
             class="careers__jobs__apply"
-            href="/careers/{{ career.slug }}"
+            href="{{ this.helperService.countryCodeHelperValue }}/careers/{{ career.slug }}"
             >Apply now</a
           >
         </ng-container>

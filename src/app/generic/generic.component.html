@@ -21,7 +21,9 @@
       <div class="links__container">
         <a
           *ngFor="let submenu of submenus"
-          routerLink="/{{ parentMenu }}/{{ submenu.slug }}"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ parentMenu }}/{{
+            submenu.slug
+          }}"
           class="links__link"
           [class.links__link--selected]="childMenu === submenu.slug"
           >{{ submenu.titleName }}</a
@@ -118,7 +120,9 @@
       <div class="links__container links__container--line">
         <a
           *ngFor="let content of sideContents"
-          href="/{{ parentMenu }}/{{ childMenu }}#{{ content.hrefValue }}"
+          href="{{ this.helperService.countryCodeHelperValue }}/{{ parentMenu }}/{{ childMenu }}#{{
+            content.hrefValue
+          }}"
           class="links__link links__link--circle"
           >{{ content.title }}</a
         >

@@ -12,8 +12,16 @@
       <h2 class="hero__small-line hero-transition">Serving Our Client Requirements</h2>
     </div>
     <div class="hero__btn-container">
-      <a class="hero__btn hero__btn--orange" routerLink="/about-us/company-profile">Our Profile</a>
-      <a class="hero__btn hero__btn--white" routerLink="/about-us/contact-us">Contact Us</a>
+      <a
+        class="hero__btn hero__btn--orange"
+        routerLink="{{ this.helperService.countryCodeHelperValue }}/about-us/company-profile"
+        >Our Profile</a
+      >
+      <a
+        class="hero__btn hero__btn--white"
+        routerLink="{{ this.helperService.countryCodeHelperValue }}/about-us/contact-us"
+        >Contact Us</a
+      >
     </div>
   </div>
   <div class="hero__slider">
@@ -72,7 +80,9 @@
       class="section-service__card section-service__card--{{ i + 1 }}"
     >
       <a
-        [routerLink]="['/', services.url.parent, services.url.child]"
+        routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ services.url.parent }}/{{
+          services.url.child
+        }}"
         class="section-service__link"
       ></a>
       <img

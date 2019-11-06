@@ -22,30 +22,86 @@
 
     <div class="sidenav__list">
       <ng-container *ngFor="let menu of menus">
-        <a
+        <!-- <a
           *ngIf="menu.children.length === 0"
           class="sidenav__list-item"
-          [routerLink]="['/', menu.slug]"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
           >{{ menu.titleName }}</a
-        >
+        > -->
 
-        <a *ngIf="menu.children.length > 0" class="sidenav__dropdown-list-item" ngbDropdown>
+        <ng-container *ngIf="menu.children.length === 0">
+          <a
+            *ngIf="menu.isRedirectionActive === false"
+            class="sidenav__list-item"
+            routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
+            >{{ menu.titleName }}</a
+          >
+
+          <a
+            *ngIf="menu.isRedirectionActive === true"
+            class="sidenav__list-item"
+            href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
+            >{{ menu.titleName }}</a
+          >
+        </ng-container>
+
+        <ng-container *ngIf="menu.children.length > 0">
+          <a
+            *ngIf="menu.isRedirectionActive === false"
+            class="sidenav__dropdown-list-item"
+            ngbDropdown
+          >
+            <a ngbDropdownToggle class="sidenav__list-item">{{ menu.titleName }}</a>
+            <div class="sidenav__dropdown-content sidenav__imps" ngbDropdownMenu>
+              <a
+                *ngFor="let subMenu of menu.children"
+                routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
+                  subMenu.slug
+                }}"
+                ngbDropdownItem
+                >{{ subMenu.titleName }}</a
+              >
+            </div>
+          </a>
+
+          <a
+            *ngIf="menu.isRedirectionActive === true"
+            class="sidenav__dropdown-list-item"
+            ngbDropdown
+          >
+            <a ngbDropdownToggle class="sidenav__list-item">{{ menu.titleName }}</a>
+            <div class="sidenav__dropdown-content sidenav__imps" ngbDropdownMenu>
+              <a
+                *ngFor="let subMenu of menu.children"
+                href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
+                  subMenu.slug
+                }}"
+                ngbDropdownItem
+                >{{ subMenu.titleName }}</a
+              >
+            </div>
+          </a>
+        </ng-container>
+
+        <!-- <a *ngIf="menu.children.length > 0" class="sidenav__dropdown-list-item" ngbDropdown>
           <a ngbDropdownToggle class="sidenav__list-item">{{ menu.titleName }}</a>
           <div class="sidenav__dropdown-content sidenav__imps" ngbDropdownMenu>
             <a
               *ngFor="let subMenu of menu.children"
-              [routerLink]="['/', menu.slug, subMenu.slug]"
+              routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
+                subMenu.slug
+              }}"
               ngbDropdownItem
               >{{ subMenu.titleName }}</a
             >
           </div>
-        </a>
+        </a> -->
       </ng-container>
 
       <img
         class="nav__logo nav__logo--csp-phone"
         src="../../assets/images/logo/mbs-partner.png"
-        alt=""
+        alt="Microsoft CSP Partner"
       />
 
       <!-- <a class="sidenav__list-item">Home</a>
@@ -62,7 +118,7 @@
   <mat-sidenav-content cdkScrollable>
     <!-- This mat-toolbar is a CSS-flex -->
     <mat-toolbar color="primary">
-      <a routerLink="/">
+      <a routerLink="{{ this.helperService.countryCodeHelperValue }}/">
         <img
           class="nav__logo"
           src="../../assets/images/logo/tmrc-logo.png"
@@ -82,14 +138,14 @@
                 <a
                   *ngIf="menu.isRedirectionActive === false"
                   class="nav__link nav__link--hover"
-                  [routerLink]="['/', menu.slug]"
+                  routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
                   >{{ menu.titleName }}</a
                 >
 
                 <a
                   *ngIf="menu.isRedirectionActive === true"
                   class="nav__link nav__link--hover"
-                  href="/{{ menu.slug }}"
+                  href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
                   >{{ menu.titleName }}</a
                 >
               </ng-container>
@@ -112,14 +168,18 @@
                     *ngIf="menu.isRedirectionActive === false"
                     ngbDropdownItem
                     class="nav__link"
-                    [routerLink]="['/', menu.slug, subMenu.slug]"
+                    routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
+                      subMenu.slug
+                    }}"
                     >{{ subMenu.titleName }}</a
                   >
 
                   <a
                     *ngIf="menu.isRedirectionActive === true"
                     class="nav__link"
-                    href="/{{ menu.slug }}/{{ subMenu.slug }}"
+                    href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
+                      subMenu.slug
+                    }}"
                     >{{ subMenu.titleName }}</a
                   >
                 </ng-container>
@@ -185,7 +245,7 @@
                 *ngIf="newsObj.isRedirectionActive === false"
                 ngbDropdownItem
                 class="navigation__dropdown-alert__item"
-                [routerLink]="['/news', newsObj.slug]"
+                routerLink="{{ this.helperService.countryCodeHelperValue }}/news/{{ newsObj.slug }}"
               >
                 <p class="navigation__dropdown-alert__item-title">
                   {{ newsObj.title | titlecase }}

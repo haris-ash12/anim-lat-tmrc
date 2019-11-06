@@ -5,6 +5,7 @@ import { GenericContentService } from "../services/generic-content.service";
 import { DomSanitizer, SafeHtml, Meta, Title } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
   selector: "app-generic",
@@ -33,7 +34,8 @@ export class GenericComponent implements OnInit {
     private meta: Meta,
     private titleSevice: Title,
     private _sanitizer: DomSanitizer,
-    private globals: GlobalsService
+    private globals: GlobalsService,
+    public helperService: HelperValuesService
   ) {
     // console.log("Genric component .............................................");
     // console.log("Printing Meta tags for Generic component..., GO CHECK!");

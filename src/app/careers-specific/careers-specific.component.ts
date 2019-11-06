@@ -6,6 +6,7 @@ import { Meta, Title } from "@angular/platform-browser";
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { StartUpService } from "../services/start-up.service";
 import { SubmitResumeService } from "../services/submit-resume.service";
+import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
   selector: "app-careers-specific",
@@ -59,7 +60,8 @@ export class CareersSpecificComponent implements OnInit {
     private submitResumeService: SubmitResumeService,
     private httpCLient: HttpClient,
     private meta: Meta,
-    private titleSevice: Title
+    private titleSevice: Title,
+    public helperService: HelperValuesService
   ) {
     // console.log(this.fileToUpload, "FileToUpload...");
   }
@@ -168,8 +170,8 @@ export class CareersSpecificComponent implements OnInit {
         .post("http://maintmrc.ga/admin/api/submitapplication", formData)
         // this.submitResumeService.create(formData)
         .subscribe(submitResponse => {
-          console.log("This is the response from server while uploadin ..");
-          console.log(submitResponse);
+          // console.log("This is the response from server while uploadin ..");
+          // console.log(submitResponse);
           // submitResponse = 1;
 
           // submitResponse = 1;

@@ -30,7 +30,7 @@ export class BlogDetailComponent implements OnInit {
     private blogSlugService: BlogBySlugService,
     private route: ActivatedRoute,
     private router: Router,
-    private helperService: HelperValuesService,
+    public helperService: HelperValuesService,
     private globals: GlobalsService,
     private meta: Meta,
     private titleService: Title
@@ -107,11 +107,11 @@ export class BlogDetailComponent implements OnInit {
 
   productClicked(productId) {
     this.helperService.productId = productId;
-    this.router.navigate(["/blog"]);
+    this.router.navigate([this.helperService.countryCodeHelperValue, "blog"]);
   }
 
   yearsClicked(year) {
     this.helperService.yearId = year;
-    this.router.navigate(["/blog"]);
+    this.router.navigate([this.helperService.countryCodeHelperValue, "blog"]);
   }
 }

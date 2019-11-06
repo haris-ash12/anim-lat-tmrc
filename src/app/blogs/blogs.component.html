@@ -83,13 +83,13 @@
         <a
           *ngIf="blog.isRedirectionActive === false"
           class="blog-card__link"
-          [routerLink]="['/blog', blog.slug]"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/blog/{{ blog.slug }}"
         ></a>
 
         <a
           *ngIf="blog.isRedirectionActive === true"
           class="blog-card__link"
-          href="/blog/{{ blog.slug }}"
+          href="{{ this.helperService.countryCodeHelperValue }}/blog/{{ blog.slug }}"
         ></a>
       </ng-container>
       <div class="blog-card__image">

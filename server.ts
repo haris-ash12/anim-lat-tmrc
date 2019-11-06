@@ -53,7 +53,7 @@ app.use(cors());
 
 app.engine("html", (_, options, callback) => {
   // console.log("server.ts .............................................................");
-  console.log("COuntry code in app engine ..." + countryCode);
+  // console.log("COuntry code in app engine ..." + countryCode);
   // console.log(options.req.remoteAddress || options.req.header("x-forwarded-for"));
 
   // console.log("options.req.url ... " + options.req.url);
@@ -113,25 +113,25 @@ app.get(
 
 // All regular routes use the Universal engine
 app.get("*", (req, res) => {
-  console.log(
-    "server.ts  ................................................................................."
-  );
+  // console.log(
+  //   "server.ts  ................................................................................."
+  // );
   // console.log({ req });
 
   // Domain name
   var host = req.get("host");
-  console.log("Host .....");
-  console.log(host);
+  // console.log("Host .....");
+  // console.log(host);
 
   // Protocol either http / https
-  console.log("Protocol");
-  console.log(req.protocol);
+  // console.log("Protocol");
+  // console.log(req.protocol);
   var protocol = req.protocol;
 
   // URL starting from root
   let routeSlug = req.url;
-  console.log("route slug ...");
-  console.log(routeSlug);
+  // console.log("route slug ...");
+  // console.log(routeSlug);
 
   // Get client Ip Address or use hard-coded ip value.
   // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
@@ -148,7 +148,7 @@ app.get("*", (req, res) => {
   // For offline testing purposes. My ip address.
   // let clientIPAddress = "115.186.141.114";
 
-  console.log("CLient Ip Address ....." + clientIPAddress);
+  // console.log("CLient Ip Address ....." + clientIPAddress);
 
   let key = "2e7502e026787dcc570948b8afa7f7e2ca0da36b82fdd970c4dc8a070747e309";
 
@@ -158,9 +158,9 @@ app.get("*", (req, res) => {
       let data = "";
       response.on("data", chunk => {
         data += chunk;
-        console.log("Country Code ... server.ts ... from geolocation");
+        // console.log("Country Code ... server.ts ... from geolocation");
         countryCode = JSON.parse(data).countryCode;
-        console.log("Country Code ... server.ts ... " + countryCode);
+        // console.log("Country Code ... server.ts ... " + countryCode);
 
         // Now that we have found the country code, We need to find that whether redirection exists againt this route or not.
         http.get(
@@ -170,8 +170,8 @@ app.get("*", (req, res) => {
             redirectionResponse.on("data", chunk => {
               data += chunk;
 
-              console.log("Redirection calll ...");
-              console.log(data);
+              // console.log("Redirection calll ...");
+              // console.log(data);
 
               let redirection = JSON.parse(data);
 
@@ -179,8 +179,8 @@ app.get("*", (req, res) => {
               let redirectionType: any;
 
               if (!redirection) {
-                console.log("! redirection ....");
-                console.log(redirection);
+                // console.log("! redirection ....");
+                // console.log(redirection);
                 redirectionUrl = null;
                 redirectionType = null;
                 // res.render("index", { req });
@@ -189,19 +189,19 @@ app.get("*", (req, res) => {
               } else if (redirection) {
                 redirectionUrl = redirection.RedirectionUrl;
                 redirectionType = redirection.RedirectionType;
-                console.log(redirection.RedirectionUrl + " &  ..." + redirection.RedirectionType);
+                // console.log(redirection.RedirectionUrl + " &  ..." + redirection.RedirectionType);
               }
 
               if (redirectionUrl && redirectionType) {
                 res.set("location", redirectionUrl);
-                console.log("1");
+                // console.log("1");
                 res.status(redirectionType).send();
-                console.log("2");
+                // console.log("2");
                 // res.render("index", { req });
-                console.log("Redirection wali if statment ...");
+                // console.log("Redirection wali if statment ...");
               } else {
                 res.render("index", { req });
-                console.log("Else wali if statement ...");
+                // console.log("Else wali if statement ...");
               }
 
               // FOr checking .....

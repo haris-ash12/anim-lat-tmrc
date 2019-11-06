@@ -50,6 +50,7 @@ import { ContactComponent } from "./contact/contact.component";
 import { TrainingsComponent } from "./trainings/trainings.component";
 import { TrainingDetailComponent } from "./training-detail/training-detail.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { CountryCodeGuard2Service } from "./services/country-code-guard-2.service";
 
 export function startupProviderFactory(provider: StartUpService) {
   // console.log('provider.startupcall..');
@@ -59,7 +60,8 @@ export function startupProviderFactory(provider: StartUpService) {
 }
 
 export function setClientBaseHref(provider: StartUpService) {
-  // console.log("Set client base href called ......");
+  // console.log("setClientBaseHref() called in app module.ts ......");
+  // console.log("value ...", provider.settingBaseHref());
   return provider.settingBaseHref();
 }
 export function starti(provider: StartUpService) {
@@ -100,61 +102,148 @@ export function starti(provider: StartUpService) {
     BrowserModule.withServerTransition({ appId: "serverApp" }),
     RouterModule.forRoot(
       [
+        // {
+        //   path: "",
+        //   // canActivate: [CountryCodeGuardService],
+        //   children: [
+        { path: "", component: HomeComponent, canActivate: [CountryCodeGuardService] },
+        // { path: "test", component: TestComponent },
+        { path: "blog", component: BlogsComponent, canActivate: [CountryCodeGuardService] },
         {
-          path: "",
-          canActivate: [CountryCodeGuardService],
-          children: [
-            { path: "", component: HomeComponent },
-            // { path: "test", component: TestComponent },
-            { path: "about-us/contact-us", component: ContactComponent },
-            // {
-            //   path: ':countryCode',
-            //   component: SpecificComponent,
-            //   children: [
-
-            { path: "news/:slug", component: NewsComponent },
-
-            { path: "careers", component: CareersComponent },
-            { path: "careers/:specificCareer", component: CareersSpecificComponent },
-            // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
-
-            { path: "blog", component: BlogsComponent },
-            { path: "blog/:slug", component: BlogDetailComponent },
-
-            { path: "trainings", component: TrainingsComponent },
-            { path: "trainings/:slug", component: TrainingDetailComponent },
-
-            { path: ":menu/:submenu", component: GenericComponent },
-            { path: "**", component: NotFoundComponent }
-          ]
+          path: "trainings",
+          component: TrainingsComponent,
+          canActivate: [CountryCodeGuardService]
+        },
+        { path: "careers", component: CareersComponent, canActivate: [CountryCodeGuardService] },
+        {
+          path: "about-us/contact-us",
+          component: ContactComponent,
+          canActivate: [CountryCodeGuardService]
         },
         {
+          path: "blog/:slug",
+          component: BlogDetailComponent,
+          canActivate: [CountryCodeGuardService]
+        },
+
+        {
+          path: "trainings/:slug",
+          component: TrainingDetailComponent,
+          canActivate: [CountryCodeGuardService]
+        },
+        {
+          path: "careers/:specificCareer",
+          component: CareersSpecificComponent,
+          canActivate: [CountryCodeGuardService]
+        },
+
+        {
+          path: "news/:slug",
+          component: NewsComponent,
+          canActivate: [CountryCodeGuardService]
+        },
+
+        {
           path: ":cc",
-          children: [
-            { path: "", component: HomeComponent },
-            // { path: "test", component: TestComponent },
-            // {
-            //   path: ':countryCode',
-            //   component: SpecificComponent,
-            //   children: [
-            { path: "about-us/contact-us", component: ContactComponent },
+          component: HomeComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
+        { path: ":cc/blog", component: BlogsComponent, canActivate: [CountryCodeGuard2Service] },
+        {
+          path: ":cc/trainings",
+          component: TrainingsComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
+        {
+          path: ":cc/careers",
+          component: CareersComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
 
-            { path: "news/:slug", component: NewsComponent },
+        {
+          path: ":menu/:submenu",
+          component: GenericComponent,
+          canActivate: [CountryCodeGuardService]
+        },
 
-            { path: "careers", component: CareersComponent },
-            { path: "careers/:specificCareer", component: CareersSpecificComponent },
-            // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
+        {
+          path: ":cc/about-us/contact-us",
+          component: ContactComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
+        {
+          path: ":cc/blog/:slug",
+          component: BlogDetailComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
 
-            { path: "blog", component: BlogsComponent },
-            { path: "blog/:slug", component: BlogDetailComponent },
+        {
+          path: ":cc/trainings/:slug",
+          component: TrainingDetailComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
+        {
+          path: ":cc/careers/:specificCareer",
+          component: CareersSpecificComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
 
-            { path: "trainings", component: TrainingsComponent },
-            { path: "trainings/:slug", component: TrainingDetailComponent },
+        {
+          path: ":cc/news/:slug",
+          component: NewsComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
+        {
+          path: ":cc/:menu/:submenu",
+          component: GenericComponent,
+          canActivate: [CountryCodeGuard2Service]
+        },
 
-            { path: ":menu/:submenu", component: GenericComponent },
-            { path: "**", component: NotFoundComponent }
-          ]
-        }
+        // {
+        //   path: ':countryCode',
+        //   component: SpecificComponent,
+        //   children: [
+
+        // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
+
+        // {
+        //   path: ":cc/:menu/:submenu",
+        //   component: GenericComponent,
+        //   canActivate: [CountryCodeGuard2Service]
+        // },
+
+        // {
+        //   path: ":cc",
+        //   canActivate: [CountryCodeGuard2Service],
+        //   children: [
+        //     { path: "", component: HomeComponent },
+        //     // { path: "test", component: TestComponent },
+        //     // {
+        //     //   path: ':countryCode',
+        //     //   component: SpecificComponent,
+        //     //   children: [
+        //     { path: "about-us/contact-us", component: ContactComponent },
+
+        //     { path: "news/:slug", component: NewsComponent },
+
+        //     { path: "careers", component: CareersComponent },
+        //     { path: "careers/:specificCareer", component: CareersSpecificComponent },
+        //     // { path: "careers/:specificCareer/apply", component: CareersApplyComponent },
+
+        //     { path: "blog", component: BlogsComponent },
+        //     { path: "blog/:slug", component: BlogDetailComponent },
+
+        //     { path: "trainings", component: TrainingsComponent },
+        //     { path: "trainings/:slug", component: TrainingDetailComponent },
+
+        //     { path: ":menu/:submenu", component: GenericComponent },
+        //     { path: "**", component: NotFoundComponent }
+        //   ]
+        // },
+
+        { path: "**", component: NotFoundComponent }
+        //   ]
+        // }
       ],
       {
         // scrollPositionRestoration: "top"
@@ -183,11 +272,11 @@ export function starti(provider: StartUpService) {
       deps: [StartUpService],
       multi: true
     },
-    {
-      provide: APP_BASE_HREF,
-      useFactory: setClientBaseHref,
-      deps: [StartUpService]
-    },
+    // {
+    //   provide: APP_BASE_HREF,
+    //   useFactory: setClientBaseHref,
+    //   deps: [StartUpService]
+    // },
 
     // This part is causing issue now...
     // {

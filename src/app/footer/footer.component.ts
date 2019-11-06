@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MenuService } from "../services/menus/menu.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
 import { SubscriptionService } from "../services/subscription.service";
+import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
   selector: "app-footer",
@@ -27,7 +28,11 @@ export class FooterComponent implements OnInit {
   isSubscribeClicked: boolean;
   isEmailValid: boolean;
 
-  constructor(private menuService: MenuService, private subscriptionService: SubscriptionService) {}
+  constructor(
+    private menuService: MenuService,
+    private subscriptionService: SubscriptionService,
+    public helperService: HelperValuesService
+  ) {}
 
   ngOnInit() {
     let parentMenus: any[] = [];
@@ -99,7 +104,7 @@ export class FooterComponent implements OnInit {
   //   console.log(email);
   // }
   submit(f) {
-    console.log(f);
+    // console.log(f);
     // let value = f.value
     // console.log("Submit click and value is", f.value);
     let email: string = f.value.email;

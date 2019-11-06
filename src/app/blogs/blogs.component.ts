@@ -38,7 +38,7 @@ export class BlogsComponent implements OnInit {
   constructor(
     private blogsService: BlogsService,
     private productsService: ProductsService,
-    private helperService: HelperValuesService,
+    public helperService: HelperValuesService,
 
     @Inject(PLATFORM_ID) private platformId: Object
   ) {

@@ -74,15 +74,17 @@
         <a
           *ngIf="subMenu.isRedirectionActive === false"
           class="footer__link"
-          [routerLink]="['/', menu.slug, subMenu.slug]"
-          >{{ subMenu.titleName }} - 1</a
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
+            subMenu.slug
+          }}"
+          >{{ subMenu.titleName }}</a
         >
 
         <a
           *ngIf="subMenu.isRedirectionActive === true"
           class="footer__link"
-          href="/{{ menu.slug }}/{{ subMenu.slug }}"
-          >{{ subMenu.titleName }} - 2</a
+          href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{ subMenu.slug }}"
+          >{{ subMenu.titleName }}</a
         >
       </ng-container>
     </div>

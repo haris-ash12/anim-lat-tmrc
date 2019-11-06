@@ -21,7 +21,9 @@
       <div class="links__container">
         <a
           *ngFor="let submenu of submenus"
-          routerLink="/{{ parentMenu }}/{{ submenu.slug }}"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ parentMenu }}/{{
+            submenu.slug
+          }}"
           class="links__link"
           [class.links__link--selected]="childMenu === submenu.slug"
           >{{ submenu.titleName }}</a

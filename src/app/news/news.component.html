@@ -39,14 +39,26 @@
     <div class="related-news">
       <p class="related-news__tag">Related News</p>
       <div class="related-news__list">
-        <a
-          *ngFor="let newsList of news"
-          class="related-news__list-item"
-          [routerLink]="['/news', newsList.slug]"
-        >
-          <p class="related-news__title">{{ newsList.title | titlecase }}</p>
-          <p class="related-news__date">{{ newsList.datePosted | date }}</p>
-        </a>
+        <ng-container *ngFor="let newsList of news">
+          <a
+            *ngIf="newsList.isRedirectionActive === false"
+            class="related-news__list-item"
+            routerLink="{{ this.helperService.countryCodeHelperValue }}/news/{{ newsList.slug }}"
+          >
+            <p class="related-news__title">{{ newsList.title | titlecase }}</p>
+            <p class="related-news__date">{{ newsList.datePosted | date }}</p>
+          </a>
+
+          <a
+            *ngIf="newsList.isRedirectionActive === true"
+            class="related-news__list-item"
+            href="{{ this.helperService.countryCodeHelperValue }}/news/{{ newsList.slug }}"
+          >
+            <p class="related-news__title">{{ newsList.title | titlecase }}</p>
+            <p class="related-news__date">{{ newsList.datePosted | date }}</p>
+          </a>
+        </ng-container>
+
         <!-- <a class="related-news__list-item">
           <p class="related-news__title">Mango party, next sunday !!!</p>
           <p class="related-news__date">21 jan, 2018</p>

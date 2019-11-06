@@ -28,7 +28,7 @@ export class TrainingDetailComponent implements OnInit {
     private trainingsService: TrainingsService,
     private route: ActivatedRoute,
     private router: Router,
-    private helperService: HelperValuesService,
+    public helperService: HelperValuesService,
     private meta: Meta,
     private titleService: Title,
     private _sanitizer: DomSanitizer
@@ -99,6 +99,6 @@ export class TrainingDetailComponent implements OnInit {
   categoryClicked(parentId, childId) {
     this.helperService.trainingCategoryParentId = parentId;
     this.helperService.trainingCategoryChildId = childId;
-    this.router.navigate(["/blog"]);
+    this.router.navigate([this.helperService.countryCodeHelperValue, "trainings"]);
   }
 }

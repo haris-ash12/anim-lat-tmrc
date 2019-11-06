@@ -17,6 +17,7 @@ import { MatSidenav } from "@angular/material";
 import { ScrollDispatcher, CdkScrollable } from "@angular/cdk/scrolling";
 import { isPlatformBrowser, ViewportScroller } from "@angular/common";
 import { Meta, Title } from "@angular/platform-browser";
+import { HelperValuesService } from "../services/helper-values.service";
 
 // const content = document.querySelector(".mat-sidenav-content");
 
@@ -50,8 +51,13 @@ export class MainNavComponent implements OnInit {
     public scroll: ScrollDispatcher,
     private meta: Meta,
     private titleSevice: Title,
+    public helperService: HelperValuesService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    // console.log(
+    //   "this.helperService.countryCodeHelperValue",
+    //   this.helperService.countryCodeHelperValue
+    // );
     // this.scrollingSubscription = this.scroll.scrolled().subscribe((data: CdkScrollable) => {
     //   this.onWindowScroll(data);
     // });

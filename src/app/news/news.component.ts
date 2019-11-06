@@ -4,6 +4,7 @@ import { NewsService } from "../services/news.service";
 import { Meta, Title } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
   selector: "app-news",
@@ -27,7 +28,8 @@ export class NewsComponent implements OnInit {
     private newsService: NewsService,
     private globals: GlobalsService,
     private meta: Meta,
-    private titleSevice: Title // private router: Router
+    private titleSevice: Title, // private router: Router
+    public helperService: HelperValuesService
   ) {
     // console.log("News component ..............................................");
   }
@@ -83,13 +85,24 @@ export class NewsComponent implements OnInit {
       // console.log(newsResponse);
 
       for (let i = 0; i < newsResponse.length; i++) {
+        let isRedirectionActive: boolean;
+        if (!newsResponse[i].RedirectionUrl || !newsResponse[i].RedirectionType) {
+          isRedirectionActive = false;
+        } else {
+          isRedirectionActive = true;
+        }
+
         let newsObject = {
           title: newsResponse[i].Title,
           datePosted: newsResponse[i].CreatedDate,
-          slug: newsResponse[i].Slug
+          slug: newsResponse[i].Slug,
+          redirectionUrl: newsResponse[i].RedirectionUrl,
+          redirectionType: newsResponse[i].RedirectionType,
+          isRedirectionActive: isRedirectionActive
         };
         this.news.push(newsObject);
       }
+      // console.log(this.news);
     });
   }
 }

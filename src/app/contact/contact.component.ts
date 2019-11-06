@@ -7,6 +7,7 @@ import { GlobalsService } from "../services/globals.service";
 import { ContactUsService } from "../services/contact-us.service";
 import { ContactAddressService } from "../contact-address.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
   selector: "app-contact",
@@ -47,7 +48,8 @@ export class ContactComponent implements OnInit {
     private meta: Meta,
     private titleSevice: Title,
     private _sanitizer: DomSanitizer,
-    private globals: GlobalsService
+    private globals: GlobalsService,
+    public helperService: HelperValuesService
   ) {
     // console.log("Contact component ................................................. ");
     // console.log("Printing Meta tags for Generic component..., GO CHECK!");

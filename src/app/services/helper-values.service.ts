@@ -8,5 +8,6 @@ export class HelperValuesService {
   yearId: number;
   trainingCategoryParentId: number;
   trainingCategoryChildId: number;
+  countryCodeHelperValue: string;
   constructor() {}
 }

@@ -36,7 +36,7 @@ export class TrainingsComponent implements OnInit {
   constructor(
     private trainingsCategoryService: TrainingsCategoryService,
     private trainingsService: TrainingsService,
-    private helperService: HelperValuesService,
+    public helperService: HelperValuesService,
     private _sanitizer: DomSanitizer,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {

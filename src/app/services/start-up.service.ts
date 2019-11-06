@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { isPlatformBrowser, isPlatformServer } from "@angular/common";
 import { Router } from "@angular/router";
+import { HelperValuesService } from "./helper-values.service";
 
 @Injectable({
   providedIn: "root"
@@ -15,12 +16,15 @@ export class StartUpService {
   constructor(
     private httpClient: HttpClient,
     private cookieService: CookieService,
+    private helperService: HelperValuesService,
     @Inject(PLATFORM_ID) private platformId: Object,
     @Optional() @Inject("countryCode") countryCode: string
   ) {
     // console.log("Platform:" + platformId);
     this.countryCode = countryCode;
     // console.log("startup constructor ... " + this.countryCode);
+    // console.log("settingBaseHref()");
+    this.settingBaseHref();
   }
 
   startupCall() {
@@ -76,12 +80,14 @@ export class StartUpService {
   settingBaseHref() {
     if (isPlatformBrowser(this.platformId)) {
       // console.log("setClientBaseHref...");
-      console.log("settingBaseHref() method ... this.countryCode ..." + this.countryCode);
+      // console.log("settingBaseHref() method ... this.countryCode ..." + this.countryCode);
 
       let cc = this.getCountryCode;
 
-      if (cc.toLowerCase() === "pk") return "/";
-      else {
+      if (cc.toLowerCase() === "pk") {
+        this.helperService.countryCodeHelperValue = "";
+        return "/";
+      } else {
         let urlPath;
 
         urlPath = window.location.pathname;
@@ -90,8 +96,20 @@ export class StartUpService {
         let urlCountryCode = urlPath.split("/")[1];
         // console.log("urlCOuntryCOde..." + urlCountryCode);
 
-        if (urlCountryCode === this.getCountryCode) return "/";
-        else return this.getCountryCode;
+        if (urlCountryCode === this.getCountryCode) {
+          // console.log(
+          //   "Country code is same as previous yani , urlCountryCode === this.getCountryCode"
+          // );
+          this.helperService.countryCodeHelperValue = "/" + this.getCountryCode;
+          // console.log("in if", this.helperService.countryCodeHelperValue);
+          return "/";
+        } else {
+          // console.log("Else just attach the country code ....");
+          this.helperService.countryCodeHelperValue = "/" + this.getCountryCode;
+
+          // console.log("in else", this.helperService.countryCodeHelperValue);
+          return this.getCountryCode;
+        }
       }
     }
     if (isPlatformServer(this.platformId)) {

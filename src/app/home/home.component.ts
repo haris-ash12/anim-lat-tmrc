@@ -15,6 +15,7 @@ import {
   query,
   stagger
 } from "@angular/animations";
+import { HelperValuesService } from "../services/helper-values.service";
 
 // declare const window: any;
 
@@ -79,6 +80,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private homeService: HomeContentService,
+    public helperService: HelperValuesService,
     private _sanitizer: DomSanitizer,
     public scroll: ScrollDispatcher
   ) {

@@ -59,13 +59,13 @@
         <a
           *ngIf="training.isRedirectionActive === false"
           class="video-card__link"
-          [routerLink]="['/trainings', training.slug]"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/trainings/{{ training.slug }}"
         ></a>
 
         <a
           *ngIf="training.isRedirectionActive === true"
           class="video-card__link"
-          href="/trainings/{{ training.slug }}"
+          href="{{ this.helperService.countryCodeHelperValue }}/trainings/{{ training.slug }}"
         ></a>
       </ng-container>
       <div class="video-card__image">

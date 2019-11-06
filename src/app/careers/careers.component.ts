@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CareersService } from "../services/careers.service";
 import { trigger, state, style, transition, animate } from "@angular/animations";
+import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
   selector: "app-careers",
@@ -18,7 +19,7 @@ export class CareersComponent implements OnInit {
   careers: any[] = [];
   isAvailable: boolean;
 
-  constructor(private careersService: CareersService) {}
+  constructor(private careersService: CareersService, public helperService: HelperValuesService) {}
 
   ngOnInit() {
     this.careersService.getAll().subscribe((careersResponse: any[]) => {
@@ -45,8 +46,8 @@ export class CareersComponent implements OnInit {
         this.careers.push(careersObject);
       }
 
-      console.log("Careers response after changes ...");
-      console.log(this.careers);
+      // console.log("Careers response after changes ...");
+      // console.log(this.careers);
 
       this.isAvailable = true;
     });

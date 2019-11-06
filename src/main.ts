@@ -9,7 +9,7 @@ if (environment.production) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("main.ts  .............................................................");
+  // console.log("main.ts  .............................................................");
 
   apiCall()
     .then(res => {
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .then(countryCode => {
       // console.log("Again response...");
-      console.log("main.ts ... country code ... " + countryCode);
+      // console.log("main.ts ... country code ... " + countryCode);
 
       platformBrowserDynamic([{ provide: "countryCode", useValue: countryCode }])
         .bootstrapModule(AppModule)
@@ -29,6 +29,6 @@ function apiCall() {
   const proxyurl = "";
   // const proxyurl = "https://cors-anywhere.herokuapp.com/";
   const url = "http://maintmrc.ga/admin/api/findLocation";
-  console.log("apiCall() ... url :", url);
+  // console.log("apiCall() ... url :", url);
   return fetch(proxyurl + url);
 }
