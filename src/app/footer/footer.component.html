@@ -12,7 +12,11 @@
       </p>
     </div>
     <div class="subscription__input-group">
-      <form #f="ngForm" (ngSubmit)="f.form.valid && submit(f)" class="subscription__email-box">
+      <form
+        #f="ngForm"
+        (ngSubmit)="f.form.valid && submit(f)"
+        class="subscription__email-box"
+      >
         <input
           type="text"
           placeholder="Enter Your E-mail"
@@ -28,16 +32,25 @@
         <button>Subscribe</button>
       </form>
 
-      <div class="subscription__errors-container" *ngIf="f.submitted && email.invalid">
+      <div
+        class="subscription__errors-container"
+        *ngIf="f.submitted && email.invalid"
+      >
         <i
           *ngIf="email.errors.pattern || email.errors.required"
           class="fa fa-exclamation-triangle"
           aria-hidden="true"
         ></i>
-        <p class="subscription__errors-container__text" *ngIf="email.errors.pattern">
+        <p
+          class="subscription__errors-container__text"
+          *ngIf="email.errors.pattern"
+        >
           Not a valid E-mail
         </p>
-        <p class="subscription__errors-container__text" *ngIf="email.errors.required">
+        <p
+          class="subscription__errors-container__text"
+          *ngIf="email.errors.required"
+        >
           Email is Required
         </p>
       </div>
@@ -50,8 +63,14 @@
       </p>
     </div>
   </div>
-  <div [@subscriptionThankyou]="isSubscribeClicked ? 'in' : 'out'" class="subscription__thankyou">
-    <img src="./../../assets/images/logo/thank-you.png" alt="Thankyou for subscribing" />
+  <div
+    [@subscriptionThankyou]="isSubscribeClicked ? 'in' : 'out'"
+    class="subscription__thankyou"
+  >
+    <img
+      src="./../../assets/images/logo/thank-you.png"
+      alt="Thankyou for subscribing"
+    />
     <p>
       We will send you e-mail when we have any news. <br />
       You can always unsubscribe to us by the link below in the e-mail.
@@ -74,16 +93,18 @@
         <a
           *ngIf="subMenu.isRedirectionActive === false"
           class="footer__link"
-          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
-            subMenu.slug
-          }}"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+            menu.slug
+          }}/{{ subMenu.slug }}"
           >{{ subMenu.titleName }}</a
         >
 
         <a
           *ngIf="subMenu.isRedirectionActive === true"
           class="footer__link"
-          href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{ subMenu.slug }}"
+          href="{{ this.helperService.countryCodeHelperValue }}/{{
+            menu.slug
+          }}/{{ subMenu.slug }}"
           >{{ subMenu.titleName }}</a
         >
       </ng-container>
@@ -128,14 +149,60 @@
   </div> -->
   <div class="footer__logos">
     <div class="footer__social-icons">
-      <a href=""><img src="../../assets/images/social-icons/facebook.png" alt=""/></a>
+      <!-- <a href=""><img src="../../assets/images/social-icons/facebook.png" alt=""/></a>
       <a href=""><img src="../../assets/images/social-icons/linkedin.png" alt=""/></a>
-      <a href=""><img src="../../assets/images/social-icons/twitter.png" alt=""/></a>
+      <a href=""><img src="../../assets/images/social-icons/twitter.png" alt=""/></a> -->
+
+      <a
+        target="_blank"
+        class="footer__social-icons--facebook"
+        href="https://www.facebook.com/TMR-Consulting-Pvt-Ltd-878002785663187/?ref=nf"
+        ><i class="fa fa-facebook" aria-hidden="true"></i
+      ></a>
+      <a
+        target="_blank"
+        class="footer__social-icons--linkedin"
+        href="https://www.linkedin.com/company/tmr-consulting-pvt.-limited"
+        ><i class="fa fa-linkedin" aria-hidden="true"></i
+      ></a>
+      <a
+        target="_blank"
+        class="footer__social-icons--twitter"
+        href="https://twitter.com/tmr_consulting"
+        ><i class="fa fa-twitter" aria-hidden="true"></i
+      ></a>
     </div>
-    <img class="footer__ms-icon" src="../../assets/images/logo/mbs-partner.png" alt="" />
+    <img
+      class="footer__ms-icon"
+      src="../../assets/images/logo/mbs-partner.png"
+      alt=""
+    />
   </div>
 
-  <p class="footer__copyrights">
-    Copyright 2019. All rights reserved by TMR Consulting Private Limited. Partners with Microsoft.
-  </p>
+  <div class="footer__copyrights">
+    <div class="footer__copyrights__region">
+      <i class="fa fa-globe" aria-hidden="true"></i>
+      <!-- <select onchange="location = this.value;">
+              <option>- Select Region -</option>
+              <option value="ae">United Arab Emirates</option>
+              <option value="">Pakistan</option>
+              <option value="us">America</option>             
+            </select> -->
+
+      <!--  (change)="onChange($event.target.value)" -->
+
+      <select onchange="location = this.value;">
+        <option
+          [selected]="country.isSelected"
+          [value]="country.code"
+          *ngFor="let country of countries"
+          >{{ country.name }}</option
+        >
+      </select>
+    </div>
+    <p>
+      Copyright 2019. All rights reserved by TMR Consulting Private Limited.
+      Partners with Microsoft.
+    </p>
+  </div>
 </div>

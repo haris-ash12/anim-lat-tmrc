@@ -21,9 +21,9 @@
       <div class="links__container">
         <a
           *ngFor="let submenu of submenus"
-          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ parentMenu }}/{{
-            submenu.slug
-          }}"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+            parentMenu
+          }}/{{ submenu.slug }}"
           class="links__link"
           [class.links__link--selected]="childMenu === submenu.slug"
           >{{ submenu.titleName }}</a
@@ -37,12 +37,15 @@
     <div class="query-form">
       <div class="query-form__text-side">
         <p>
-          Have any question or Query? Want to work with us? Let us know we would be happy to help
-          you.
+          Have any question or Query? Want to work with us? Let us know we would
+          be happy to help you.
         </p>
       </div>
       <div class="query-form__contact-form">
-        <div [@fadeInToOut]="isSaveClicked ? 'in' : 'out'" class="roller-anim-container">
+        <div
+          [@fadeInToOut]="isSaveClicked ? 'in' : 'out'"
+          class="roller-anim-container"
+        >
           <div class="roller-anim-inner">
             <div class="lds-roller">
               <div></div>
@@ -57,7 +60,10 @@
           </div>
         </div>
 
-        <div [@fadeInToOut]="isResponseValid ? 'in' : 'out'" class="roller-anim-container">
+        <div
+          [@fadeInToOut]="isResponseValid ? 'in' : 'out'"
+          class="roller-anim-container"
+        >
           <div class="roller-anim-inner">
             <div class="is-response-valid">
               <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -66,7 +72,10 @@
           </div>
         </div>
 
-        <div [@fadeInToOut]="isResponseNotValid ? 'in' : 'out'" class="roller-anim-container">
+        <div
+          [@fadeInToOut]="isResponseNotValid ? 'in' : 'out'"
+          class="roller-anim-container"
+        >
           <div class="roller-anim-inner">
             <div class="is-response-not-valid">
               <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
@@ -76,12 +85,24 @@
         </div>
 
         <p class="query-form__top-text">
-          Kindly fill out the form and we will get back to you as soon as possible.
+          Kindly fill out the form and we will get back to you as soon as
+          possible.
         </p>
-        <form #f="ngForm" (ngSubmit)="f.form.valid && submit(f)" class="query-form__form">
+        <form
+          #f="ngForm"
+          (ngSubmit)="f.form.valid && submit(f)"
+          class="query-form__form"
+        >
           <div class="query-form__input-field">
             <i class="fa fa-user" aria-hidden="true"></i>
-            <input ngModel required name="name" #name="ngModel" type="text" placeholder="Name" />
+            <input
+              ngModel
+              required
+              name="name"
+              #name="ngModel"
+              type="text"
+              placeholder="Name"
+            />
             <div *ngIf="f.submitted && name.invalid" class="query-form__error">
               <i
                 *ngIf="name.errors.required"
@@ -128,7 +149,10 @@
               type="text"
               placeholder="Subject"
             />
-            <div *ngIf="f.submitted && subject.invalid" class="query-form__error">
+            <div
+              *ngIf="f.submitted && subject.invalid"
+              class="query-form__error"
+            >
               <i
                 *ngIf="subject.errors.required"
                 class="fa fa-exclamation-triangle"
@@ -149,7 +173,10 @@
               placeholder="Message"
               rows="3"
             ></textarea>
-            <div *ngIf="f.submitted && message.invalid" class="query-form__error">
+            <div
+              *ngIf="f.submitted && message.invalid"
+              class="query-form__error"
+            >
               <i
                 *ngIf="message.errors.required"
                 class="fa fa-exclamation-triangle"
@@ -181,16 +208,26 @@
           [title]="contactAddress.imageTitle"
         />
         <h4 class="contact-grid__heading">{{ contactAddress.title }}</h4>
-        <p class="contact-grid__address">
+        <p class="contact-grid__item">
           {{ contactAddress.address }}
         </p>
-        <p *ngIf="contactAddress.telephone" class="contact-grid__telephone">
+        <p *ngIf="contactAddress.cell" class="contact-grid__item">
+          <b>Cell :</b> {{ contactAddress.cell }}
+        </p>
+        <p *ngIf="contactAddress.telephone" class="contact-grid__item">
           <b>Tel :</b> {{ contactAddress.telephone }}
         </p>
-        <p *ngIf="contactAddress.fax" class="contact-grid__fax">
+        <p *ngIf="contactAddress.fax" class="contact-grid__item">
           <b>Fax :</b> {{ contactAddress.fax }}
         </p>
-        <a target="_blank" class="contact-grid__location" [href]="contactAddress.locationLink"
+        <p *ngIf="contactAddress.email" class="contact-grid__item">
+          <b>E-mail :</b> {{ contactAddress.email }}
+        </p>
+
+        <a
+          target="_blank"
+          class="contact-grid__location"
+          [href]="contactAddress.locationLink"
           >View Location</a
         >
       </div>

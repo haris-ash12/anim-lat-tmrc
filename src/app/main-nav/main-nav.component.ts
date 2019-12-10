@@ -223,12 +223,34 @@ export class MainNavComponent implements OnInit {
       if (valueToMatch === this.menusResponse[i].Slug) {
         // console.log("Slug Matched ...");
 
+        // if (!this.menusResponse[i].MetaKeywords === null) {
+        // console.log("This has a value of metakeywords which is not null ...");
+        // }
+
         this.titleSevice.setTitle(this.menusResponse[i].PageTitle);
-        this.meta.updateTag({ name: "keywords", content: this.menusResponse[i].MetaKeywords });
-        this.meta.updateTag({
-          name: "description",
-          content: this.menusResponse[i].MetaDescription
-        });
+
+        if (this.menusResponse[i].MetaKeywords) {
+          this.meta.updateTag({
+            name: "keywords",
+            content: this.menusResponse[i].MetaKeywords
+          });
+        }
+
+        if (this.menusResponse[i].MetaDescription) {
+          this.meta.updateTag({
+            name: "description",
+            content: this.menusResponse[i].MetaDescription
+          });
+        }
+
+        // this.meta.updateTag({
+        //   name: "keywords",
+        //   content: this.menusResponse[i].MetaKeywords
+        // });
+        // this.meta.updateTag({
+        //   name: "description",
+        //   content: this.menusResponse[i].MetaDescription
+        // });
 
         // console.log("TItle", this.menusResponse[i].PageTitle);
         // console.log("Mete keywords", this.menusResponse[i].MetaKeywords);

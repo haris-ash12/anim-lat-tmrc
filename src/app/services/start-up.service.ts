@@ -2,7 +2,7 @@ import { Injectable, Inject, PLATFORM_ID, Optional } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { isPlatformBrowser, isPlatformServer } from "@angular/common";
-import { Router } from "@angular/router";
+import { Router, RouterStateSnapshot } from "@angular/router";
 import { HelperValuesService } from "./helper-values.service";
 
 @Injectable({
@@ -18,7 +18,8 @@ export class StartUpService {
     private cookieService: CookieService,
     private helperService: HelperValuesService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    @Optional() @Inject("countryCode") countryCode: string
+    @Optional() @Inject("countryCode") countryCode: string,
+  
   ) {
     // console.log("Platform:" + platformId);
     this.countryCode = countryCode;
@@ -73,7 +74,8 @@ export class StartUpService {
     if (isPlatformBrowser(this.platformId)) {
       // console.log("getCountryCOde(), BROWSER... cookie" + this.cookieService.get("countryCode"));
       // console.log("getCountryCOde(), VROWSER .. normal ..." + this.countryCode);
-      return this.cookieService.get("countryCode") || this.countryCode;
+      // return this.cookieService.get("countryCode") || this.countryCode;
+      return  this.countryCode;
     }
   }
 

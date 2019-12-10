@@ -6,7 +6,13 @@ import { Meta, Title, DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
 import { ContactUsService } from "../services/contact-us.service";
 import { ContactAddressService } from "../contact-address.service";
-import { trigger, state, style, transition, animate } from "@angular/animations";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
 import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
@@ -59,8 +65,18 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
     let urlValue = this.router.url.split("/");
-    let parentMenu = urlValue[1];
-    let childMenu = urlValue[2];
+    // console.log("urlvalue ..." + urlValue.length);
+
+    let parentMenu;
+    let childMenu;
+    if (urlValue.length === 3) {
+      parentMenu = urlValue[1];
+      childMenu = urlValue[2];
+    }
+    if (urlValue.length === 4) {
+      parentMenu = urlValue[2];
+      childMenu = urlValue[3];
+    }
 
     // console.log(urlValue[2] + "..." + urlValue[1]);
 
@@ -117,34 +133,53 @@ export class ContactComponent implements OnInit {
         // console.log(this.content);
 
         // Get contact addresses from API
-        this.contactAddressService.getAll().subscribe((contactAddressesResponse: any[]) => {
-          // console.log("Contact addressess ....");
-          // console.log(contactAddressesResponse);
+        this.contactAddressService
+          .getAll()
+          .subscribe((contactAddressesResponse: any[]) => {
+            // console.log("Contact addressess Response ....");
+            // console.log(contactAddressesResponse);
 
-          for (let i = 0; i < contactAddressesResponse.length; i++) {
-            let contactAddressObject = {
-              title: contactAddressesResponse[i].Title,
-              address: contactAddressesResponse[i].Address,
-              telephone: contactAddressesResponse[i].PhoneNumber,
-              fax: contactAddressesResponse[i].Fax,
-              locationLink: contactAddressesResponse[i].LocationLink,
-              imageUrl: contactAddressesResponse[i].ImageUrl,
-              imageAlt: contactAddressesResponse[i].ImageAlt,
-              imageTitle: contactAddressesResponse[i].imageTitle
-            };
+            for (let i = 0; i < contactAddressesResponse.length; i++) {
+              let cell = this.replaceComma(
+                contactAddressesResponse[i].CellNumber
+              );
+              let phoneNumber = this.replaceComma(
+                contactAddressesResponse[i].PhoneNumber
+              );
+              let fax = this.replaceComma(contactAddressesResponse[i].Fax);
+              let email = this.replaceComma(contactAddressesResponse[i].Email);
 
-            this.contactAddresses.push(contactAddressObject);
-          }
+              let contactAddressObject = {
+                title: contactAddressesResponse[i].Title,
+                address: contactAddressesResponse[i].Address,
+                cell: cell,
+                telephone: phoneNumber,
+                fax: fax,
+                email: email,
+                locationLink: contactAddressesResponse[i].LocationLink,
+                imageUrl: contactAddressesResponse[i].ImageUrl,
+                imageAlt: contactAddressesResponse[i].ImageAlt,
+                imageTitle: contactAddressesResponse[i].imageTitle
+              };
 
-          // console.log("Modified contact addresses object ...");
-          // console.log(this.contactAddresses);
+              this.contactAddresses.push(contactAddressObject);
+            }
 
-          this.isAvailable = true;
-        });
+            // console.log("Modified contact addresses object ...");
+            // console.log(this.contactAddresses);
+
+            this.isAvailable = true;
+          });
 
         this.titleSevice.setTitle(this.content.pageTitle);
-        this.meta.updateTag({ name: "keywords", content: this.content.metaKeywords });
-        this.meta.updateTag({ name: "description", content: this.content.metaDescription });
+        this.meta.updateTag({
+          name: "keywords",
+          content: this.content.metaKeywords
+        });
+        this.meta.updateTag({
+          name: "description",
+          content: this.content.metaDescription
+        });
         // console.log(this.content);
       });
   }
@@ -163,7 +198,7 @@ export class ContactComponent implements OnInit {
     this.isSaveClicked = true;
 
     this.contactService.create(formData).subscribe(contactResponse => {
-      // console.log(contactResponse);
+      console.log(contactResponse);
       // contactResponse = 2;
       // this.isSaveClicked = false;
       // this.isResponseValid = true;
@@ -192,5 +227,15 @@ export class ContactComponent implements OnInit {
         }, 4000);
       }
     });
+  }
+  replaceComma(value: string) {
+    if (value && value.includes(",")) {
+      value = value.replace(/,/g, " |");
+
+      // console.log("value....");
+      // console.log(value);
+    }
+
+    return value;
   }
 }

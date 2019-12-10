@@ -5,7 +5,8 @@
   display: grid;
   grid-template-columns:
     [full-start] minmax(5rem, 1fr)
-    [center-start] repeat(8, [col-start] minmax(min-content, 15rem) [col-end]) [center-end]
+    [center-start] repeat(8, [col-start] minmax(min-content, 15rem) [col-end])
+    [center-end]
     minmax(5rem, 1fr) [full-end];
   // justify-items: center;
   // align-items: center;
@@ -235,12 +236,55 @@
   }
   &__social-icons {
     grid-row: 1 / 2;
-    & > a > img {
-      height: 3rem;
-    }
-    & > a {
+    font-size: 2.5rem;
+
+    a {
+      border: 1px solid $color-secondary;
+      padding: 0.25rem 0.75rem;
+
       &:not(:last-child) {
         margin-right: 1rem;
+      }
+    }
+    .fa {
+      color: $color-secondary;
+    }
+
+    &--facebook {
+      padding: 0.25rem 1rem !important;
+      &:hover {
+        border: 1px solid $color-facebook !important;
+
+        transition: border 0.5s;
+
+        .fa {
+          color: $color-facebook;
+          transition: color 0.5s;
+        }
+      }
+    }
+    &--linkedin {
+      &:hover {
+        border: 1px solid $color-linkedin !important;
+
+        transition: border 0.5s;
+
+        .fa {
+          color: $color-linkedin;
+          transition: color 0.5s;
+        }
+      }
+    }
+    &--twitter {
+      &:hover {
+        border: 1px solid $color-twitter !important;
+
+        transition: border 0.5s;
+
+        .fa {
+          color: $color-twitter;
+          transition: color 0.5s;
+        }
       }
     }
   }
@@ -250,12 +294,33 @@
   }
 
   &__copyrights {
-    grid-column: 1 / -1;
+    grid-column: 1/-1;
     font-size: 1.4rem;
     color: $color-grey-light;
     padding: 1rem 2rem;
     margin: 0;
     border-top: 1px solid $color-grey;
-    text-align: center;
+    // text-align: center;
+
+    display: grid;
+    grid-template-columns: 1fr;
+
+    &__region {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+
+      .fa-globe {
+        margin-right: 1rem;
+        font-size: 1.8rem;
+      }
+    }
+
+    p {
+      text-align: center;
+    }
   }
 }

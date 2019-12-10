@@ -5,13 +5,16 @@
 <div [@fade]="isAvailable ? 'in' : 'out'" class="generic-container">
   <div class="header__top">
     <img
+      [@fade]="isContentReady ? 'in' : 'out'"
       *ngIf="content.imageUrl"
       [src]="content.imageUrl"
       [alt]="content.imageAlt"
       [title]="content.imageTitle"
       class="header__icon"
     />
-    <h1 class="header__title">{{ content.contentTitle | titlecase }}</h1>
+    <h1 [@fade]="isContentReady ? 'in' : 'out'" class="header__title">
+      {{ content.contentTitle | titlecase }}
+    </h1>
   </div>
 
   <div class="left-side">
@@ -21,9 +24,9 @@
       <div class="links__container">
         <a
           *ngFor="let submenu of submenus"
-          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ parentMenu }}/{{
-            submenu.slug
-          }}"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+            parentMenu
+          }}/{{ submenu.slug }}"
           class="links__link"
           [class.links__link--selected]="childMenu === submenu.slug"
           >{{ submenu.titleName }}</a
@@ -38,7 +41,11 @@
   </div>
 
   <!-- [innerHtml]="content.details" -->
-  <div class="content-side" [innerHtml]="content.details">
+  <div
+    [@fade]="isContentReady ? 'in' : 'out'"
+    class="content-side"
+    [innerHtml]="content.details"
+  >
     <!-- <h1>headining 1</h1>
     <p>
       For over Decades we have maintained our reputation while integrating Business solutions to the
@@ -120,10 +127,10 @@
       <div class="links__container links__container--line">
         <a
           *ngFor="let content of sideContents"
-          href="{{ this.helperService.countryCodeHelperValue }}/{{ parentMenu }}/{{ childMenu }}#{{
-            content.hrefValue
-          }}"
-          class="links__link links__link--circle"
+          href="{{ this.helperService.countryCodeHelperValue }}/{{
+            parentMenu
+          }}/{{ childMenu }}#{{ content.hrefValue }}"
+          class="links__link links__link--line"
           >{{ content.title }}</a
         >
 

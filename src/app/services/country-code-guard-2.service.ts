@@ -1,5 +1,10 @@
 import { Injectable } from "@angular/core";
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import {
+  CanActivate,
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot
+} from "@angular/router";
 import { StartUpService } from "./start-up.service";
 
 @Injectable({
@@ -9,7 +14,7 @@ export class CountryCodeGuard2Service implements CanActivate {
   constructor(private startupService: StartUpService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // console.log("Country code guard [2] Auth Guard service ... ", this.router.url);
+    // console.log("Country code guard service 2 kicks in  ... ", state.url);
 
     let cc = this.startupService.getCountryCode;
     // console.log("This is the country code in [2] ... ", cc);

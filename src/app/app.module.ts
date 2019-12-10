@@ -125,7 +125,6 @@ export function starti(provider: StartUpService) {
           component: BlogDetailComponent,
           canActivate: [CountryCodeGuardService]
         },
-
         {
           path: "trainings/:slug",
           component: TrainingDetailComponent,
@@ -136,13 +135,11 @@ export function starti(provider: StartUpService) {
           component: CareersSpecificComponent,
           canActivate: [CountryCodeGuardService]
         },
-
         {
           path: "news/:slug",
           component: NewsComponent,
           canActivate: [CountryCodeGuardService]
         },
-
         {
           path: ":cc",
           component: HomeComponent,

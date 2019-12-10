@@ -4,7 +4,13 @@ import { SubmenuService } from "../services/menus/submenu.service";
 import { GenericContentService } from "../services/generic-content.service";
 import { DomSanitizer, SafeHtml, Meta, Title } from "@angular/platform-browser";
 import { GlobalsService } from "../services/globals.service";
-import { trigger, state, style, transition, animate } from "@angular/animations";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
 import { HelperValuesService } from "../services/helper-values.service";
 
 @Component({
@@ -26,6 +32,7 @@ export class GenericComponent implements OnInit {
   parentMenu: string = "";
   childMenu: string = "";
   isAvailable: boolean;
+  isContentReady: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +68,7 @@ export class GenericComponent implements OnInit {
           .subscribe((submenusResponse: any[]) => {
             // console.log("submenus...");
             // console.log(submenusResponse);
+
             for (let i = 0; i < submenusResponse.length; i++) {
               let submenuObject = {
                 titleName: submenusResponse[i].TitleName,
@@ -74,20 +82,23 @@ export class GenericComponent implements OnInit {
       }
       // * --------------------------------------------------------------------------------------------
 
-      this.parentMenu = parentMenu;
+      // Replace that hyphen with space.
+      this.parentMenu = parentMenu.replace(/-/g, " ");
       this.childMenu = childMenu;
 
       // From the childmenu item, make api request to end point to get the content of specific child.
       // --------------------------------------------------------------------------------------------
+      this.isContentReady = false;
       let childQueryParam = "url=" + childMenu;
       this.genericContentService
         .getByQueryParams(childQueryParam)
         .subscribe((contentResponse: any) => {
           this.isAvailable = true;
+          this.isContentReady = true;
 
           this.sideContents = [];
 
-          // console.log("Content Response ...");
+          // console.log("Generic content Response ...");
           // console.log(contentResponse);
 
           // First we need to unescape details value.
@@ -101,7 +112,10 @@ export class GenericComponent implements OnInit {
           // Remove <p></p> from <p><img ></p>, so that only <img > remains.
           details = details.replace(/<p><img(.*?)><\/p>/g, value => {
             let valueWithNoPtag = value.replace(/<\/?p>/g, "");
-            let valueWithNoStyle = valueWithNoPtag.replace(/style="(.*?)"/g, "");
+            let valueWithNoStyle = valueWithNoPtag.replace(
+              /style="(.*?)"/g,
+              ""
+            );
 
             return valueWithNoStyle;
           });
@@ -125,7 +139,9 @@ export class GenericComponent implements OnInit {
             return newValue;
           });
 
-          let sanitizedDetails: SafeHtml = this._sanitizer.bypassSecurityTrustHtml(details);
+          let sanitizedDetails: SafeHtml = this._sanitizer.bypassSecurityTrustHtml(
+            details
+          );
           // console.log("Details object....");
           // console.log(sanitizedDetails);
           // console.log(a1);
@@ -169,8 +185,22 @@ export class GenericComponent implements OnInit {
           // console.log(this.content);
 
           this.titleSevice.setTitle(this.content.pageTitle);
-          this.meta.updateTag({ name: "keywords", content: this.content.metaKeywords });
-          this.meta.updateTag({ name: "description", content: this.content.metaDescription });
+
+          if (this.content.metaKeywords) {
+            this.meta.updateTag({
+              name: "keywords",
+              content: this.content.metaKeywords
+            });
+          }
+          if (this.content.metaDescription) {
+            this.meta.updateTag({
+              name: "description",
+              content: this.content.metaDescription
+            });
+          }
+
+          // this.meta.updateTag({ name: "keywords", content: this.content.metaKeywords });
+          // this.meta.updateTag({ name: "description", content: this.content.metaDescription });
           // console.log(this.content);
         });
     });

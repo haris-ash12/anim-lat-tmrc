@@ -1,4 +1,11 @@
-import { Component, OnInit, HostListener, Inject, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  HostListener,
+  Inject,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 import { HomeContentService } from "../services/home-content.service";
 import { GlobalsService } from "../services/globals.service";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -31,12 +38,18 @@ import { HelperValuesService } from "../services/helper-values.service";
             style({ opacity: 0 }),
             stagger("250ms", [
               style({ transform: "translateX(-20px)", opacity: 0 }),
-              animate("1000ms ease", style({ transform: "translateX(0px)", opacity: 1 }))
+              animate(
+                "1000ms ease",
+                style({ transform: "translateX(0px)", opacity: 1 })
+              )
             ])
           ]),
           query(".hero__btn-container", [
             style({ transform: "translateY(30px)", opacity: 0 }),
-            animate("500ms 750ms ease-out", style({ transform: "translateY(0px)", opacity: 1 }))
+            animate(
+              "500ms 750ms ease-out",
+              style({ transform: "translateY(0px)", opacity: 1 })
+            )
           ])
         ])
       ])
@@ -86,9 +99,11 @@ export class HomeComponent implements OnInit {
   ) {
     // console.log("Home component ..............................................................");
 
-    this.scrollingSubscription = this.scroll.scrolled().subscribe((data: CdkScrollable) => {
-      this.onWindowScroll(data);
-    });
+    this.scrollingSubscription = this.scroll
+      .scrolled()
+      .subscribe((data: CdkScrollable) => {
+        this.onWindowScroll(data);
+      });
 
     // this.meta.addTag({ name: "name", content: "the tag ...." });
     // this.meta.addTag({ name: "naanotherme", content: "the another tag ...." });
@@ -118,7 +133,9 @@ export class HomeComponent implements OnInit {
 
       // console.log(WhoWeAreObjectResponse);
       this.whoWeAre["textContent"] = WhoWeAreObjectResponse.ContentDetails;
-      this.whoWeAre["videoLink"] = this._sanitizer.bypassSecurityTrustResourceUrl(
+      this.whoWeAre[
+        "videoLink"
+      ] = this._sanitizer.bypassSecurityTrustResourceUrl(
         WhoWeAreObjectResponse.VedioUrl
       );
 

@@ -3,7 +3,13 @@ import { ActivatedRoute } from "@angular/router";
 import { CareersService } from "../services/careers.service";
 import { HttpClient } from "@angular/common/http";
 import { Meta, Title } from "@angular/platform-browser";
-import { trigger, state, style, transition, animate } from "@angular/animations";
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate
+} from "@angular/animations";
 import { StartUpService } from "../services/start-up.service";
 import { SubmitResumeService } from "../services/submit-resume.service";
 import { HelperValuesService } from "../services/helper-values.service";
@@ -25,13 +31,19 @@ import { HelperValuesService } from "../services/helper-values.service";
       transition("in => out", animate("1000ms ease"))
     ]),
     trigger("slideInToOut", [
-      state("out", style({ opacity: 0, transform: "translateX(-100px)", "z-index": -1 })),
+      state(
+        "out",
+        style({ opacity: 0, transform: "translateX(-100px)", "z-index": -1 })
+      ),
       state("in", style({ opacity: 1, transform: "translateX(0px)" })),
 
       transition("out => in", animate("500ms ease")),
       transition(
         "in => out",
-        animate("500ms ease", style({ opacity: 0, transform: "translateX(100px)" }))
+        animate(
+          "500ms ease",
+          style({ opacity: 0, transform: "translateX(100px)" })
+        )
       )
     ])
   ]
@@ -43,7 +55,8 @@ export class CareersSpecificComponent implements OnInit {
   fileName: string = "";
   isAvailable: boolean;
   isFileSelected: boolean;
-  docFile = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  docFile =
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
   pdfFile = "application/pdf";
   isSaveClicked: boolean;
   isLargeFile: boolean;
@@ -71,57 +84,83 @@ export class CareersSpecificComponent implements OnInit {
       let careerSlug = params.get("specificCareer");
       careerSlug = "slug=" + careerSlug;
 
-      this.careersService.getByQueryParams(careerSlug).subscribe((careerResponse: any[]) => {
-        // console.log("Careers Response...");
-        // console.log(careerResponse);
+      this.careersService
+        .getByQueryParams(careerSlug)
+        .subscribe((careerResponse: any[]) => {
+          // console.log("Careers Response...");
+          // console.log(careerResponse);
 
-        let description = unescape(careerResponse[0].Description);
+          let description = unescape(careerResponse[0].Description);
 
-        // Remove <p></p> from <p><img ></p>, so that only <img > remains.
-        description = description.replace(/<p><img(.*?)><\/p>/g, value => {
-          let valueWithNoPtag = value.replace(/<\/?p>/g, "");
-          let valueWithNoStyle = valueWithNoPtag.replace(/style="(.*?)"/g, "");
+          // Remove <p></p> from <p><img ></p>, so that only <img > remains.
+          description = description.replace(/<p><img(.*?)><\/p>/g, value => {
+            let valueWithNoPtag = value.replace(/<\/?p>/g, "");
+            let valueWithNoStyle = valueWithNoPtag.replace(
+              /style="(.*?)"/g,
+              ""
+            );
 
-          return valueWithNoStyle;
+            return valueWithNoStyle;
+          });
+
+          this.careerSlug = careerResponse[0].Slug;
+          let careerObject = {
+            title: careerResponse[0].JobTitle,
+            position: careerResponse[0].NoOfPosition,
+            cities: careerResponse[0].Cities,
+            type: careerResponse[0].JobType,
+            description: description,
+            maxSalary: careerResponse[0].MaxCostOfHiring,
+            minSalary: careerResponse[0].MinCostOfHiring,
+            isShowSalary: careerResponse[0].IsShowCostOfHiring,
+            dueDate: careerResponse[0].ExpiryDate,
+            slug: careerResponse[0].Slug,
+            metaDescription: careerResponse[0].MetaDescription,
+            metaKeywords: careerResponse[0].MetaKeywords,
+            pageTitle: careerResponse[0].PageTitle
+          };
+
+          // console.log("Careers response after change ...");
+          this.career = careerObject;
+          // console.log(this.career);
+
+          // console.log("this.career.dueDate", new Date(this.career.dueDate));
+          // console.log("Date.now()", new Date(Date.now()));
+
+          if (new Date(Date.now()) > new Date(this.career.dueDate)) {
+            // console.log("Due date gone...");
+            this.isExpired = true;
+          } else {
+            // console.log("Due date not gone...");
+          }
+
+          this.titleSevice.setTitle(this.career.pageTitle);
+
+          if (this.career.metaKeywords) {
+            this.meta.updateTag({
+              name: "keywords",
+              content: this.career.metaKeywords
+            });
+          }
+
+          if (this.career.metaDescription) {
+            this.meta.updateTag({
+              name: "description",
+              content: this.career.metaDescription
+            });
+          }
+
+          // this.meta.updateTag({
+          //   name: "keywords",
+          //   content: this.career.metaKeywords
+          // });
+          // this.meta.updateTag({
+          //   name: "description",
+          //   content: this.career.metaDescription
+          // });
+
+          this.isAvailable = true;
         });
-
-        this.careerSlug = careerResponse[0].Slug;
-        let careerObject = {
-          title: careerResponse[0].JobTitle,
-          position: careerResponse[0].NoOfPosition,
-          cities: careerResponse[0].Cities,
-          type: careerResponse[0].JobType,
-          description: description,
-          maxSalary: careerResponse[0].MaxCostOfHiring,
-          minSalary: careerResponse[0].MinCostOfHiring,
-          isShowSalary: careerResponse[0].IsShowCostOfHiring,
-          dueDate: careerResponse[0].ExpiryDate,
-          slug: careerResponse[0].Slug,
-          metaDescription: careerResponse[0].MetaDescription,
-          metaKeywords: careerResponse[0].MetaKeywords,
-          pageTitle: careerResponse[0].PageTitle
-        };
-
-        // console.log("Careers response after change ...");
-        this.career = careerObject;
-        // console.log(this.career);
-
-        // console.log("this.career.dueDate", new Date(this.career.dueDate));
-        // console.log("Date.now()", new Date(Date.now()));
-
-        if (new Date(Date.now()) > new Date(this.career.dueDate)) {
-          // console.log("Due date gone...");
-          this.isExpired = true;
-        } else {
-          // console.log("Due date not gone...");
-        }
-
-        this.titleSevice.setTitle(this.career.pageTitle);
-        this.meta.updateTag({ name: "keywords", content: this.career.metaKeywords });
-        this.meta.updateTag({ name: "description", content: this.career.metaDescription });
-
-        this.isAvailable = true;
-      });
     });
   }
 
@@ -141,7 +180,10 @@ export class CareersSpecificComponent implements OnInit {
     if (!this.fileToUpload) {
       this.fileName = "No File Selected";
       this.isFileSelected = true;
-    } else if (this.fileToUpload.type !== this.docFile && this.fileToUpload.type !== this.pdfFile) {
+    } else if (
+      this.fileToUpload.type !== this.docFile &&
+      this.fileToUpload.type !== this.pdfFile
+    ) {
       // console.log("this.fileToUpload.type", this.fileToUpload.type);
       // console.log("this.docFile", this.docFile);
       // console.log("this.pdfFile", this.pdfFile);
@@ -167,7 +209,10 @@ export class CareersSpecificComponent implements OnInit {
       this.isSaveClicked = true;
 
       this.httpCLient
-        .post("http://maintmrc.ga/admin/api/submitapplication", formData)
+        .post(
+          "http://192.168.100.200:786/admin/api/submitapplication",
+          formData
+        )
         // this.submitResumeService.create(formData)
         .subscribe(submitResponse => {
           // console.log("This is the response from server while uploadin ..");

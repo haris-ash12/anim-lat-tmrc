@@ -5,9 +5,12 @@
 <div [@fade]="isAvailable ? 'in' : 'out'" class="job__container">
   <div class="job__content">
     <p *ngIf="isExpired" class="job__alert-date-gone">
-      <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Due Date Expired
+      <i class="fa fa-exclamation-circle" aria-hidden="true"></i> Due Date
+      Expired
     </p>
-    <h2 [class.job__title--grey]="isExpired" class="job__title">{{ career.title | uppercase }}</h2>
+    <h2 [class.job__title--grey]="isExpired" class="job__title">
+      {{ career.title | uppercase }}
+    </h2>
     <!-- <h2 class="job__title">Job Title</h2> -->
 
     <div class="job__key-values">
@@ -17,8 +20,12 @@
       <i class="fa fa-user" aria-hidden="true"></i>
 
       <ng-container>
-        <p *ngIf="career.position === 1" class="job__position">{{ career.position }} position</p>
-        <p *ngIf="career.position > 1" class="job__position">{{ career.position }} positions</p>
+        <p *ngIf="career.position === 1" class="job__position">
+          {{ career.position }} position
+        </p>
+        <p *ngIf="career.position > 1" class="job__position">
+          {{ career.position }} positions
+        </p>
       </ng-container>
 
       <!-- Pair 2 -->
@@ -34,8 +41,8 @@
       <i *ngIf="career.isShowSalary" class="fa fa-money" aria-hidden="true"></i>
       <p *ngIf="career.isShowSalary" class="job__location">
         <span
-          >{{ career.minSalary | currency: "PK" }} - {{ career.maxSalary | currency: "PK" }} /
-          Month</span
+          >{{ career.minSalary | currency: "PK" }} -
+          {{ career.maxSalary | currency: "PK" }} / Month</span
         >
       </p>
 
@@ -76,183 +83,204 @@
     <div class="job__description" [innerHtml]="career.description"></div>
   </div>
   <div class="job__half">
-    <div [@fadeInToOut]="isSaveClicked ? 'in' : 'out'" class="roller-anim-container">
-      <div class="roller-anim-inner">
-        <div class="lds-roller">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
-    </div>
-    <!-- <p class="job__other-jobs">Other jobs at tmr consulting.</p>
-
-    <div class="job__item">
-      <p class="job__item__title">Graphic Designer</p>
-      <p class="job__item__location">Lahore</p>
-    </div>
-
-    <div class="job__item">
-      <p class="job__item__title">Web Developer</p>
-      <p class="job__item__location">Lahore</p>
-    </div>
-
-    <div class="job__item">
-      <p class="job__item__title">.Net Developer</p>
-      <p class="job__item__location">Lahore</p>
-    </div>
-
-    <a routerLink="/careers" class="job__all-btn">Show all jobs</a> -->
-
-    <p class="job__line">Add your resume here. The resume must be a pdf or a .docx file.</p>
-
-    <!-- <p class="job__line">
-      Select resume
-      <span><input type="file" name="myFile"/></span>
-    </p> -->
-    <span class=" job__line job__line--n">Select resume </span>
-    <span class="job__line job__line--n">
-      <label for="file-upload" [class.job__upload-btn--grey]="isExpired" class="job__upload-btn">
-        Upload
-      </label>
-      <input
-        [disabled]="isExpired"
-        type="file"
-        id="file-upload"
-        name="myFile"
-        (change)="handleFileInput($event.target.files)"
-      />
-    </span>
-    <span class="job__line job__line--n job__line--cv" [class.job__line--error]="isFileSelected">{{
-      fileName
-    }}</span>
-
-    <!-- <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)"> -->
-    <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)">
-      <div class="job__form-group">
-        <label for="name" class="job__label">Name</label>
-        <input
-          ngModel
-          required
-          name="name"
-          #name="ngModel"
-          type="text"
-          id="name"
-          class="job__input"
-        />
-        <div *ngIf="f.submitted && name.invalid" class="job__error">
-          <i *ngIf="name.errors.required" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-          <p *ngIf="name.errors.required">
-            Name is required
-          </p>
-        </div>
-      </div>
-      <div class="job__form-group">
-        <label for="email" class="job__label">Email</label>
-        <input
-          ngModel
-          required
-          pattern="^[^ @]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-          name="email"
-          #email="ngModel"
-          type="text"
-          id="email"
-          class="job__input"
-        />
-        <div *ngIf="f.submitted && email.invalid" class="job__error">
-          <i
-            *ngIf="email.errors.required || email.errors.pattern"
-            class="fa fa-exclamation-triangle"
-            aria-hidden="true"
-          ></i>
-          <p *ngIf="email.errors.required">
-            Email is required
-          </p>
-          <p *ngIf="email.errors.pattern">
-            Invalid E-mail
-          </p>
-        </div>
-      </div>
-
-      <div class="job__form-group">
-        <label for="phone" class="job__label">Phone</label>
-        <input
-          ngModel
-          required
-          name="phone"
-          #phone="ngModel"
-          type="text"
-          id="phone"
-          class="job__input"
-        />
-        <div *ngIf="f.submitted && phone.invalid" class="job__error">
-          <i
-            *ngIf="phone.errors.required"
-            class="fa fa-exclamation-triangle"
-            aria-hidden="true"
-          ></i>
-          <p *ngIf="phone.errors.required">
-            Phone No is required
-          </p>
-        </div>
-      </div>
-
-      <div class="job__form-group">
-        <label for="address" class="job__label">Address</label>
-        <textarea
-          ngModel
-          name="coverLetter"
-          required
-          #coverLetter="ngModel"
-          type="text"
-          id="address"
-          class="job__input"
-          rows="3"
-        ></textarea>
-        <div *ngIf="f.submitted && coverLetter.invalid" class="job__error">
-          <i
-            *ngIf="coverLetter.errors.required"
-            class="fa fa-exclamation-triangle"
-            aria-hidden="true"
-          ></i>
-          <p *ngIf="coverLetter.errors.required">
-            Address is required
-          </p>
-        </div>
-      </div>
-
-      <button
-        [disabled]="isExpired"
-        [class.job__submit-btn--grey]="isExpired"
-        class="job__submit-btn"
+    <div class="sticky-container">
+      <div
+        [@fadeInToOut]="isSaveClicked ? 'in' : 'out'"
+        class="roller-anim-container"
       >
-        I'm Interested
-      </button>
-
-      <div *ngIf="isLargeFile" class="job__response job__response--error">
-        Large file size.
+        <div class="roller-anim-inner">
+          <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
       </div>
+      <!-- <p class="job__other-jobs">Other jobs at tmr consulting.</p>
+      
+          <div class="job__item">
+            <p class="job__item__title">Graphic Designer</p>
+            <p class="job__item__location">Lahore</p>
+          </div>
+      
+          <div class="job__item">
+            <p class="job__item__title">Web Developer</p>
+            <p class="job__item__location">Lahore</p>
+          </div>
+      
+          <div class="job__item">
+            <p class="job__item__title">.Net Developer</p>
+            <p class="job__item__location">Lahore</p>
+          </div>
+      
+          <a routerLink="/careers" class="job__all-btn">Show all jobs</a> -->
 
-      <div *ngIf="isFormatAllowed" class="job__response job__response--error">
-        Only pdf and docx allowed.
-      </div>
+      <p class="job__line">
+        Add your resume here. The resume must be a pdf or a .docx file.
+      </p>
 
-      <div [@slideInToOut]="isResponseValid ? 'in' : 'out'" class="job__response">
-        Thankyou for submitting your response. We will contact you as soon as possible.
-      </div>
+      <!-- <p class="job__line">
+            Select resume
+            <span><input type="file" name="myFile"/></span>
+          </p> -->
+      <span class=" job__line job__line--n">Select resume </span>
+      <span class="job__line job__line--n">
+        <label
+          for="file-upload"
+          [class.job__upload-btn--grey]="isExpired"
+          class="job__upload-btn"
+        >
+          Upload
+        </label>
+        <input
+          [disabled]="isExpired"
+          type="file"
+          id="file-upload"
+          name="myFile"
+          (change)="handleFileInput($event.target.files)"
+        />
+      </span>
+      <span
+        class="job__line job__line--n job__line--cv"
+        [class.job__line--error]="isFileSelected"
+        >{{ fileName }}</span
+      >
 
-      <div *ngIf="isUploadFailed" class="job__response job__response--error">
-        Upload Failed.
-      </div>
+      <!-- <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)"> -->
+      <form class="job__form" #f="ngForm" (ngSubmit)="f.form.valid && save(f)">
+        <div class="job__form-group">
+          <label for="name" class="job__label">Name</label>
+          <input
+            ngModel
+            required
+            name="name"
+            #name="ngModel"
+            type="text"
+            id="name"
+            class="job__input"
+          />
+          <div *ngIf="f.submitted && name.invalid" class="job__error">
+            <i
+              *ngIf="name.errors.required"
+              class="fa fa-exclamation-triangle"
+              aria-hidden="true"
+            ></i>
+            <p *ngIf="name.errors.required">
+              Name is required
+            </p>
+          </div>
+        </div>
+        <div class="job__form-group">
+          <label for="email" class="job__label">Email</label>
+          <input
+            ngModel
+            required
+            pattern="^[^ @]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+            name="email"
+            #email="ngModel"
+            type="text"
+            id="email"
+            class="job__input"
+          />
+          <div *ngIf="f.submitted && email.invalid" class="job__error">
+            <i
+              *ngIf="email.errors.required || email.errors.pattern"
+              class="fa fa-exclamation-triangle"
+              aria-hidden="true"
+            ></i>
+            <p *ngIf="email.errors.required">
+              Email is required
+            </p>
+            <p *ngIf="email.errors.pattern">
+              Invalid E-mail
+            </p>
+          </div>
+        </div>
 
-      <div *ngIf="isFailed" class="job__response job__response--error">
-        Failed.
-      </div>
-    </form>
+        <div class="job__form-group">
+          <label for="phone" class="job__label">Phone</label>
+          <input
+            ngModel
+            required
+            name="phone"
+            #phone="ngModel"
+            type="text"
+            id="phone"
+            class="job__input"
+          />
+          <div *ngIf="f.submitted && phone.invalid" class="job__error">
+            <i
+              *ngIf="phone.errors.required"
+              class="fa fa-exclamation-triangle"
+              aria-hidden="true"
+            ></i>
+            <p *ngIf="phone.errors.required">
+              Phone No is required
+            </p>
+          </div>
+        </div>
+
+        <div class="job__form-group">
+          <label for="address" class="job__label">Address</label>
+          <textarea
+            ngModel
+            name="coverLetter"
+            required
+            #coverLetter="ngModel"
+            type="text"
+            id="address"
+            class="job__input"
+            rows="3"
+          ></textarea>
+          <div *ngIf="f.submitted && coverLetter.invalid" class="job__error">
+            <i
+              *ngIf="coverLetter.errors.required"
+              class="fa fa-exclamation-triangle"
+              aria-hidden="true"
+            ></i>
+            <p *ngIf="coverLetter.errors.required">
+              Address is required
+            </p>
+          </div>
+        </div>
+
+        <button
+          [disabled]="isExpired"
+          [class.job__submit-btn--grey]="isExpired"
+          class="job__submit-btn"
+        >
+          I'm Interested
+        </button>
+
+        <div *ngIf="isLargeFile" class="job__response job__response--error">
+          Large file size.
+        </div>
+
+        <div *ngIf="isFormatAllowed" class="job__response job__response--error">
+          Only pdf and docx allowed.
+        </div>
+
+        <div
+          [@slideInToOut]="isResponseValid ? 'in' : 'out'"
+          class="job__response"
+        >
+          Thankyou for submitting your response. We will contact you as soon as
+          possible.
+        </div>
+
+        <div *ngIf="isUploadFailed" class="job__response job__response--error">
+          Upload Failed.
+        </div>
+
+        <div *ngIf="isFailed" class="job__response job__response--error">
+          Failed.
+        </div>
+      </form>
+    </div>
   </div>
 </div>

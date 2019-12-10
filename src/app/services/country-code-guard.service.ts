@@ -15,7 +15,7 @@ export class CountryCodeGuardService implements CanActivate {
   constructor(private startupService: StartUpService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // console.log("Auth Guard service [1] ... ");
+    // console.log("Country code guard service 1 kicks in  ... ", state.url);
     let cc = this.startupService.getCountryCode;
     // console.log("This is the country code [1] ... ", cc);
 

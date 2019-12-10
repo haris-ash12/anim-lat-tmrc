@@ -70,7 +70,7 @@ export class BlogDetailComponent implements OnInit {
     let slugValue = this.route.snapshot.paramMap.get("slug");
     let slug = "slug=" + slugValue;
     this.blogSlugService.getByQueryParams(slug).subscribe((blogResponse: any) => {
-      // console.log("Blog Response...");
+      // console.log("Specific Blog Response...");
       // console.log(blogResponse);
 
       let description = unescape(blogResponse.Description);
@@ -97,9 +97,33 @@ export class BlogDetailComponent implements OnInit {
       };
       // console.log(description);
 
+      if (this.blog.metaKeywords) {
+        this.meta.updateTag({
+          name: "keywords",
+          content: this.blog.metaKeywords
+        });
+      }
+
+      if (this.blog.metaDescription) {
+        this.meta.updateTag({
+          name: "description",
+          content: this.blog.metaDescription
+        });
+      }
+
+      // console.log("Print metA keywords ....");
+      // console.log(this.blog.metaKeywords);
+
       this.titleService.setTitle(this.blog.pageTitle);
-      this.meta.updateTag({ name: "keywords", content: this.blog.metaKeywords });
-      this.meta.updateTag({ name: "description", content: this.blog.metaDescription });
+
+      // this.meta.updateTag({
+      //   name: "keywords",
+      //   content: this.blog.metaKeywords
+      // });
+      // this.meta.updateTag({
+      //   name: "description",
+      //   content: this.blog.metaDescription
+      // });
 
       this.isAvailable = true;
     });

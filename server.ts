@@ -113,6 +113,8 @@ app.get(
 
 // All regular routes use the Universal engine
 app.get("*", (req, res) => {
+  // First thing called is this, then appEngine is called.
+
   // console.log(
   //   "server.ts  ................................................................................."
   // );
@@ -123,7 +125,7 @@ app.get("*", (req, res) => {
   // console.log("Host .....");
   // console.log(host);
 
-  // Protocol either http / https
+  // Protocol, can be either http / https
   // console.log("Protocol");
   // console.log(req.protocol);
   var protocol = req.protocol;
@@ -136,6 +138,7 @@ app.get("*", (req, res) => {
   // Get client Ip Address or use hard-coded ip value.
   // let clientIPAddress = req.remoteAddress || req.header("x-forwarded-for");
 
+  // This thing should be used for real IP.
   // This should be used as IP as it is also working on windows server
   let clientIPAddress = req.remoteAddress || req.header("X-forwarded-for");
 
@@ -152,28 +155,33 @@ app.get("*", (req, res) => {
 
   let key = "2e7502e026787dcc570948b8afa7f7e2ca0da36b82fdd970c4dc8a070747e309";
 
-  https.get(
-    "https://api.ipinfodb.com/v3/ip-city/?key=" + key + "&ip=" + clientIPAddress + "&format=json",
+  http.get(
+    "http://api.ipinfodb.com/v3/ip-city/?key=" +
+      key +
+      "&ip=" +
+      clientIPAddress +
+      "&format=json",
     response => {
       let data = "";
       response.on("data", chunk => {
         data += chunk;
         // console.log("Country Code ... server.ts ... from geolocation");
-        countryCode = JSON.parse(data).countryCode;
+        let cc = JSON.parse(data).countryCode;
         // console.log("Country Code ... server.ts ... " + countryCode);
 
         // Now that we have found the country code, We need to find that whether redirection exists againt this route or not.
         http.get(
-          `http://maintmrc.ga/admin/api/GetRedirection?countrycode=${countryCode}&slug=${routeSlug}&hostName=${protocol}://${host}`,
+          `http://192.168.100.200:786/admin/api/GetRedirection?countrycode=${cc}&slug=${routeSlug}&hostName=${protocol}://${host}`,
           redirectionResponse => {
             let data = "";
             redirectionResponse.on("data", chunk => {
               data += chunk;
 
-              // console.log("Redirection calll ...");
+              // console.log("Redirection call ...");
               // console.log(data);
 
               let redirection = JSON.parse(data);
+              countryCode = redirection.countrycode;
 
               let redirectionUrl: any;
               let redirectionType: any;
@@ -189,10 +197,15 @@ app.get("*", (req, res) => {
               } else if (redirection) {
                 redirectionUrl = redirection.RedirectionUrl;
                 redirectionType = redirection.RedirectionType;
-                // console.log(redirection.RedirectionUrl + " &  ..." + redirection.RedirectionType);
+                // console.log(
+                //   redirection.RedirectionUrl +
+                //     "... &  ..." +
+                //     redirection.RedirectionType
+                // );
               }
 
               if (redirectionUrl && redirectionType) {
+                // I think, "location" as first parameter was compulsory to add.
                 res.set("location", redirectionUrl);
                 // console.log("1");
                 res.status(redirectionType).send();

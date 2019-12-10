@@ -13,6 +13,14 @@
 .dynamic-content {
   display: grid;
   padding: 3rem;
+
+  h1 {
+    font-size: 3rem;
+
+    @include respond(phone) {
+      font-size: 2.6rem;
+    }
+  }
   h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -21,17 +29,35 @@
       font-size: 2.2rem;
     }
   }
+
+  h3 {
+    justify-self: start;
+    padding-bottom: 3px;
+    border-bottom: 3px double $color-primary-light;
+  }
+
   p {
     font-size: 1.6rem;
-    line-height: 2;
+    line-height: 1.9;
     color: $color-primary-light;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   img {
     max-width: 100%;
     height: auto;
     margin-bottom: 2rem;
     justify-self: center;
+  }
+
+  ul {
+    font-size: 1.6rem;
+    color: $color-primary-light;
+    line-height: 1.9;
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+  }
+  a {
+    color: $color-secondary;
   }
 }
 // --------------------------
@@ -59,6 +85,14 @@
   //   font-size: 1.6rem;
   // }
 
+  h1 {
+    font-size: 3rem;
+
+    @include respond(phone) {
+      font-size: 2.6rem;
+    }
+  }
+
   h2 {
     font-size: 2.5rem;
     margin-bottom: 1rem;
@@ -85,6 +119,17 @@
     height: auto;
     margin-bottom: 2rem;
     justify-self: center;
+  }
+  ul, ol {
+    font-size: 1.6rem;
+    color: $color-primary-light;
+    line-height: 1.9;
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+  }
+  a {
+    color: $color-secondary;
+    font-size: 1.6rem;
   }
 }
 // -------------------------
@@ -114,6 +159,16 @@
     margin-bottom: 2rem;
     justify-self: center;
   }
+  ul {
+    font-size: 1.6rem;
+    color: $color-primary-light;
+    line-height: 1.9;
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+  }
+  a {
+    color: $color-secondary;
+  }
 }
 
 // ----------------------------------
@@ -139,6 +194,16 @@
     max-width: 100%;
     margin-bottom: 2rem;
     justify-self: center;
+  }
+  ul {
+    font-size: 1.6rem;
+    color: $color-primary-light;
+    line-height: 1.9;
+    padding: 0 2rem;
+    margin-bottom: 1rem;
+  }
+  a {
+    color: $color-secondary;
   }
 }
 

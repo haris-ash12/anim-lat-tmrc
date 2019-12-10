@@ -86,28 +86,28 @@
     grid-gap: 0.25rem;
     position: relative;
 
-    &--line::before {
-      content: "";
-      position: absolute;
-      left: -1rem;
-      top: 2rem;
-      bottom: 1.5rem;
-      //height: 100%;
-      width: 1px;
-      background: $color-grey-light;
-    }
+    // &--line::before {
+    //   content: "";
+    //   position: absolute;
+    //   left: -1rem;
+    //   top: 2rem;
+    //   bottom: 1.5rem;
+    //   //height: 100%;
+    //   width: 1px;
+    //   background: $color-grey-light;
+    // }
   }
 
   &__link {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     color: $color-primary;
     text-decoration: none;
     transition: background-color 0.1s, color 0.1s;
     padding: 0.3rem 0.5rem;
-    line-height: 1.5;
+    line-height: 1.4;
     position: relative;
 
-    &--circle:hover {
+    &--line:hover {
       color: $color-secondary !important;
       background-color: transparent !important;
 
@@ -115,14 +115,25 @@
         background-color: $color-secondary;
       }
     }
-    &--circle::before {
+    // &--circle::before {
+    //   content: "";
+    //   position: absolute;
+    //   top: 50%;
+    //   left: -1.3rem;
+    //   height: 0.7rem;
+    //   width: 0.7rem;
+    //   border-radius: 50%;
+    //   background-color: $color-grey-light;
+    // }
+
+    &--line::before {
       content: "";
       position: absolute;
-      top: 50%;
+      top: 15%;
       left: -1.3rem;
-      height: 0.8rem;
-      width: 0.8rem;
-      border-radius: 50%;
+      height: 90%;
+      width: 0.25rem;
+
       background-color: $color-grey-light;
     }
 

@@ -151,6 +151,7 @@ export class BlogsComponent implements OnInit {
       let description = unescape(blogs[i].Description);
       // Find the first p tag and find data b/w this p.
       // Limit this to 100 word or 150 may be.
+      // console.log(i + "..................");
       // console.log(blogs[i].Title);
       description = this.findTextInTagAndLimit(description);
       // console.log(description);
@@ -175,15 +176,19 @@ export class BlogsComponent implements OnInit {
         isRedirectionActive: isRedirectionActive
       };
       blogsList.push(blogsObject);
+      // console.log(i + "...");
+      // console.log(blogsObject);
     }
     return blogsList;
   }
 
   findTextInTagAndLimit(description) {
     description.match(/<p>(.*?)<\/p>/).map(value => {
+      // console.log(value);
+
       description = value;
     });
-    return description.substr(0, 120) + " ... ";
+    return description.substr(0, 120) + " [ ... ]";
   }
 
   productClicked(productId) {
@@ -219,12 +224,17 @@ export class BlogsComponent implements OnInit {
   }
 
   changePage(pageNumber) {
+    // console.log("Page number ...");
+    // console.log(pageNumber);
+
     this.pageno = pageNumber;
     this.remakeQuery();
     this.blogsService.getByQueryParams(this.query).subscribe((blogResponse: any) => {
       this.blogsResponse = blogResponse.blogs;
       this.total = blogResponse.Total;
       this.blogsList = this.makeBlogsObjectsArray(blogResponse.blogs);
+      // console.log(blogResponse.blogs);
+      // console.log("Blog list in changePage()...");
       // console.log(this.blogsList);
 
       this.goToTop();

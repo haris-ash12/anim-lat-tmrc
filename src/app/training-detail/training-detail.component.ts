@@ -90,8 +90,16 @@ export class TrainingDetailComponent implements OnInit {
       // console.log(description);
 
       this.titleService.setTitle(this.training.pageTitle);
-      this.meta.updateTag({ name: "keywords", content: this.training.metaKeywords });
-      this.meta.updateTag({ name: "description", content: this.training.metaDescription });
+
+      if (this.training.metaKeywords) {
+        this.meta.updateTag({ name: "keywords", content: this.training.metaKeywords });
+      }
+      if (this.training.metaDescription) {
+        this.meta.updateTag({ name: "description", content: this.training.metaDescription });
+      }
+
+      // this.meta.updateTag({ name: "keywords", content: this.training.metaKeywords });
+      // this.meta.updateTag({ name: "description", content: this.training.metaDescription });
 
       this.isAvailable = true;
     });
