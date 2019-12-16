@@ -16,13 +16,13 @@
 
   <div class="left-side">
     <div class="sticky-container">
-      <p class="links__title">{{ parentMenu | titlecase }}</p>
+      <p class="links__title">{{ parentMenuTitle | titlecase }}</p>
 
       <div class="links__container">
         <a
           *ngFor="let submenu of submenus"
           routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
-            parentMenu
+            parentMenuSlug
           }}/{{ submenu.slug }}"
           class="links__link"
           [class.links__link--selected]="childMenu === submenu.slug"

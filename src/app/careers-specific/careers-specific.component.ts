@@ -210,7 +210,7 @@ export class CareersSpecificComponent implements OnInit {
 
       this.httpCLient
         .post(
-          "http://192.168.100.200:786/admin/api/submitapplication",
+          "http://52.155.227.188/admin/api/submitapplication",
           formData
         )
         // this.submitResumeService.create(formData)

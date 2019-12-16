@@ -9,17 +9,23 @@
     <div class="hero__text-container">
       <h2 class="hero__small-line hero-transition">Experience</h2>
       <h1 class="hero__big-line hero-transition">Over Decades</h1>
-      <h2 class="hero__small-line hero-transition">Serving Our Client Requirements</h2>
+      <h2 class="hero__small-line hero-transition">
+        Serving Our Client Requirements
+      </h2>
     </div>
     <div class="hero__btn-container">
       <a
         class="hero__btn hero__btn--orange"
-        routerLink="{{ this.helperService.countryCodeHelperValue }}/about-us/company-profile"
+        routerLink="{{
+          this.helperService.countryCodeHelperValue
+        }}/about-us/companys-profile"
         >Our Profile</a
       >
       <a
         class="hero__btn hero__btn--white"
-        routerLink="{{ this.helperService.countryCodeHelperValue }}/about-us/contact-us"
+        routerLink="{{
+          this.helperService.countryCodeHelperValue
+        }}/about-us/contact-us"
         >Contact Us</a
       >
     </div>
@@ -41,7 +47,9 @@
   </div>
 
   <section class="section-who">
-    <h2 class="section-line">Who <span class="section-line--orange">we</span> are</h2>
+    <h2 class="section-line">
+      Who <span class="section-line--orange">we</span> are
+    </h2>
 
     <div class="section-who__video">
       <iframe
@@ -80,9 +88,9 @@
       class="section-service__card section-service__card--{{ i + 1 }}"
     >
       <a
-        routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ services.url.parent }}/{{
-          services.url.child
-        }}"
+        routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+          services.url.parent
+        }}/{{ services.url.child }}"
         class="section-service__link"
       ></a>
       <img

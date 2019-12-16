@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class GlobalsService {
-  url: string = "http://192.168.100.200:786/admin";
+  url: string = "http://52.155.227.188/admin";
 
   constructor() {}
 }

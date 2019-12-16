@@ -38,7 +38,8 @@ export class ContactComponent implements OnInit {
   submenus: any[] = [];
   content: any = {};
   contactAddresses: any[] = [];
-  parentMenu: string = "";
+  parentMenuSlug: string = "";
+  parentMenuTitle: string = "";
   childMenu: string = "";
   isAvailable: boolean;
   isSaveClicked: boolean;
@@ -80,7 +81,7 @@ export class ContactComponent implements OnInit {
 
     // console.log(urlValue[2] + "..." + urlValue[1]);
 
-    if (this.parentMenu !== parentMenu) {
+    if (this.parentMenuSlug !== parentMenu) {
       this.submenus = [];
       let parentQueryParam = "parent=" + parentMenu;
       this.submenuService
@@ -100,7 +101,8 @@ export class ContactComponent implements OnInit {
         });
     }
 
-    this.parentMenu = parentMenu;
+    this.parentMenuTitle = parentMenu.replace(/-/g, " ");
+    this.parentMenuSlug = parentMenu;
     this.childMenu = childMenu;
 
     let childQueryParam = "url=" + childMenu;

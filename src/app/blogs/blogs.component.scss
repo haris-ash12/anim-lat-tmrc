@@ -236,3 +236,14 @@
   font-size: 1.4rem;
 }
 // ALso pasted a style in styles.scss (applying globally) for bg-color bcz it was not applying here.
+
+.checking-btn {
+  background-color: #e9e9e9;
+  color: #7a7e80;
+  border: none;
+  outline: none;
+  justify-self: start;
+  font-size: 1.3rem;
+  font-weight: 500;
+  padding: 1rem 2rem;
+}

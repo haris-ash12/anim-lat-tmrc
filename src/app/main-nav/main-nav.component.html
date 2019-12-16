@@ -33,14 +33,18 @@
           <a
             *ngIf="menu.isRedirectionActive === false"
             class="sidenav__list-item"
-            routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
+            routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+              menu.slug
+            }}"
             >{{ menu.titleName }}</a
           >
 
           <a
             *ngIf="menu.isRedirectionActive === true"
             class="sidenav__list-item"
-            href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
+            href="{{ this.helperService.countryCodeHelperValue }}/{{
+              menu.slug
+            }}"
             >{{ menu.titleName }}</a
           >
         </ng-container>
@@ -51,13 +55,18 @@
             class="sidenav__dropdown-list-item"
             ngbDropdown
           >
-            <a ngbDropdownToggle class="sidenav__list-item">{{ menu.titleName }}</a>
-            <div class="sidenav__dropdown-content sidenav__imps" ngbDropdownMenu>
+            <a ngbDropdownToggle class="sidenav__list-item">{{
+              menu.titleName
+            }}</a>
+            <div
+              class="sidenav__dropdown-content sidenav__imps"
+              ngbDropdownMenu
+            >
               <a
                 *ngFor="let subMenu of menu.children"
-                routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
-                  subMenu.slug
-                }}"
+                routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+                  menu.slug
+                }}/{{ subMenu.slug }}"
                 ngbDropdownItem
                 >{{ subMenu.titleName }}</a
               >
@@ -69,13 +78,18 @@
             class="sidenav__dropdown-list-item"
             ngbDropdown
           >
-            <a ngbDropdownToggle class="sidenav__list-item">{{ menu.titleName }}</a>
-            <div class="sidenav__dropdown-content sidenav__imps" ngbDropdownMenu>
+            <a ngbDropdownToggle class="sidenav__list-item">{{
+              menu.titleName
+            }}</a>
+            <div
+              class="sidenav__dropdown-content sidenav__imps"
+              ngbDropdownMenu
+            >
               <a
                 *ngFor="let subMenu of menu.children"
-                href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
-                  subMenu.slug
-                }}"
+                href="{{ this.helperService.countryCodeHelperValue }}/{{
+                  menu.slug
+                }}/{{ subMenu.slug }}"
                 ngbDropdownItem
                 >{{ subMenu.titleName }}</a
               >
@@ -138,21 +152,31 @@
                 <a
                   *ngIf="menu.isRedirectionActive === false"
                   class="nav__link nav__link--hover"
-                  routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
+                  routerLink="{{ this.helperService.countryCodeHelperValue }}/{{
+                    menu.slug
+                  }}"
                   >{{ menu.titleName }}</a
                 >
 
                 <a
                   *ngIf="menu.isRedirectionActive === true"
                   class="nav__link nav__link--hover"
-                  href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}"
+                  href="{{ this.helperService.countryCodeHelperValue }}/{{
+                    menu.slug
+                  }}"
                   >{{ menu.titleName }}</a
                 >
               </ng-container>
             </li>
 
-            <li *ngIf="menu.children.length > 0" ngbDropdown class="nav__list-item">
-              <a ngbDropdownToggle class="nav__link nav__link--hover">{{ menu.titleName }}</a>
+            <li
+              *ngIf="menu.children.length > 0"
+              ngbDropdown
+              class="nav__list-item"
+            >
+              <a ngbDropdownToggle class="nav__link nav__link--hover">{{
+                menu.titleName
+              }}</a>
               <div class="nav__dropdown-content" ngbDropdownMenu>
                 <!-- <a
                   *ngFor="let subMenu of menu.children"
@@ -168,18 +192,18 @@
                     *ngIf="menu.isRedirectionActive === false"
                     ngbDropdownItem
                     class="nav__link"
-                    routerLink="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
-                      subMenu.slug
-                    }}"
+                    routerLink="{{
+                      this.helperService.countryCodeHelperValue
+                    }}/{{ menu.slug }}/{{ subMenu.slug }}"
                     >{{ subMenu.titleName }}</a
                   >
 
                   <a
                     *ngIf="menu.isRedirectionActive === true"
                     class="nav__link"
-                    href="{{ this.helperService.countryCodeHelperValue }}/{{ menu.slug }}/{{
-                      subMenu.slug
-                    }}"
+                    href="{{ this.helperService.countryCodeHelperValue }}/{{
+                      menu.slug
+                    }}/{{ subMenu.slug }}"
                     >{{ subMenu.titleName }}</a
                   >
                 </ng-container>
@@ -226,9 +250,18 @@
 
       <!-- Then news icon comes here -->
       <div ngbDropdown class="navigation__alert">
-        <i ngbDropdownToggle class="fa fa-bell navigation__alert--toggle" aria-hidden="true">
+        <i
+          ngbDropdownToggle
+          class="fa fa-bell navigation__alert--toggle"
+          aria-hidden="true"
+        >
           <div ngbDropdownMenu class="navigation__dropdown-alert">
-            <p class="navigation__dropdown-alert__heading">News</p>
+            <p
+              *ngIf="news.length === 0"
+              class="navigation__dropdown-alert__heading"
+            >
+              No News Yet
+            </p>
 
             <!-- <a
               *ngFor="let newsObj of news"
@@ -239,31 +272,39 @@
               <p class="navigation__dropdown-alert__item-title">{{ newsObj.title | titlecase }}</p>
               <p class="navigation__dropdown-alert__item-date">{{ newsObj.datePosted | date }}</p>
             </a> -->
+            <ng-container *ngIf="news.length > 0">
+              <p class="navigation__dropdown-alert__heading">News</p>
+              <ng-container *ngFor="let newsObj of news">
+                <a
+                  *ngIf="newsObj.isRedirectionActive === false"
+                  ngbDropdownItem
+                  class="navigation__dropdown-alert__item"
+                  routerLink="{{
+                    this.helperService.countryCodeHelperValue
+                  }}/news/{{ newsObj.slug }}"
+                >
+                  <p class="navigation__dropdown-alert__item-title">
+                    {{ newsObj.title | titlecase }}
+                  </p>
+                  <p class="navigation__dropdown-alert__item-date">
+                    {{ newsObj.datePosted | date }}
+                  </p>
+                </a>
 
-            <ng-container *ngFor="let newsObj of news">
-              <a
-                *ngIf="newsObj.isRedirectionActive === false"
-                ngbDropdownItem
-                class="navigation__dropdown-alert__item"
-                routerLink="{{ this.helperService.countryCodeHelperValue }}/news/{{ newsObj.slug }}"
-              >
-                <p class="navigation__dropdown-alert__item-title">
-                  {{ newsObj.title | titlecase }}
-                </p>
-                <p class="navigation__dropdown-alert__item-date">{{ newsObj.datePosted | date }}</p>
-              </a>
-
-              <a
-                *ngIf="newsObj.isRedirectionActive === true"
-                ngbDropdownItem
-                class="navigation__dropdown-alert__item"
-                href="/news/{{ newsObj.slug }}"
-              >
-                <p class="navigation__dropdown-alert__item-title">
-                  {{ newsObj.title | titlecase }}
-                </p>
-                <p class="navigation__dropdown-alert__item-date">{{ newsObj.datePosted | date }}</p>
-              </a>
+                <a
+                  *ngIf="newsObj.isRedirectionActive === true"
+                  ngbDropdownItem
+                  class="navigation__dropdown-alert__item"
+                  href="/news/{{ newsObj.slug }}"
+                >
+                  <p class="navigation__dropdown-alert__item-title">
+                    {{ newsObj.title | titlecase }}
+                  </p>
+                  <p class="navigation__dropdown-alert__item-date">
+                    {{ newsObj.datePosted | date }}
+                  </p>
+                </a>
+              </ng-container>
             </ng-container>
 
             <!-- <a ngbDropdownItem class="navigation__dropdown-alert__item">
@@ -285,7 +326,11 @@
       </div>
 
       <!-- Another image icon | Microsoft CSP -->
-      <img class="nav__logo nav__logo--csp" src="../../assets/images/logo/mbs-partner.png" alt="" />
+      <img
+        class="nav__logo nav__logo--csp"
+        src="../../assets/images/logo/mbs-partner.png"
+        alt=""
+      />
 
       <!-- Toggle button -->
       <button

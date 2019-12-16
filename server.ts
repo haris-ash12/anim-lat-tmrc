@@ -171,7 +171,7 @@ app.get("*", (req, res) => {
 
         // Now that we have found the country code, We need to find that whether redirection exists againt this route or not.
         http.get(
-          `http://192.168.100.200:786/admin/api/GetRedirection?countrycode=${cc}&slug=${routeSlug}&hostName=${protocol}://${host}`,
+          `http://52.155.227.188/admin/api/GetRedirection?countrycode=${cc}&slug=${routeSlug}&hostName=${protocol}://${host}`,
           redirectionResponse => {
             let data = "";
             redirectionResponse.on("data", chunk => {

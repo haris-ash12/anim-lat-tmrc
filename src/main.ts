@@ -31,7 +31,7 @@ function apiCall() {
   const proxyurl = "";
   const pathName = document.location.pathname;
   // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-  const url = `http://192.168.100.200:786/admin/api/findLocation?path=${pathName}`;
+  const url = `http://52.155.227.188/admin/api/findLocation?path=${pathName}`;
 
   // console.log("pathName in api call() ... " + pathName);
   // console.log("apiCall() ... url :", url);

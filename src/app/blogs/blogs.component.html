@@ -14,7 +14,11 @@
         placeholder="Search.."
         name="search"
       />
-      <button (click)="searchBlog(search)" class="searchbar__button" type="submit">
+      <button
+        (click)="searchBlog(search)"
+        class="searchbar__button"
+        type="submit"
+      >
         <i class="fa fa-search"></i>
       </button>
     </div>
@@ -83,17 +87,25 @@
         <a
           *ngIf="blog.isRedirectionActive === false"
           class="blog-card__link"
-          routerLink="{{ this.helperService.countryCodeHelperValue }}/blog/{{ blog.slug }}"
+          routerLink="{{ this.helperService.countryCodeHelperValue }}/blog/{{
+            blog.slug
+          }}"
         ></a>
 
         <a
           *ngIf="blog.isRedirectionActive === true"
           class="blog-card__link"
-          href="{{ this.helperService.countryCodeHelperValue }}/blog/{{ blog.slug }}"
+          href="{{ this.helperService.countryCodeHelperValue }}/blog/{{
+            blog.slug
+          }}"
         ></a>
       </ng-container>
       <div class="blog-card__image">
-        <img [src]="blog.imageUrl" [alt]="blog.imageAlt" [title]="blog.imageTitle" />
+        <img
+          [src]="blog.imageUrl"
+          [alt]="blog.imageAlt"
+          [title]="blog.imageTitle"
+        />
       </div>
       <p class="blog-card__date">{{ blog.date | date }}</p>
       <h2 class="blog-card__title">{{ blog.title }}</h2>

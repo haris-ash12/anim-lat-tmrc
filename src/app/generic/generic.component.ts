@@ -29,7 +29,8 @@ export class GenericComponent implements OnInit {
   sideContents: any = [];
   submenus: any[] = [];
   content: any = {};
-  parentMenu: string = "";
+  parentMenuSlug: string = "";
+  parentMenuTitle: string = "";
   childMenu: string = "";
   isAvailable: boolean;
   isContentReady: boolean;
@@ -60,7 +61,7 @@ export class GenericComponent implements OnInit {
       // * If parent menu is same as before[this.parentMenu], then no need to call the api to get submenus,
       // * because they are same.
 
-      if (this.parentMenu !== parentMenu) {
+      if (this.parentMenuSlug !== parentMenu) {
         this.submenus = [];
         let parentQueryParam = "parent=" + parentMenu;
         this.submenuService
@@ -83,7 +84,8 @@ export class GenericComponent implements OnInit {
       // * --------------------------------------------------------------------------------------------
 
       // Replace that hyphen with space.
-      this.parentMenu = parentMenu.replace(/-/g, " ");
+      this.parentMenuTitle = parentMenu.replace(/-/g, " ");
+      this.parentMenuSlug = parentMenu;
       this.childMenu = childMenu;
 
       // From the childmenu item, make api request to end point to get the content of specific child.
