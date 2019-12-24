@@ -209,10 +209,7 @@ export class CareersSpecificComponent implements OnInit {
       this.isSaveClicked = true;
 
       this.httpCLient
-        .post(
-          "https://tmrconsult.com/admin/api/submitapplication",
-          formData
-        )
+        .post("https://tmrconsult.com/admin/api/submitapplication", formData)
         // this.submitResumeService.create(formData)
         .subscribe(submitResponse => {
           // console.log("This is the response from server while uploadin ..");

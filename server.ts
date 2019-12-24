@@ -155,8 +155,8 @@ app.get("*", (req, res) => {
 
   let key = "2e7502e026787dcc570948b8afa7f7e2ca0da36b82fdd970c4dc8a070747e309";
 
-  http.get(
-    "http://api.ipinfodb.com/v3/ip-city/?key=" +
+  https.get(
+    "https://api.ipinfodb.com/v3/ip-city/?key=" +
       key +
       "&ip=" +
       clientIPAddress +
@@ -170,7 +170,7 @@ app.get("*", (req, res) => {
         // console.log("Country Code ... server.ts ... " + countryCode);
 
         // Now that we have found the country code, We need to find that whether redirection exists againt this route or not.
-        http.get(
+        https.get(
           `https://tmrconsult.com/admin/api/GetRedirection?countrycode=${cc}&slug=${routeSlug}&hostName=${protocol}://${host}`,
           redirectionResponse => {
             let data = "";
