@@ -128,7 +128,7 @@
         <a
           *ngFor="let content of sideContents"
           href="{{ this.helperService.countryCodeHelperValue }}/{{
-            parentMenu
+            parentMenuSlug
           }}/{{ childMenu }}#{{ content.hrefValue }}"
           class="links__link links__link--line"
           >{{ content.title }}</a

@@ -210,7 +210,7 @@ export class CareersSpecificComponent implements OnInit {
 
       this.httpCLient
         .post(
-          "http://52.155.227.188/admin/api/submitapplication",
+          "https://tmrconsult.com/admin/api/submitapplication",
           formData
         )
         // this.submitResumeService.create(formData)
